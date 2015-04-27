@@ -1,0 +1,20 @@
+OBJETIVO
+	Prueba del método recibir() de un Especialista en estado Disponible.
+
+SETUP
+	1. Crear una Recepción.
+	2. Crear un Especialista.
+	3. Crear un Cliente con una Tarea cualquiera.
+	4. Poner al Cliente a la espera en Recepción invocando entrar().
+
+ENTRADAS
+	- Especialista en estado Disponible.
+	- Cola de Recepción con 1 Cliente.
+
+SALIDAS ESPERADAS
+	- Valor de retorno: boolean = true
+	- Especialista en estado Ocupado.
+	- Cola de Recepción con 1 Cliente.
+
+CLEANUP
+	- Eliminar el Cliente, el Especialista y la Recepción.
