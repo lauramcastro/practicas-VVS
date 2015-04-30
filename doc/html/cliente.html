@@ -2,20 +2,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Module recepcion</title>
+<title>Module cliente</title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
 </head>
 <body bgcolor="white">
 <div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
 <hr>
 
-<h1>Module recepcion</h1>
-<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Documentation of the module <code>recepcion</code>.
+<h1>Module cliente</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Documentation of the module <code>cliente</code>.
 <p>Copyright © 2015</p>
 
 <p><b>Authors:</b> Laura M. Castro.</p>
 
-<h2><a name="description">Description</a></h2><p>Documentation of the module <code>recepcion</code>.</p>
+<h2><a name="description">Description</a></h2><p>Documentation of the module <code>cliente</code>.</p>
   
    <p>This program is free software: you can redistribute it and/or modify   
 it under the terms of the GNU General Public License as published by   
@@ -30,36 +30,36 @@ GNU General Public License for more details.</p>
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <a href="http://www.gnu.org/licenses" target="_top"><tt>http://www.gnu.org/licenses</tt></a>.
 <h2><a name="index">Function Index</a></h2>
-<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#abrir-2">abrir/2</a></td><td>Starts the component.</td></tr>
-<tr><td valign="top"><a href="#cerrar-0">cerrar/0</a></td><td>Shuts down the component.</td></tr>
-<tr><td valign="top"><a href="#entrar-1">entrar/1</a></td><td>Client admission.</td></tr>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#abandonar-1">abandonar/1</a></td><td>Sends word to a client that it should stop its execution.</td></tr>
+<tr><td valign="top"><a href="#peticion-1">peticion/1</a></td><td>Client needs dispatch.</td></tr>
+<tr><td valign="top"><a href="#planificar-1">planificar/1</a></td><td>Creates a new client.</td></tr>
 </table>
 
 <h2><a name="functions">Function Details</a></h2>
 
-<h3 class="function"><a name="abrir-2">abrir/2</a></h3>
+<h3 class="function"><a name="abandonar-1">abandonar/1</a></h3>
 <div class="spec">
-<p><tt>abrir(NClientes::integer(), Especialistas::[pid()]) -&gt; ok</tt><br></p>
-</div><p>Starts the component.
-       Receives the maximum number of allowed clients in the queue,
-       which must be greater than zero.
-       Receives the list of (created, started) specialists
-       (references), which may not be empty.</p>
+<p><tt>abandonar(Cliente::pid()) -&gt; ok</tt><br></p>
+</div><p>Sends word to a client that it should stop its execution.
+       Receives the client to be stopped.</p>
 
-<h3 class="function"><a name="cerrar-0">cerrar/0</a></h3>
+<h3 class="function"><a name="peticion-1">peticion/1</a></h3>
 <div class="spec">
-<p><tt>cerrar() -&gt; ok</tt><br></p>
-</div><p>Shuts down the component.
-       Since this component does not start the specialists, NOR does
-       it take care of shutting them down.</p>
+<p><tt>peticion(Cliente::pid()) -&gt; {TipoDeTarea::atom(), Tarea::pid()}</tt><br></p>
+</div><p>Client needs dispatch.
+       Receives the client whose needs are to be dispatched.
+       This is the way to ask a given client for their next need.
+       It returns a configured task, ready to be executed.
+       If questioned about their last need, the client will die
+       peacefully after replying.</p>
 
-<h3 class="function"><a name="entrar-1">entrar/1</a></h3>
+<h3 class="function"><a name="planificar-1">planificar/1</a></h3>
 <div class="spec">
-<p><tt>entrar(Cliente::pid()) -&gt; boolean()</tt><br></p>
-</div><p>Client admission.
-       Receives a client (reference), which will be either
-       accepted in (boolean value <code>true</code> is returned) if there is
-       room, or dismissed (boolean value <code>false</code> is returned).</p>
+<p><tt>planificar(Tareas::[{TipoDeTarea::atom(), Tarea::pid()}]) -&gt; pid()</tt><br></p>
+</div><p>Creates a new client.
+       Receives the list of needs (tasks, created and configured),
+       which may not be empty. It returns the new client, ready to
+       be questioned about their needs one at a time.</p>
 <hr>
 
 <div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
