@@ -2,21 +2,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Module cifrado_cesar</title>
+<title>Module primos</title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
 </head>
 <body bgcolor="white">
 <div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
 <hr>
 
-<h1>Module cifrado_cesar</h1>
-<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Documentation of the module <code>cifrado_cesar</code>.
+<h1>Module primos</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>Documentation of the module <code>primos</code>.
 <p>Copyright © 2015</p>
 
 <p><b>Behaviours:</b> <a href="tarea.html"><tt>tarea</tt></a>.</p>
 <p><b>Authors:</b> Laura M. Castro.</p>
 
-<h2><a name="description">Description</a></h2><p>Documentation of the module <code>cifrado_cesar</code>.</p>
+<h2><a name="description">Description</a></h2><p>Documentation of the module <code>primos</code>.</p>
   
    <p>This program is free software: you can redistribute it and/or modify   
 it under the terms of the GNU General Public License as published by   
@@ -32,7 +32,7 @@ GNU General Public License for more details.</p>
    along with this program. If not, see <a href="http://www.gnu.org/licenses" target="_top"><tt>http://www.gnu.org/licenses</tt></a>.
 <h2><a name="index">Function Index</a></h2>
 <table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#do-1">do/1</a></td><td>Executes a task.</td></tr>
-<tr><td valign="top"><a href="#programar-4">programar/4</a></td><td>Task creation and configuration.</td></tr>
+<tr><td valign="top"><a href="#programar-2">programar/2</a></td><td>Task creation and configuration.</td></tr>
 </table>
 
 <h2><a name="functions">Function Details</a></h2>
@@ -42,21 +42,22 @@ GNU General Public License for more details.</p>
 <p><tt>do(Tarea::pid()) -&gt; ok</tt><br></p>
 </div><p>Executes a task.
        Receives a task (reference) to be executed, and triggers its
-       execution. As an example, a Caesar cipher task configured
-       with ID=96, alphabet "<em>abcdefghijklmnopqrstuvwxyz</em>",
-       string "<em>the five boxing wizards jump quickly</em>" and
-       offset 3, will write the output "<em>wkh ilyh eralqj zlcdugv
-       mxps txlfnob</em>" in a file named <code>output-96.dat</code>.</p>
+       execution. As an example, a task to calculate primes smaller
+       than a given value of 20, hence configured with ID=45 (for
+       instance) and N=20 (as upper-bound value), will write the
+       output <tt>[2,3,5,7,11,13,17,19]</tt> in a file named
+       <code>output-45.dat</code>.</p>
 
-<h3 class="function"><a name="programar-4">programar/4</a></h3>
+<h3 class="function"><a name="programar-2">programar/2</a></h3>
 <div class="spec">
-<p><tt>programar(ID::integer(), Alfabeto::string(), Cadena::string(), Desplazamiento::integer()) -&gt; {atom(), pid()}</tt><br></p>
+<p><tt>programar(ID::integer(), N::integer()) -&gt; {atom(), pid()}</tt><br></p>
 </div><p>Task creation and configuration.
        Receives a numerical ID (which will be used to determine the
-       name of the output file), a string representing the alphabet
-       (which cannot be the empty string), the string to be encoded,
-       and the offset to perform the Caesar cipher
-       (as in <a href="https://en.wikipedia.org/wiki/Caesar_cipher" target="_top"><tt>https://en.wikipedia.org/wiki/Caesar_cipher</tt></a>).
+       name of the output file), an a positive number (which must be
+       greater or equal than 2) which represents the upper bound of
+       primes to be found (this is done following the Sieve of
+       Erathostenes, as in
+       <a href="https://en.wikipedia.org/wiki/Sieve_of_Erathostenes" target="_top"><tt>https://en.wikipedia.org/wiki/Sieve_of_Erathostenes</tt></a>).
        It returns a reference to the task, ready to be executed.</p>
 <hr>
 
