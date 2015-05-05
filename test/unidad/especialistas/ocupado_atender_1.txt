@@ -5,21 +5,16 @@ OBJETIVO
 	menor que su tolerancia máxima.
 
 SETUP
-	1. Crear una Recepción.
-	2. Crear un Especialista.
-	3. Crear un Cliente con una Tarea sencilla (ej. Primos < 100).
-	4. Poner al Cliente a la espera en Recepción invocando entrar().
-	5. Invocar el método recibir() del Especialista.
+	1. Crear un Especialista.
+	2. Crear un Cliente con una Tarea sencilla (ej. Primos < 100).
+	3. Invocar el método recibir() del Especialista.
 
 ENTRADAS
 	- Especialista en estado Ocupado.
-	- Cola de Recepción con 1 Cliente.
 
 SALIDAS ESPERADAS
 	- Valor de retorno: Ninguno
-	- Tarea del Cliente realizada.
 	- Especialista en estado Disponible.
-	- Cola de Recepción vacía.
 
 CLEANUP
-	- Eliminar el Cliente, el Especialista y la Recepción.
+	- Eliminar el Cliente y el Especialista.

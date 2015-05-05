@@ -2,26 +2,19 @@ OBJETIVO
 	Prueba del método atender() de un Especialista en estado Saturado. Análoga
 	a la prueba de recibir().
 
-	CASO 1: El Especialista todavía no ha descansado lo suficiente.
-
 SETUP
-	1. Crear una Recepción.
-	2. Crear un Especialista.
-	3. Crear un Cliente con una Tarea costosa (ej. Primos < 2^28).
-	4. Poner al Cliente a la espera en Recepción invocando entrar().
-	5. Invocar el método recibir() del Especialista.
-	6. Invocar el método atender() del Especialista.
-	7. Crear un Cliente con una Tarea cualquiera.
-	8. Poner al Cliente a la espera en Recepción invocando entrar().
+	1. Crear un Especialista.
+	2. Crear un Cliente con una Tarea costosa (ej. Primos < 2^28).
+	3. Invocar el método recibir() del Especialista.
+	4. Crear un nuevo Cliente con una Tarea sencilla.
+	4. Invocar el método atender() del Especialista.
 
 ENTRADAS
 	- Especialista en estado Saturado.
-	- Cola de Recepción con 1 Cliente.
 
 SALIDAS ESPERADAS
 	- Valor de retorno: Ninguno
 	- Especialista en estado Saturado.
-	- Cola de Recepción con 1 Cliente.
 
 CLEANUP
-	- Eliminar el Cliente, el Especialista y la Recepción.
+	- Eliminar el Cliente y el Especialista.
