@@ -56,7 +56,7 @@ peticion(Cliente) when is_pid(Cliente) ->
 -spec planificar(Tareas :: list({TipoDeTarea :: atom(),
 				 Tarea :: pid()})) -> pid().
 planificar(Tareas=[_H|_T]) -> % this pattern-matching ensures that the list is not empty
-    spawn(?MODULE, loop, Tareas).
+    spawn(?MODULE, loop, [Tareas]).
 
 %%-------------------------------------------------------------------
 %% @doc Sends word to a client that it should stop its execution.
