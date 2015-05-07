@@ -1,4 +1,0 @@
-%% encoding: UTF-8
-{packages,[]}.
-{modules,[cifrado_cesar,cliente,especialista,filtro_bn,primos,recepcion,
-          tarea]}.
