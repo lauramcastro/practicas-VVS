@@ -69,7 +69,7 @@ atender(Especialista, Cliente) when is_pid(Especialista),
 %%-------------------------------------------------------------------
 -spec alta(Tolerancia :: integer()) -> {ok, pid()}.
 alta(Tolerancia) when Tolerancia > 0 ->
-    gen_fsm:start(?MODULE, [Tolerancia], []).
+    gen_fsm:start(?MODULE, Tolerancia, []).
 
 %%-------------------------------------------------------------------
 %% @doc Releases (stops) an specialist.
