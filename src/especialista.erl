@@ -40,7 +40,10 @@
 %%-------------------------------------------------------------------
 -spec recibir(Especialista :: pid()) -> boolean().
 recibir(Especialista) when is_pid(Especialista) ->
-    gen_fsm:sync_send_event(Especialista, can_see).
+    case catch gen_fsm:sync_send_event(Especialista, can_see, 500) of
+	{'EXIT',{timeout,{gen_fsm,sync_send_event,[Especialista,can_see,500]}}} -> false;
+	Else -> Else
+    end.
 
 %%-------------------------------------------------------------------
 %% @doc Assigns a client to a specialist, to be taken care of.
