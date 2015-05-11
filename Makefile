@@ -5,6 +5,7 @@ MODULES = src/cliente.erl src/recepcion.erl src/especialista.erl \
 all: compile
 
 compile: $(MODULES)
+	test -d ebin/ || mkdir ebin/
 	erlc -pa ebin -o ebin $(MODULES)
 
 edoc: $(MODULES)
