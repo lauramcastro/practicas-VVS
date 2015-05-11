@@ -4,19 +4,22 @@
 %%%%%%%%%%%%%%%%%%%% SETUP & CLEANUP %%%%%%%%%%%%%%%%%%%%
 
 start() ->
-	{ok, Esp} = especialista:alta(100),
+	{ok, Esp} = especialista:alta(5),
 	Esp.
 
 stop(Esp) -> especialista:baja(Esp).
 	
 start_2(Tarea) ->
-	{ok, Esp} = especialista:alta(100),
+	{ok, Esp} = especialista:alta(1),
 	Cli = cliente:planificar([Tarea]),
 	{Esp, Cli}.
 
 stop_2(Esp, Cli) ->
 	especialista:baja(Esp),
 	cliente:abandonar(Cli).
+
+%%%%%%%%%%%%%%%%%%%% AUX FUNCTIONS %%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%% TEST FUNCTIONS %%%%%%%%%%%%%%%%%%%%
 
@@ -48,7 +51,7 @@ ocupado_recibir_test_() ->
 
 ocupado_atender_1_test_() ->
 	{setup,
-	 fun() -> start_2(primos:programar(1, 100)) end,
+	 fun() -> start_2(primos:programar(1, 9000)) end,
 	 fun({Esp, Cli}) -> stop_2(Esp, Cli) end,
 	 fun({Esp, Cli}) ->
 	 	especialista:recibir(Esp),
@@ -58,7 +61,7 @@ ocupado_atender_1_test_() ->
 
 ocupado_atender_2_test_() ->
 	{setup,
-	 fun() -> start_2(primos:programar(1, 3000000)) end,
+	 fun() -> start_2(primos:programar(1, 50000)) end,
 	 fun({Esp, Cli}) -> stop_2(Esp, Cli) end,
 	 fun({Esp, Cli}) ->
 	 	especialista:recibir(Esp),
@@ -68,7 +71,7 @@ ocupado_atender_2_test_() ->
 
 saturado_recibir_1_test_() ->
 	{setup,
-	 fun() -> start_2(primos:programar(1, 3000000)) end,
+	 fun() -> start_2(primos:programar(1, 9000)) end,
 	 fun({Esp, Cli}) -> stop_2(Esp, Cli) end,
 	 fun({Esp, Cli}) ->
 	 	especialista:recibir(Esp),
@@ -78,7 +81,7 @@ saturado_recibir_1_test_() ->
 
 saturado_atender_1_test_() ->
 	{setup,
-	 fun() -> start_2(primos:programar(1, 3000000)) end,
+	 fun() -> start_2(primos:programar(1, 50000)) end,
 	 fun({Esp, Cli}) -> stop_2(Esp, Cli) end,
 	 fun({Esp, Cli}) ->
 	 	especialista:recibir(Esp),
