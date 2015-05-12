@@ -88,8 +88,9 @@ baja(Especialista) when is_pid(Especialista) ->
 % Internal functions (estados)
 % --- --- --- async --- --- ---
 % @private
-disponible({see, _Client}, Tolerance) ->
-    {next_state, disponible, Tolerance}.
+disponible({see, Client}, Tolerance) ->
+    gen_fsm:send_event(self(), {see, Client}),
+    {next_state, ocupado, Tolerance}.
 
 % @private
 ocupado({see, Client}, Tolerance) ->
@@ -109,7 +110,7 @@ saturado({see, _Client},   [Tolerance, Saturation]) ->
 % --- --- --- sync --- --- --- 
 % @private
 disponible(can_see, _From, Tolerance) ->
-    {reply, true, ocupado, Tolerance}.
+    {reply, true, disponible, Tolerance}.
 
 % @private
 ocupado(can_see, _From, Tolerance) ->
