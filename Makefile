@@ -23,6 +23,13 @@ test: compile
 	erlc -pa ebin -o ebin test/integracion/recepcion-especialista/disponible_recibir.erl
 	erl -noshell -pa ebin -eval 'eunit:test(especialista_test)' -eval 'init:stop()'
 	erl -noshell -pa ebin -eval 'eunit:test(disponible_recibir)' -eval 'init:stop()'
+# Primos
+	erlc -pa ebin -o ebin test/unidad/tareas/primos_test.erl
+	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(primos_test)' -eval 'init:stop()'
+# Cifrado cesar
+	erlc -pa ebin -o ebin test/unidad/tareas/cifrado_cesar_test.erl
+	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(cifrado_cesar_test)' -eval 'init:stop()'
+#
 #	erl -noshell -pa ebin -eval 'proper:quickcheck(module_test:prop())' -eval 'init:stop()'
 
 clean:
