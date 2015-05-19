@@ -1,6 +1,5 @@
 -module(primos_test_nf).
 -include_lib("eunit/include/eunit.hrl").
--compile(export_all).
 
 primos_nf_test_()->
     {timeout, 5 * 60, fun caso_de_prueba/0}. % in order to avoid the test case to fail due to test timeout
