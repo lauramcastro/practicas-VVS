@@ -64,10 +64,18 @@ programar(ID, Alfabeto, Cadena, Desplazamiento) when length(Alfabeto) > 0 ->
 %%-------------------------------------------------------------------
 -spec do(Tarea :: pid()) -> ok.
 do(Tarea) ->
+    [TrappingExits] = [ Value || {trap_exit,Value} <-process_info(self())],
+    process_flag(trap_exit, true),
+    link(Tarea),
     Tarea ! {do, self()},
     receive
 	{done, Tarea} ->
-	    ok
+	    unlink(Tarea),
+	    process_flag(trap_exit, TrappingExits),
+	    ok;
+	{'EXIT', Tarea, Whatever} ->
+	    process_flag(trap_exit, TrappingExits),
+	    {error, Whatever}
     end.
 
 
@@ -84,7 +92,7 @@ loop(ID, Alphabet, String, Offset) ->
 	    ok = file:write_file(FileName, EncodedString),
 	    Who ! {done, self()}
     end.
-	
+
 encode(_Alphabet, [], _OffSet, EncodedString)  ->
     {ok, lists:reverse(EncodedString)};
 encode(Alphabet, [32|T], OffSet, EncodedString) ->

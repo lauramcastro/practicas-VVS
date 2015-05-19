@@ -61,12 +61,20 @@ programar(ID, N) when is_integer(N), N > 1 ->
 %%      `output-45.dat'.
 %% @end
 %%-------------------------------------------------------------------
--spec do(Tarea :: pid()) -> ok.
+-spec do(Tarea :: pid()) -> ok | {error, Message :: term()}.
 do(Tarea) ->
+    [TrappingExits] = [ Value || {trap_exit,Value} <-process_info(self())],
+    process_flag(trap_exit, true),
+    link(Tarea),
     Tarea ! {do, self()},
     receive
 	{done, Tarea} ->
-	    ok
+	    unlink(Tarea),
+	    process_flag(trap_exit, TrappingExits),
+	    ok;
+	{'EXIT', Tarea, Whatever} ->
+	    process_flag(trap_exit, TrappingExits),
+	    {error, Whatever}
     end.
 
 

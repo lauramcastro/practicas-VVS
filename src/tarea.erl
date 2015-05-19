@@ -23,4 +23,4 @@
 %%%-------------------------------------------------------------------
 -module(tarea).
 
--callback do(Tarea :: pid()) -> ok.
+-callback do(Tarea :: pid()) -> ok | {error, Message :: term()}.
