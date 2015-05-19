@@ -26,9 +26,13 @@ test: compile
 # Primos
 	erlc -pa ebin -o ebin test/unidad/tareas/primos_test.erl
 	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(primos_test)' -eval 'init:stop()'
+	erlc -pa ebin -o ebin test/no_funcional/primos_test_nf.erl
+	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(primos_test_nf)' -eval 'init:stop()'
 # Cifrado cesar
 	erlc -pa ebin -o ebin test/unidad/tareas/cifrado_cesar_test.erl
 	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(cifrado_cesar_test)' -eval 'init:stop()'
+	erlc -pa ebin -o ebin test/no_funcional/cifrado_cesar_test_nf.erl
+	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(cifrado_cesar_test_nf)' -eval 'init:stop()'
 #
 #	erl -noshell -pa ebin -eval 'proper:quickcheck(module_test:prop())' -eval 'init:stop()'
 
