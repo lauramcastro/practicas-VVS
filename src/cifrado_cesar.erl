@@ -93,6 +93,9 @@ loop(ID, Alphabet, String, Offset) ->
 	    Who ! {done, self()}
     end.
 
+encode(_Alphabet, String, 0, []) ->
+    % if the offset is 0, the String remains the same
+    {ok, String};
 encode(_Alphabet, [], _OffSet, EncodedString)  ->
     {ok, lists:reverse(EncodedString)};
 encode(Alphabet, [32|T], OffSet, EncodedString) ->
