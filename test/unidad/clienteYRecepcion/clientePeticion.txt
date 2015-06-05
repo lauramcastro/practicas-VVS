@@ -1,0 +1,15 @@
+OBJETIVO
+	Comprobar tanto la creacion como el correcto funcionamiento de "peticion" del cliente
+
+SETUP
+	1º Crear una tarea
+	2º Crear un cliente pasandole la tarea previamente creada
+
+ENTRADAS
+	- Se llama a "peticion" pasandole el PID del cliente
+
+SALIDAS ESPERADAS
+	- La tarea devuelta es la misma que se le paso en la creacion del cliente
+
+CLEANUP
+	- Eliminar al cliente mediante "abandonar"

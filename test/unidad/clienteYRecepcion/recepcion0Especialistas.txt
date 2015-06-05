@@ -1,0 +1,14 @@
+OBJETIVO
+	Comprobar que la apertura de la recepcion no se hace sin especialistas
+
+SETUP
+	Nada
+
+ENTRADAS
+	- Llamar a "abrir" con 1 cliente como máximo y una lista de especialistas vacia
+
+SALIDAS ESPERADAS
+	- Una excepcion
+
+CLEANUP
+	- Cerrar la recepcion
