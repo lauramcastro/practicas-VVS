@@ -19,6 +19,7 @@ dialyzer: $(MODULES)
                  -Wunderspecs ebin/*beam
 
 test: compile
+	echo -n "" # Prevenir que la primera línea sea comentada
 	erlc -pa ebin -o ebin test/unidad/especialistas/especialista_test.erl
 	erlc -pa ebin -o ebin test/integracion/recepcion-especialista/disponible_recibir.erl
 	erl -noshell -pa ebin -eval 'eunit:test(especialista_test)' -eval 'init:stop()'
@@ -33,8 +34,10 @@ test: compile
 	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(cifrado_cesar_test)' -eval 'init:stop()'
 	erlc -pa ebin -o ebin test/no_funcional/cifrado_cesar_test_nf.erl
 	erl -noshell -pa $(PWD)/ebin -eval 'eunit:test(cifrado_cesar_test_nf)' -eval 'init:stop()'
-#
-#	erl -noshell -pa ebin -eval 'proper:quickcheck(module_test:prop())' -eval 'init:stop()'
+# Las pruebas diabólicas de proper
+	erlc -pa ebin -o ebin test/unidad/tareas/primos_prop.erl
+	erl -noshell -pa $(PWD)/ebin -eval 'proper:quickcheck(primos_prop:prop_prime(), {constraint_tries, 10000})' -eval 'init:stop()'
+
 
 clean:
 	rm -f output-*
