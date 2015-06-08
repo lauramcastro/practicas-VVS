@@ -11,7 +11,7 @@ WD=$(dirname "$0")
 # Poner la salida en primo por línea
 sed -e 's/^\[//g' -e 's/\]$/\n/g' -e 's/,/\n/g' $FILE > $OUT
 
-awk '$1 < '$MAX' { print $1 }' "$WD/primos-10000000.txt" | diff $OUT - > /dev/null
+awk '$1 <= '$MAX' { print $1 }' "$WD/primos-10000000.txt" | diff $OUT - > /dev/null
 
 EQUAL=$?
 
