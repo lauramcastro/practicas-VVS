@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<project default="compile" basedir=".">
+
+<!-- ============================  Properties ============================== -->
+
+<property name="practicaVVS.name" value="SpotiVVsy (almacén de contenidos)"/>
+<property name="practicaVVS.version" value="v1.0"/>
+<property name="practicaVVS.home" value="${basedir}"/>
+<property name="practicaVVS.lib" value="${practicaVVS.home}/lib/ui.jar"/>
+<property name="practicaVVS.src" value="${practicaVVS.home}/src"/>
+<property name="practicaVVS.build" value="${practicaVVS.home}/build"/>
+<property name="practicaVVS.classes" value="${practicaVVS.build}/classes"/>
+<property name="practicaVVS.classpath" value="${practicaVVS.classes}:${practicaVVS.lib}"/>
+<property name="practicaVVS.javadoc" value="${practicaVVS.build}/javadoc"/>
+
+<!-- ============================ "init" target ============================ -->
+
+	<target name="init">
+		<echo>
+--------------------------------------------------------------------------------
+Building "${practicaVVS.name} ${practicaVVS.version}" ...
+--------------------------------------------------------------------------------
+		</echo>
+	</target>
+
+<!-- ============================ "all" target ============================= -->
+
+	<target name="all" depends="rebuild, javadoc"/>
+
+<!-- ========================== "compile" target =========================== -->
+
+	<target name="compile" depends="init">
+		<mkdir dir="${practicaVVS.classes}"/>
+		<javac  srcdir="${practicaVVS.src}" 
+			destdir="${practicaVVS.classes}"
+			classpath="${practicaVVS.classpath}"
+			includeantruntime="false">
+                        <compilerarg value="-Xlint:unchecked"/>
+                </javac>
+	</target>
+
+<!-- ========================= "cleanclasses" target ======================= -->
+
+	<target	name="cleanclasses" depends="init">
+		<delete dir="${practicaVVS.classes}"/>
+	</target>
+
+<!-- ========================= "cleanbackups" target ======================= -->
+
+	<target	name="cleanbackups" depends="init">
+		<delete verbose="true">
+			<fileset dir="${practicaVVS.home}" defaultexcludes="false">
+				<include name="**/*~"/>
+			</fileset>
+		</delete>
+	</target>
+
+ <!-- =========================== "clean" target =========================== -->
+
+	<target name="clean" depends="init, cleanbackups, cleanclasses">
+		<delete dir="${practicaVVS.build}"/>
+        <!--		<delete dir="${practicaVVS.classes}"/>
+	        	<delete dir="${practicaVVS.javadoc}"/> -->
+	</target>
+
+<!-- ========================== "rebuild" target =========================== -->
+
+	<target name="rebuild" depends="cleanclasses, compile" />
+
+<!-- ========================= "run" target =========================== -->
+
+	<target name="run" depends="compile">
+		<java classname="Main" classpath="${practicaVVS.classpath}" fork="true"/>
+	</target>
+
+<!-- ========================= "javadoc" target =========================== -->
+
+	<target name="javadoc" depends="compile">
+		<delete dir="${practicaVVS.javadoc}"/>
+		<mkdir dir="${practicaVVS.javadoc}"/>
+		<javadoc packagenames="contenido.*,almacen.*,cliente.*"
+			 sourcepath="${practicaVVS.src}"
+			 classpath="${practicaVVS.classpath}"
+			 destdir="${practicaVVS.javadoc}"
+			 private="yes"
+			 windowtitle="${practicaVVS.name}"
+			 doctitle="${practicaVVS.name} ${practicaVVS.version}"
+			 header="${practicaVVS.name} ${practicaVVS.version}"
+			 bottom="${practicaVVS.name} ${practicaVVS.version}"/>
+	</target>
+
+</project>
