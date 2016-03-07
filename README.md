@@ -1,5 +1,7 @@
 # Prácticas VVS
 
+[![Build Status](https://travis-ci.org/lauramcastro/practicas-VVS.svg?branch=master)](https://travis-ci.org/lauramcastro/practicas-VVS)
+
 Repositorio de prácticas de la asignatura Validación y Verificación del Software (2015/2016, 2º cuatrimestre).
 
 ## Descripción del contenido del repositorio
