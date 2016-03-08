@@ -61,7 +61,7 @@ Processing "${ant.project.name} ${version}" ...
     <compilerarg value="-Xlint:unchecked"/>
     <classpath refid="classpath.test" />
   </javac>
-  <junit>
+  <junit haltonfailure="yes">
     <classpath refid="classpath.test"  />
     <formatter type="brief" usefile="false" />
     <batchtest fork="yes">
