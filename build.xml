@@ -64,7 +64,7 @@ Processing "${ant.project.name} ${version}" ...
   <junit>
     <classpath refid="classpath.test"  />
     <formatter type="brief" usefile="false" />
-    <batchtest fork="yes" skipNonTests="yes">
+    <batchtest fork="yes">
       <fileset dir="${test}" includes="**/*Test.java"/>
     </batchtest>
   </junit>
