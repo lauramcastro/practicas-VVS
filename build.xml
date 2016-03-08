@@ -1,92 +1,112 @@
 <?xml version="1.0"?>
-<project default="compile" basedir=".">
-
+<project name="SpotiVVSy (almacén de contenidos)" default="compile" basedir=".">
+  <description>
+    Proyecto de prácticas para la asignatura VVS (curso 2015/2016).
+  </description>
+  
 <!-- ============================  Properties ============================== -->
 
-<property name="practicaVVS.name" value="SpotiVVsy (almacén de contenidos)"/>
-<property name="practicaVVS.version" value="v1.0"/>
-<property name="practicaVVS.home" value="${basedir}"/>
-<property name="practicaVVS.lib" value="${practicaVVS.home}/lib/ui.jar"/>
-<property name="practicaVVS.src" value="${practicaVVS.home}/src"/>
-<property name="practicaVVS.build" value="${practicaVVS.home}/build"/>
-<property name="practicaVVS.classes" value="${practicaVVS.build}/classes"/>
-<property name="practicaVVS.classpath" value="${practicaVVS.classes}:${practicaVVS.lib}"/>
-<property name="practicaVVS.javadoc" value="${practicaVVS.build}/javadoc"/>
+<property name="src"     value="${basedir}/src"        />
+<property name="lib"     value="${basedir}/lib/ui.jar" />
+<property name="test"    value="${basedir}/test"       />
+<property name="classes" value="${basedir}/build"      />
+<property name="javadoc" value="${basedir}/doc/html"   />
+<property name="version" value="0.2"                   />
+
+<path id="classpath.base">
+  <pathelement location="${classes}" />
+  <pathelement location="${lib}"     />
+</path>
+
+<path id="classpath.test">
+  <pathelement location="${basedir}/lib/junit4.jar" />
+  <pathelement location="${test}" />
+  <path refid="classpath.base"    />
+</path>
 
 <!-- ============================ "init" target ============================ -->
 
-	<target name="init">
-		<echo>
+<target name="init">
+  <echo>
 --------------------------------------------------------------------------------
-Building "${practicaVVS.name} ${practicaVVS.version}" ...
+Processing "${ant.project.name} ${version}" ...
 --------------------------------------------------------------------------------
-		</echo>
-	</target>
+  </echo>
+</target>
 
 <!-- ============================ "all" target ============================= -->
 
-	<target name="all" depends="rebuild, javadoc"/>
+<target name="all" depends="clean,compile,test,javadoc"/>
 
 <!-- ========================== "compile" target =========================== -->
 
-	<target name="compile" depends="init">
-		<mkdir dir="${practicaVVS.classes}"/>
-		<javac  srcdir="${practicaVVS.src}" 
-			destdir="${practicaVVS.classes}"
-			classpath="${practicaVVS.classpath}"
-			includeantruntime="false">
-                        <compilerarg value="-Xlint:unchecked"/>
-                </javac>
-	</target>
+<target name="compile" depends="init">
+  <mkdir dir="${classes}"/>
+  <javac  srcdir="${src}" 
+	  destdir="${classes}"
+	  includes="**/*.java"
+	  includeantruntime="false">
+    <compilerarg value="-Xlint:unchecked"/>
+    <classpath refid="classpath.base" />
+  </javac>
+</target>
 
-<!-- ========================= "cleanclasses" target ======================= -->
+<!-- ============================ "test" target ============================ -->
 
-	<target	name="cleanclasses" depends="init">
-		<delete dir="${practicaVVS.classes}"/>
-	</target>
+<target name="test" depends="compile">
+  <javac  srcdir="${test}" 
+	  destdir="${classes}"
+	  includes="**/*.java"
+	  includeantruntime="false">
+    <compilerarg value="-Xlint:unchecked"/>
+    <classpath refid="classpath.test" />
+  </javac>
+  <junit>
+    <classpath refid="classpath.test"  />
+    <formatter type="brief" usefile="false" />
+    <batchtest fork="yes" skipNonTests="yes">
+      <fileset dir="${test}" includes="**/*Test.java"/>
+    </batchtest>
+  </junit>
+</target>
 
-<!-- ========================= "cleanbackups" target ======================= -->
+<!-- ============================ "clean" target =========================== -->
 
-	<target	name="cleanbackups" depends="init">
-		<delete verbose="true">
-			<fileset dir="${practicaVVS.home}" defaultexcludes="false">
-				<include name="**/*~"/>
-			</fileset>
-		</delete>
-	</target>
-
- <!-- =========================== "clean" target =========================== -->
-
-	<target name="clean" depends="init, cleanbackups, cleanclasses">
-		<delete dir="${practicaVVS.build}"/>
-        <!--		<delete dir="${practicaVVS.classes}"/>
-	        	<delete dir="${practicaVVS.javadoc}"/> -->
-	</target>
-
-<!-- ========================== "rebuild" target =========================== -->
-
-	<target name="rebuild" depends="cleanclasses, compile" />
+<target	name="clean" depends="init">
+  <delete dir="${classes}" />
+  <delete dir="${javadoc}" />
+  <delete verbose="true">
+    <fileset dir="${src}" defaultexcludes="false">
+      <include name="**/*~"/>
+    </fileset>
+    <fileset dir="${test}" defaultexcludes="false">
+      <include name="**/*~"/>
+    </fileset>
+  </delete>
+</target>
 
 <!-- ========================= "run" target =========================== -->
 
-	<target name="run" depends="compile">
-		<java classname="Main" classpath="${practicaVVS.classpath}" fork="true"/>
-	</target>
+<target name="run" depends="compile">
+  <java classname="Main" fork="true">
+    <classpath refid="classpath.base" />
+  </java>
+</target>
 
 <!-- ========================= "javadoc" target =========================== -->
 
-	<target name="javadoc" depends="compile">
-		<delete dir="${practicaVVS.javadoc}"/>
-		<mkdir dir="${practicaVVS.javadoc}"/>
-		<javadoc packagenames="contenido.*,almacen.*,cliente.*"
-			 sourcepath="${practicaVVS.src}"
-			 classpath="${practicaVVS.classpath}"
-			 destdir="${practicaVVS.javadoc}"
-			 private="yes"
-			 windowtitle="${practicaVVS.name}"
-			 doctitle="${practicaVVS.name} ${practicaVVS.version}"
-			 header="${practicaVVS.name} ${practicaVVS.version}"
-			 bottom="${practicaVVS.name} ${practicaVVS.version}"/>
-	</target>
+<target name="javadoc" depends="compile">
+  <delete dir="${javadoc}"/>
+  <mkdir dir="${javadoc}"/>
+  <javadoc packagenames="contenido.*,almacen.*,cliente.*"
+	   sourcepath="${src}"
+	   classpath="${classpath.base}"
+	   destdir="${javadoc}"
+	   private="yes"
+	   windowtitle="${name}"
+	   doctitle="${name} ${version}"
+	   header="${name} ${version}"
+	   bottom="${name} ${version}"/>
+</target>
 
 </project>
