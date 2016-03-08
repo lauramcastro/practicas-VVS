@@ -22,3 +22,9 @@ El repositorio contiene los ficheros `.java` correspondientes a la inicializaci�
 almacén y cliente (`Contenido.java`, `Almacen.java` y `Cliente.java`), fachadas de los subsistemas correspondientes, junto con sus implementaciones reflejadas en el diagrama antes mencionado. También se encuentra una implementación JAVA/Swing de la interfaz cliente en forma de un conjunto de clases ya compiladas y empaquetadas en un JAVA Archive (`ui.jar`). **No se incluye ninguna prueba**.
 
 La compilación se lleva a cabo situándose en el directorio base del proyecto y ejecutando el comando `ant` (Apache Ant). Del mismo modo, los comandos `ant clean` y `ant javadoc` pueden utilizarse, respectivamente, para eliminar copias de seguridad y archivos compilados, y para generar la documentación Javadoc. Una vez compilado el proyecto, el comando `ant run` facilitará la ejecución del mencionado cliente gráfico.
+
+### Detalles de la especificación
+
+En esta sección iremos completando la especificación con la información que corresponda, cuando vayan detectándose imprecisiones o inconsistencias.
+
+* Los almacenes no almacenarán contenidos repetidos, considerándose que todo contenido es igual a sí mismo, con o sin promociones o extras asociados puntualización derivada de la [issue #7](https://github.com/lauramcastro/practicas-VVS/issues/7)).
