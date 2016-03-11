@@ -44,7 +44,7 @@ public class AlmacenRestringido implements Almacen {
      *
      * @return lista de contenidos manejados
      */
-    public Collection obtenerContenidos() {
+    public Collection<Contenido> obtenerContenidos() {
         return _almacen.obtenerContenidos();
     }
 
