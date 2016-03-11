@@ -46,7 +46,8 @@ public abstract class ContenidoAbstracto implements Contenido {
      */
     public Collection<Contenido> buscar(String subcadena) {
         Collection<Contenido> resultado = new ArrayList<Contenido>();
-        if (obtenerTitulo().toLowerCase().matches(".*" + subcadena.toLowerCase() + ".*")) {
+	// obtenerTitulo().contains(charsequence) para todas las charsequences que se saquen de subcadena
+        if (obtenerTitulo().toLowerCase().matches(".*" + subcadena.toLowerCase().trim() + ".*")) {
             resultado.add(this);
         }
         return resultado;
