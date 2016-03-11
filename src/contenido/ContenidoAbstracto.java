@@ -46,11 +46,15 @@ public abstract class ContenidoAbstracto implements Contenido {
      */
     public Collection<Contenido> buscar(String subcadena) {
         Collection<Contenido> resultado = new ArrayList<Contenido>();
-	// obtenerTitulo().contains(charsequence) para todas las charsequences que se saquen de subcadena
-        if (obtenerTitulo().toLowerCase().matches(".*" + subcadena.toLowerCase().trim() + ".*")) {
-            resultado.add(this);
-        }
-        return resultado;
+	String[] tokens = subcadena.toLowerCase().trim().split(" ");
+	String   titulo = obtenerTitulo().toLowerCase();
+	for (int i = 0 ; i < tokens.length ; i++) {
+	    if (! titulo.contains(tokens[i])) {
+		return resultado;
+	    }
+	}
+	resultado.add(this);
+	return resultado;
     }
 
     /**
