@@ -119,7 +119,8 @@ public class AlmacenRestringidoTest {
      *
      * @throws ExcepcionAlmacen
      */
-    //@Test(expected = ExcepcionAlmacen.class)
+    
+    @Test(expected = ExcepcionAlmacen.class)
     public void buscarExcepcionTest() throws ExcepcionAlmacen {
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restricción*/
         int valorEsperado = 2; /* winehouse, coldPlayWineHouse */
@@ -134,14 +135,14 @@ public class AlmacenRestringidoTest {
 
         /*Al realizar la cuerta busqueda, deberia lanzar la excepción */
         assertEquals(valorEsperado, restringido.buscar("").size());
-
+  
     }
 
     /**
      * Realizamos las busquedas y luego esperamos a que la sexta la haga cuando
      * sin ningun problema cuando se lance la excepcion.
      */
-    //@Test
+    @Test
     public void buscarTest() throws ExcepcionAlmacen {
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restricción*/
         int valorEsperado = 1; /* winehouse*/

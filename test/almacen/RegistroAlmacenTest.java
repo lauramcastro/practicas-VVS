@@ -9,8 +9,6 @@ import contenido.ArchivoAudio;
 import contenido.Contenido;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -73,7 +71,7 @@ public class RegistroAlmacenTest {
     }
 
     @Test
-    public void AñadirObternerEliminarContenidosTest() {
+    public void AnadirObternerEliminarContenidosTest() {
         boolean excepcion = false;
 
         Almacen emi = new RegistroAlmacen(almacenReal);
