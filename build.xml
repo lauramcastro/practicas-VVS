@@ -59,6 +59,7 @@ Processing "${ant.project.name} ${version}" ...
 	  includes="**/*.java"
 	  includeantruntime="false">
     <compilerarg value="-Xlint:unchecked"/>
+    <compilerarg value="-Xlint:deprecation"/>
     <classpath refid="classpath.test" />
   </javac>
   <junit haltonfailure="yes">
