@@ -8,13 +8,17 @@ package almacen;
 import contenido.ArchivoAudio;
 import contenido.Bonus;
 import contenido.Contenido;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  *
@@ -22,8 +26,10 @@ import org.junit.Test;
  */
 public class AlmacenRealTest {
 
-    Almacen emi;
+    Almacen almacenReal;
     String nombre = "EMI";
+    
+    String palabraBusqueda;
 
     Contenido coldplay1;
     Contenido winehouse;
@@ -31,10 +37,16 @@ public class AlmacenRealTest {
 
     @Before
     public void setUp() {
-        emi = new AlmacenReal(nombre);
-        coldplay1 = new ArchivoAudio("Coldplay: Speed of Sound", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
-        winehouse = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
-        coldPlayWineHouse = new ArchivoAudio("Coldplay: Rehab Amy", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
+        almacenReal = new AlmacenReal(nombre);
+        coldplay1 = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(coldplay1.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
+        Mockito.when(coldplay1.buscar("Coldplay")).thenCallRealMethod();
+        
+        winehouse = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(winehouse.obtenerTitulo()).thenReturn("Amy Winehouse: Rehab");
+        Mockito.when(winehouse.buscar("Amy")).thenCallRealMethod();
+        
+        coldPlayWineHouse = Mockito.mock(ArchivoAudio.class);
 
     }
 
@@ -45,9 +57,9 @@ public class AlmacenRealTest {
     @Test
     public void obternerNombreTest() {
 
-        assertEquals(nombre, emi.obtenerNombre());
-        emi = new AlmacenReal(null);
-        assertEquals(null, emi.obtenerNombre());
+        assertEquals(nombre, almacenReal.obtenerNombre());
+        almacenReal = new AlmacenReal(null);
+        assertEquals(null, almacenReal.obtenerNombre());
     }
 
     /**
@@ -62,7 +74,7 @@ public class AlmacenRealTest {
 
         /*Añadir contenido: que se añada sin ningun problema*/
         try {
-            emi.agregarContenido(coldplay1);
+            almacenReal.agregarContenido(coldplay1);
             size++;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
@@ -70,12 +82,12 @@ public class AlmacenRealTest {
 
         }
         assertFalse(excepcion);
-        assertEquals(size, emi.obtenerContenidos().size());
+        assertEquals(size, almacenReal.obtenerContenidos().size());
         excepcion = false;
 
         /*Añadir contenido: Contenido repetido*/
         try {
-            emi.agregarContenido(coldplay1);
+            almacenReal.agregarContenido(coldplay1);
             size++;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
@@ -83,12 +95,12 @@ public class AlmacenRealTest {
         }
 
         assertTrue(excepcion);
-        assertEquals(size, emi.obtenerContenidos().size());
+        assertEquals(size, almacenReal.obtenerContenidos().size());
         excepcion = false;
 
         /*Eliminar contenido: Sin ningun problema*/
         try {
-            emi.eliminarContenido(coldplay1);
+            almacenReal.eliminarContenido(coldplay1);
             size--;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
@@ -96,13 +108,13 @@ public class AlmacenRealTest {
         }
 
         assertFalse(excepcion);
-        assertEquals(size, emi.obtenerContenidos().size());
+        assertEquals(size, almacenReal.obtenerContenidos().size());
         excepcion = false;
 
         /*Eliminar contenido: contenido que no existe*/
         try {
 
-            emi.eliminarContenido(coldplay1);
+            almacenReal.eliminarContenido(coldplay1);
             size--;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
@@ -110,25 +122,25 @@ public class AlmacenRealTest {
         }
 
         assertTrue(excepcion);
-        assertEquals(size, emi.obtenerContenidos().size());
+        assertEquals(size, almacenReal.obtenerContenidos().size());
         excepcion = false;
 
         /*Volvemos a añadir la cancion que antes nos daba error pero que hemos eliminado ya. */
         try {
 
-            emi.agregarContenido(coldplay1);
+            almacenReal.agregarContenido(coldplay1);
             size++;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
             size--;
         }
         assertFalse(excepcion);
-        assertEquals(size, emi.obtenerContenidos().size());
+        assertEquals(size, almacenReal.obtenerContenidos().size());
         excepcion = false;
 
         Contenido wineandcold = new Bonus((ArchivoAudio) winehouse, coldplay1);
         try {
-            emi.agregarContenido(wineandcold);
+            almacenReal.agregarContenido(wineandcold);
             size++;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
@@ -136,7 +148,7 @@ public class AlmacenRealTest {
         }
 
         assertTrue(excepcion);
-        assertEquals(size, emi.obtenerContenidos().size());
+        assertEquals(size, almacenReal.obtenerContenidos().size());
 
     }
 
@@ -153,23 +165,23 @@ public class AlmacenRealTest {
 
         try {
 
-            assertTrue(emi.obtenerContenidos().isEmpty());
-            emi.agregarContenido(coldplay1);
+            assertTrue(almacenReal.obtenerContenidos().isEmpty());
+            almacenReal.agregarContenido(coldplay1);
             contenidoAnadido.add(coldplay1);
             size++;
-            assertEquals(size, emi.obtenerContenidos().size());
-            assertTrue(emi.obtenerContenidos().contains(coldplay1));
-            emi.eliminarContenido(coldplay1);
+            assertEquals(size, almacenReal.obtenerContenidos().size());
+            assertTrue(almacenReal.obtenerContenidos().contains(coldplay1));
+            almacenReal.eliminarContenido(coldplay1);
             contenidoAnadido.remove(coldplay1);
             size--;
-            emi.agregarContenido(winehouse);
+            almacenReal.agregarContenido(winehouse);
             contenidoAnadido.add(winehouse);
             size++;
-            emi.agregarContenido(coldPlayWineHouse);
+            almacenReal.agregarContenido(coldPlayWineHouse);
             contenidoAnadido.add(coldPlayWineHouse);
             size++;
-            assertEquals(size, emi.obtenerContenidos().size());
-            contenidoEncontrado = emi.obtenerContenidos();
+            assertEquals(size, almacenReal.obtenerContenidos().size());
+            contenidoEncontrado = almacenReal.obtenerContenidos();
             assertEquals(contenidoAnadido, contenidoEncontrado);
 
         } catch (ExcepcionAlmacen ex) {
@@ -188,40 +200,17 @@ public class AlmacenRealTest {
         int size = 0;
 
         /* Buscar todos los contenidos*/
-        assertTrue(emi.buscar("").isEmpty());
-        emi.agregarContenido(coldplay1);
+        Collection<Contenido> contenidos = almacenReal.buscar("Coldplay");
+        assertTrue(contenidos.isEmpty());
+        almacenReal.agregarContenido(coldplay1);
         size++;
-        assertFalse(emi.buscar("").isEmpty());
-        assertTrue(emi.buscar("").contains(coldplay1));
-        assertTrue(emi.buscar("").contains(coldplay1));
+        contenidos.addAll(almacenReal.buscar("Coldplay"));
+        assertTrue(!contenidos.isEmpty());
 
-        emi.agregarContenido(winehouse);
+        almacenReal.agregarContenido(winehouse);
         size++;
-        assertEquals(size, emi.buscar("").size());
-        assertTrue(emi.buscar("").contains(winehouse));
-        assertTrue(emi.buscar("").contains(coldplay1));
-
-        int valorEsperado = 1; /*winehouse */
-
-        assertEquals(valorEsperado, emi.buscar(winehouse.obtenerTitulo()).size());
-        assertFalse(emi.buscar(winehouse.obtenerTitulo()).contains(coldplay1));
-        assertTrue(emi.buscar(winehouse.obtenerTitulo()).contains(winehouse));
-
-
-        /*Buscamos contenido con las palabra clave reh */
-        valorEsperado = 1; /*winehouse */
-
-        assertEquals(valorEsperado, emi.buscar("reh").size());
-        assertTrue(emi.buscar("reh").contains(winehouse));
-
-        emi.agregarContenido(coldPlayWineHouse);
-        size++;
-
-        valorEsperado = 2; /*coldPlayWineHouse y winehouse */
-        
-        assertEquals(valorEsperado, emi.buscar("Rehab").size());
-        assertTrue(emi.buscar("Rehab Amy").contains(coldPlayWineHouse));
-        assertTrue(emi.buscar("Rehab Amy").contains(winehouse));
+        contenidos.addAll(almacenReal.buscar("Amy"));
+        assertEquals(size, contenidos.size());
     }
 
 }
