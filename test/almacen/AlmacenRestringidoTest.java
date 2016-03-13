@@ -143,11 +143,6 @@ public class AlmacenRestringidoTest {
     
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarExcepcionTest() throws ExcepcionAlmacen {
-    	/*anadimos comportamiento a los mocks*/
-    	Mockito.when(winehouse.buscar("Rehab")).thenCallRealMethod();
-        Mockito.when(coldPlayWineHouse.buscar("Rehab")).thenCallRealMethod();
-    	Mockito.when(coldplay1.buscar("Speed")).thenCallRealMethod();
-    	
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         int valorEsperado = 2; /* winehouse, coldPlayWineHouse */
         
@@ -170,11 +165,6 @@ public class AlmacenRestringidoTest {
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
-    	/*anadimos comportamiento a los mocks*/
-    	Mockito.when(winehouse.buscar("Amy")).thenCallRealMethod();
-    	Mockito.when(coldplay1.buscar("Cold")).thenCallRealMethod();
-        Mockito.when(coldPlayWineHouse.buscar("Cold")).thenCallRealMethod();
-    	
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         int valorEsperado = 1; /* winehouse*/
         
