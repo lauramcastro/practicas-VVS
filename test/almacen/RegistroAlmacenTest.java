@@ -112,6 +112,9 @@ public class RegistroAlmacenTest {
 
     @Test
     public void buscarTest() {
+    	/*anadimos comportamiento a los mocks*/
+    	Mockito.when(winehouse1.buscar("Rehab")).thenCallRealMethod();
+    	
         boolean excepcion = false;
 
         try {

@@ -157,11 +157,6 @@ public class ProveedorAlmacenTest {
         assertFalse(proveedor.buscar("cancion").contains(otra)); //busca y no la encuentra
         assertFalse(proveedor.buscar("").contains(coldplay2)); //busca y no la encuentra
         assertTrue(proveedor.buscar("SPEED").contains(coldplay2)); //busca en su almacen y lo encuentra 3
-        
-//        proveedor.buscar("Speed");
-//        proveedor.buscar("Speed");
-//        proveedor.buscar("Speed");
-//        proveedor.buscar("Speed");
     }
     
     /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen proveedor*/
