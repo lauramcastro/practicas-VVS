@@ -7,16 +7,20 @@ package almacen;
 
 import contenido.ArchivoAudio;
 import contenido.Contenido;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  *
@@ -51,10 +55,19 @@ public class AlmacenRestringidoTest {
         real = new AlmacenReal(nombre);
         restringido = new AlmacenRestringido(real, busquedas, minutos);
 
-        coldplay1 = new ArchivoAudio("Coldplay: Speed of Sound", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
-        winehouse = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
-        coldPlayWineHouse = new ArchivoAudio("Coldplay: Rehab", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
+//        coldplay1 = new ArchivoAudio("Coldplay: Speed of Sound", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
+//        winehouse = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
+//        coldPlayWineHouse = new ArchivoAudio("Coldplay: Rehab", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
 
+        coldplay1 = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(coldplay1.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
+        
+        winehouse = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(winehouse.obtenerTitulo()).thenReturn("Amy Winehouse: Rehab");
+        
+        coldPlayWineHouse = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(coldPlayWineHouse.obtenerTitulo()).thenReturn("Coldplay: Rehab");
+        
         restringido.agregarContenido(coldplay1);
         contenidoAnadido.add(coldplay1);
         size++;
@@ -100,7 +113,7 @@ public class AlmacenRestringidoTest {
 
     /**
      * Eliminar contenido winehouse (real) deberia de eliminar sin problemas,
-     * luego al volverlo a intentar (restringido) debería de danos un problema
+     * luego al volverlo a intentar (restringido) deberia lanzar una exception
      *
      * @throws ExcepcionAlmacen
      */
@@ -115,26 +128,29 @@ public class AlmacenRestringidoTest {
 
     /**
      * Verificamos que al realizar n busquedas la sexta no pueda realizar la
-     * busqueda y nos lance una excepción
+     * busqueda y nos lance una excepcion
      *
      * @throws ExcepcionAlmacen
      */
     
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarExcepcionTest() throws ExcepcionAlmacen {
-        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restricción*/
+        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         int valorEsperado = 2; /* winehouse, coldPlayWineHouse */
 
+        Mockito.when(winehouse.buscar("Rehab")).thenCallRealMethod();
+        Mockito.when(coldPlayWineHouse.buscar("Rehab")).thenCallRealMethod();
         assertEquals(valorEsperado, restringido.buscar("Rehab").size());
         valorEsperado = 1; /* coldPlay*/
 
+        Mockito.when(coldplay1.buscar("Speed")).thenCallRealMethod();
         assertEquals(valorEsperado, restringido.buscar("Speed").size());
         valorEsperado = size; /* todas las opciones */
 
-        assertEquals(valorEsperado, restringido.buscar("").size());
+        restringido.buscar("Speed").size();       
 
-        /*Al realizar la cuerta busqueda, deberia lanzar la excepción */
-        assertEquals(valorEsperado, restringido.buscar("").size());
+        /*Al realizar la cuerta busqueda, deberia lanzar la excepcion */
+        restringido.buscar("Speed").size();
   
     }
 
@@ -144,28 +160,26 @@ public class AlmacenRestringidoTest {
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
-        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restricción*/
+        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         int valorEsperado = 1; /* winehouse*/
 
+        Mockito.when(winehouse.buscar("Amy")).thenCallRealMethod();
         assertEquals(valorEsperado, restringido.buscar("Amy").size());
         valorEsperado = 2; /* Coldplay*/
 
+        Mockito.when(coldplay1.buscar("Cold")).thenCallRealMethod();
+        Mockito.when(coldPlayWineHouse.buscar("Cold")).thenCallRealMethod();
         assertEquals(valorEsperado, restringido.buscar("Cold").size());
-        valorEsperado = size; /*todos */
 
-        assertEquals(valorEsperado, restringido.buscar("").size());
-
+        restringido.buscar("Cold");
         /*Esperamos los minutos que hemos indicado en el almacen restringido */
         try {
             TimeUnit.MINUTES.sleep(minutos);
         } catch (InterruptedException ex) {
 
         }
-        /*Al sobrepasar el tiempo no debería de mandarnos ninguna exception y realizar bien la busqueda */
-        assertEquals(valorEsperado, restringido.buscar("").size());
-        valorEsperado = 2; /* winehouse y coldPlayWineHouse*/
-
-        assertEquals(valorEsperado, restringido.buscar("Rehab").size());
+        /*Al sobrepasar el tiempo no deberia de mandarnos ninguna exception y realizar bien la busqueda */
+        restringido.buscar("Cold");
 
     }
 
