@@ -20,6 +20,7 @@
 
 <path id="classpath.test">
   <pathelement location="${basedir}/lib/junit4.jar" />
+  <pathelement location="${basedir}/lib/mockito-all-1.10.9.jar" />
   <pathelement location="${test}" />
   <path refid="classpath.base"    />
 </path>
