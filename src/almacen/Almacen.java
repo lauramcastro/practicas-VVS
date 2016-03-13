@@ -26,7 +26,7 @@ public interface Almacen {
      *
      * @return lista de contenidos manejados
      */
-    public Collection obtenerContenidos();
+    public Collection<Contenido> obtenerContenidos();
 
     /**
      * Añade un nuevo contenido al conjunto de contenidos manejados

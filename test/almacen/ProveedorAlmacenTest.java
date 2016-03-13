@@ -143,5 +143,34 @@ public class ProveedorAlmacenTest {
         assertFalse(proveedor.buscar("").contains(coldplay2)); //busca y no la encuentra
         assertTrue(proveedor.buscar("SPEED").contains(coldplay2)); //busca en su almacen y lo encuentra 3
     }
+    
+    /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen proveedor*/
+    @Test(expected = ExcepcionAlmacen.class)
+    public void BuscarExceptionRestringidoProveedorTest() throws ExcepcionAlmacen {
+        
+        Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
+                  
+        /* Ahora vamos a buscar un contenido que no dispone, pero sí su proveedor restringido, 4 veces*/
+        assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
+        assertTrue(proveedor.buscar("amy").contains(winehouse2)); //busca en su proveedor 2
+        assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
+        assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
+     
+    }
+    
+    
+    /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen base*/
+    @Test(expected = ExcepcionAlmacen.class)
+    public void BuscarExceptionRestringidoBaseTest() throws ExcepcionAlmacen {
+        
+        Almacen proveedor = new ProveedorAlmacen(almacenRestringido, almacenReal);
+                  
+        /* Ahora vamos a buscar un contenido que si dispone, 4 veces*/
+        assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
+        assertTrue(proveedor.buscar("amy").contains(winehouse2)); //busca en su proveedor 2
+        assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
+        assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
+     
+    }
 
 }

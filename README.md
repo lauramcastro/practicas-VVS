@@ -1,6 +1,7 @@
-# Prácticas VVS
+﻿# Prácticas VVS
 
 [![Build Status](https://travis-ci.org/lauramcastro/practicas-VVS.svg?branch=master)](https://travis-ci.org/lauramcastro/practicas-VVS)
+[![Coverage Status](https://coveralls.io/repos/github/lauramcastro/practicas-VVS/badge.svg?branch=master)](https://coveralls.io/github/lauramcastro/practicas-VVS?branch=master)
 
 Repositorio de prácticas de la asignatura Validación y Verificación del Software (2015/2016, 2º cuatrimestre).
 
@@ -29,3 +30,4 @@ En esta sección iremos completando la especificación con la información que c
 
 * Los almacenes no almacenarán contenidos repetidos, considerándose que todo contenido es igual a sí mismo, con o sin promociones o extras asociados (puntualización derivada de la [issue #7](https://github.com/lauramcastro/practicas-VVS/issues/7)).
 * Como medida de aseguramiento de la disponibilidad del sistema, protección contra ataques de DDoS, etc., debe ser posible restringir las búsquedas realizadas en cualquier almacén dado a un número determinado por unidad de tiempo. Superada la cantidad de búsquedas especificada, un almacén restringido debe rechazar más peticiones al método buscar hasta que no transcurra el tiempo determinado (detalle derivado de la [issue #11](https://github.com/lauramcastro/practicas-VVS/issues/11)).
+* Los almacenes pueden configurarse de manera que se registre por salida estándar la información de las peticiones de búsqueda enviadas (detalle derivado de la [issue #15](https://github.com/lauramcastro/practicas-VVS/issues/15)).
