@@ -40,11 +40,11 @@ public class AlmacenRealTest {
         almacenReal = new AlmacenReal(nombre);
         coldplay1 = Mockito.mock(ArchivoAudio.class);
         Mockito.when(coldplay1.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
-        Mockito.when(coldplay1.buscar("Coldplay")).thenCallRealMethod();
+        Mockito.when(coldplay1.buscar(Mockito.anyString())).thenCallRealMethod();
         
         winehouse = Mockito.mock(ArchivoAudio.class);
         Mockito.when(winehouse.obtenerTitulo()).thenReturn("Amy Winehouse: Rehab");
-        Mockito.when(winehouse.buscar("Amy")).thenCallRealMethod();
+        Mockito.when(winehouse.buscar(Mockito.anyString())).thenCallRealMethod();
         
         coldPlayWineHouse = Mockito.mock(ArchivoAudio.class);
 
