@@ -7,13 +7,17 @@ package almacen;
 
 import contenido.ArchivoAudio;
 import contenido.Contenido;
+
 import java.util.ArrayList;
 import java.util.Collection;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  *
@@ -45,12 +49,19 @@ public class RegistroAlmacenTest {
 
         almacenReal = new AlmacenReal(nombreReal);
         almacenRestringido = new AlmacenRestringido(new AlmacenReal(nombreRestringido), busquedas, minutos);
+        
+//      coldplay2 = new ArchivoAudio("Coldplay: Speed of Sound part2", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
+//      winehouse1 = new ArchivoAudio("Amy Winehouse: Rehab part1", "http://servidor/winehouse/back2black/1", 215, "Soul");
+//      winehouse2 = new ArchivoAudio("Amy Winehouse: Rehab part2", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
+//      otra = new ArchivoAudio("otra: cancion", "http://servidor/otra/xy/7", 288, "Rock alternativo");
 
-        coldplay2 = new ArchivoAudio("Coldplay: Speed of Sound part2", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
-        winehouse1 = new ArchivoAudio("Amy Winehouse: Rehab part1", "http://servidor/winehouse/back2black/1", 215, "Soul");
-        winehouse2 = new ArchivoAudio("Amy Winehouse: Rehab part2", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
-        otra = new ArchivoAudio("otra: cancion", "http://servidor/otra/xy/7", 288, "Rock alternativo");
-
+        coldplay2 = Mockito.mock(ArchivoAudio.class);
+        winehouse1 = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(winehouse1.obtenerTitulo()).thenReturn("Amy Winehouse: Rehab part1");
+        
+        winehouse2 = Mockito.mock(ArchivoAudio.class);
+        otra = Mockito.mock(ArchivoAudio.class);
+        
         /*Añadimos winehouse1 y  winehouse2 */
         almacenRestringido.agregarContenido(winehouse1);
         almacenRestringido.agregarContenido(winehouse2);
@@ -100,10 +111,14 @@ public class RegistroAlmacenTest {
 
     @Test
     public void buscarTest() {
+    	/*anadimos comportamiento a los mocks*/
+    	Mockito.when(winehouse1.buscar("Rehab")).thenCallRealMethod();
+    	
         boolean excepcion = false;
 
         try {
-            assertTrue(almacenRestringido.buscar("").contains(winehouse1));
+//            assertTrue(almacenRestringido.buscar("Rehab").contains(winehouse1));
+            almacenRestringido.buscar("Rehab");
             //almacenRestringido.buscar("");
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;

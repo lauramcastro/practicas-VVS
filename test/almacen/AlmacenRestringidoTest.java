@@ -135,22 +135,24 @@ public class AlmacenRestringidoTest {
     
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarExcepcionTest() throws ExcepcionAlmacen {
+    	/*anadimos comportamiento a los mocks*/
+    	Mockito.when(winehouse.buscar("Rehab")).thenCallRealMethod();
+        Mockito.when(coldPlayWineHouse.buscar("Rehab")).thenCallRealMethod();
+    	Mockito.when(coldplay1.buscar("Speed")).thenCallRealMethod();
+    	
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         int valorEsperado = 2; /* winehouse, coldPlayWineHouse */
-
-        Mockito.when(winehouse.buscar("Rehab")).thenCallRealMethod();
-        Mockito.when(coldPlayWineHouse.buscar("Rehab")).thenCallRealMethod();
+        
         assertEquals(valorEsperado, restringido.buscar("Rehab").size());
         valorEsperado = 1; /* coldPlay*/
-
-        Mockito.when(coldplay1.buscar("Speed")).thenCallRealMethod();
+        
         assertEquals(valorEsperado, restringido.buscar("Speed").size());
         valorEsperado = size; /* todas las opciones */
 
-        restringido.buscar("Speed").size();       
+        restringido.buscar("Speed");       
 
         /*Al realizar la cuerta busqueda, deberia lanzar la excepcion */
-        restringido.buscar("Speed").size();
+        restringido.buscar("Speed");
   
     }
 
@@ -160,15 +162,17 @@ public class AlmacenRestringidoTest {
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
+    	/*anadimos comportamiento a los mocks*/
+    	Mockito.when(winehouse.buscar("Amy")).thenCallRealMethod();
+    	Mockito.when(coldplay1.buscar("Cold")).thenCallRealMethod();
+        Mockito.when(coldPlayWineHouse.buscar("Cold")).thenCallRealMethod();
+    	
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         int valorEsperado = 1; /* winehouse*/
-
-        Mockito.when(winehouse.buscar("Amy")).thenCallRealMethod();
+        
         assertEquals(valorEsperado, restringido.buscar("Amy").size());
         valorEsperado = 2; /* Coldplay*/
-
-        Mockito.when(coldplay1.buscar("Cold")).thenCallRealMethod();
-        Mockito.when(coldPlayWineHouse.buscar("Cold")).thenCallRealMethod();
+        
         assertEquals(valorEsperado, restringido.buscar("Cold").size());
 
         restringido.buscar("Cold");
