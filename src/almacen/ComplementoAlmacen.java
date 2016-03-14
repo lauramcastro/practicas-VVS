@@ -77,7 +77,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      * @throws ExcepcionAlmacen si por alguna razón la búsqueda no
      *                          ha podido llevarse a cabo
      */
-    public Collection buscar(String subcadena)
+    public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
         return _almacen.buscar(subcadena);
     }

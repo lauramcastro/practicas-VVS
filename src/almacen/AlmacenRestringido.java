@@ -86,10 +86,10 @@ public class AlmacenRestringido implements Almacen {
      * @throws ExcepcionAlmacen si por alguna razón la búsqueda no
      *                          ha podido llevarse a cabo
      */
-    public Collection buscar(String subcadena)
+    public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
         if (_busquedasDisponibles > 0) {
-            Collection resultado = _almacen.buscar(subcadena);
+            Collection<Contenido> resultado = _almacen.buscar(subcadena);
             if (!resultado.isEmpty()) {
                 _busquedasDisponibles--;
             }

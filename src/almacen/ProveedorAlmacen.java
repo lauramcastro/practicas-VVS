@@ -2,6 +2,8 @@ package almacen;
 
 import java.util.Collection;
 
+import contenido.Contenido;
+
 /**
  * Extensión concreta de decorador de almacenes que permite
  * implementar una cadena de responsabilidad de almacenes proveedores.
@@ -37,9 +39,9 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
      * @throws ExcepcionAlmacen si por alguna razón la búsqueda no
      *                          ha podido llevarse a cabo
      */
-    public Collection buscar(String subcadena)
+    public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
-        Collection resultado = super.buscar(subcadena);
+        Collection<Contenido> resultado = super.buscar(subcadena);
         if ((resultado.isEmpty()) && (obtenerProveedor()!= null)) {
             resultado = obtenerProveedor().buscar(subcadena);
         }

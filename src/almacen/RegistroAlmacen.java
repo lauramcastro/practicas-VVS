@@ -2,6 +2,8 @@ package almacen;
 
 import java.util.Collection;
 
+import contenido.Contenido;
+
 /**
  * Extensión concreta de decorador de almacenes que permite hacer log
  * de algunas operaciones relevantes.
@@ -32,11 +34,11 @@ public class RegistroAlmacen extends ComplementoAlmacen {
      * @throws ExcepcionAlmacen si por alguna razón la búsqueda no
      *                          ha podido llevarse a cabo
      */
-    public Collection buscar(String subcadena)
+    public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
 	System.out.print("Buscado '" + subcadena + "' en almacen " + obtenerNombre() + ": ");
 	try {
-	    Collection resultado = super.buscar(subcadena);
+	    Collection<Contenido> resultado = super.buscar(subcadena);
 	    System.out.println(resultado.size() + " coincidencias");
 	    return resultado;
 	} catch (ExcepcionAlmacen e) {
