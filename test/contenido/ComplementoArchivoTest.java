@@ -1,15 +1,12 @@
+package contenido;
 
-import contenido.ArchivoAudio;
-import contenido.ComplementoArchivo;
-import contenido.Contenido;
-import contenido.ContenidoAbstracto;
-import contenido.Promocion;
+import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -1,15 +1,10 @@
+package contenido;
 
-
-
-
-import contenido.ArchivoAudio;
-import contenido.Bonus;
-import contenido.Contenido;
-import contenido.Promocion;
-import java.util.Collection;
-import java.util.Iterator;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 public class BonusTest {
 

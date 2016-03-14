@@ -1,13 +1,11 @@
+package contenido;
 
-import contenido.ArchivoAudio;
-import contenido.ArchivoSimple;
-import contenido.Contenido;
-import contenido.Promocion;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class PromocionTest {
 
