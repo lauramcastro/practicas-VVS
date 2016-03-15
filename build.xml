@@ -11,7 +11,7 @@
 <property name="test"       value="${basedir}/test"               />
 <property name="classes"    value="${basedir}/build"              />
 <property name="javadoc"    value="${basedir}/doc/html"           />
-<property name="cobertura"  value="${basedir}/doc/cobertura"    />
+<property name="cobertura"  value="${basedir}/doc/cobertura"      />
 <property name="classescov" value="${basedir}/build/instrumented" />
 <property name="version"    value="0.2"                           />
 
@@ -21,15 +21,16 @@
 </path>
 
 <path id="classpath.test">
-  <pathelement location="${basedir}/lib/junit4.jar" />
+  <pathelement location="${basedir}/lib/junit4.jar"  />
   <pathelement location="${basedir}/lib/mockito.jar" />
-  <pathelement location="${test}" />
-  <path refid="classpath.base"    />
+  <path refid="classpath.base" />
 </path>
 
 <path id="classpath.cobertura">
   <pathelement location="${basedir}/lib/cobertura.jar" />
-  <pathelement location="${basedir}/lib/log4j.jar" />
+  <fileset dir="${basedir}/lib/">
+    <include name="cobertura-dependencies/*.jar" />
+  </fileset>
   <path refid="classpath.test" />
 </path>
 
@@ -58,7 +59,8 @@ Processing "${ant.project.name} ${version}" ...
   <javac  srcdir="${src}" 
 	  destdir="${classes}"
 	  includes="**/*.java"
-	  includeantruntime="false">
+	  includeantruntime="false"
+	  debug="true">
     <compilerarg value="-Xlint:unchecked"/>
     <classpath refid="classpath.base" />
   </javac>
@@ -66,16 +68,19 @@ Processing "${ant.project.name} ${version}" ...
 
 <!-- ============================ "test" target ============================ -->
 
-<target name="test" depends="clean,init">
-  <mkdir dir="${classes}"/>
-  <javac  srcdir="${src}"
-	  destdir="${classes}"
-	  includes="**/*.java"
-	  includeantruntime="false"
-	  debug="true">
-    <compilerarg value="-Xlint:unchecked"/>
-    <classpath refid="classpath.base" />
-  </javac>
+<target name="test" depends="clean,compile">
+  <delete file="${classes}/cobertura.ser" />
+  <cobertura-instrument todir="${classescov}" datafile="${classes}/cobertura.ser">
+<!--    <ignore regex="org.apache.log4j.*" /> -->
+    <fileset dir="${classes}">
+        <include name="**/*.class" />
+        <exclude name="**/*Test.class" />
+        <exclude name="almacen/Almacen.class" />
+        <exclude name="contenido/Contenido.class" />
+        <exclude name="cliente/Cliente.class" />
+        <exclude name="Main.class" />
+    </fileset>
+  </cobertura-instrument>
   <javac  srcdir="${test}"
 	  destdir="${classes}"
 	  includes="**/*.java"
@@ -93,9 +98,12 @@ Processing "${ant.project.name} ${version}" ...
       <fileset dir="${test}" includes="**/*Test.java"/>
     </batchtest>
     <sysproperty key="net.sourceforge.cobertura.datafile"
-		 file="${basedir}/build/cobertura.ser" />
+		 file="${classes}/cobertura.ser" />
   </junit>
-  <cobertura-report format="html" destdir="${cobertura}" srcdir="${src}"/>
+  <cobertura-report format="html"
+		    destdir="${cobertura}"
+		    datafile="${classes}/cobertura.ser"
+		    srcdir="${src}"/>
 </target>
 
 <!-- ============================ "clean" target =========================== -->
@@ -112,7 +120,7 @@ Processing "${ant.project.name} ${version}" ...
       <include name="**/*~"/>
     </fileset>
   </delete>
-  <delete file="cobertura.ser" />
+  <delete file="${classes}/cobertura.ser" />
 </target>
 
 <!-- ========================= "run" target =========================== -->
