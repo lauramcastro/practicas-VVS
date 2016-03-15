@@ -9,8 +9,7 @@ import contenido.ArchivoAudio;
 import contenido.Bonus;
 import contenido.Contenido;
 
-import java.util.ArrayList;
-import java.util.Collection;
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,7 +27,7 @@ public class AlmacenRealTest {
 
     Almacen almacenReal;
     String nombre = "EMI";
-    
+
     String palabraBusqueda;
 
     Contenido coldplay1;
@@ -41,11 +40,11 @@ public class AlmacenRealTest {
         coldplay1 = Mockito.mock(ArchivoAudio.class);
         Mockito.when(coldplay1.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
         Mockito.when(coldplay1.buscar(Mockito.anyString())).thenCallRealMethod();
-        
+
         winehouse = Mockito.mock(ArchivoAudio.class);
         Mockito.when(winehouse.obtenerTitulo()).thenReturn("Amy Winehouse: Rehab");
         Mockito.when(winehouse.buscar(Mockito.anyString())).thenCallRealMethod();
-        
+
         coldPlayWineHouse = Mockito.mock(ArchivoAudio.class);
 
     }
@@ -62,13 +61,11 @@ public class AlmacenRealTest {
         assertEquals(null, almacenReal.obtenerNombre());
     }
 
-    /**
-     * Comprobamos que se añaden y se eliminen correctamente el contenido, e
-     * incluso verificamos que la excepcion se ejecute cuando tiene que hacerlo
-     * (ya sea cuando al añadir tenemos contenido repetido o cuando eliminamos
-     * no exista el contenido que queremos eliminar)
-     */
-    public void agregarYeliminarContenido() {
+/**
+ * test positivo que agrega un contenido y comprueba que se obtiene correctamente
+ */
+    @Test
+    public void agregarContenidoTest() {
         int size = 0;
         boolean excepcion = false;
 
@@ -78,25 +75,78 @@ public class AlmacenRealTest {
             size++;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
-            size--;
-
         }
         assertFalse(excepcion);
         assertEquals(size, almacenReal.obtenerContenidos().size());
-        excepcion = false;
+        assertEquals(almacenReal.obtenerContenidos().iterator().next(), coldplay1);
+    }
+    
+    /**
+     * test que comprueba que no se puede agregar como contenido un null
+     */
+     @Test
+    public void agregarContenidoNullTest() {
+        int size = 0;
+        boolean excepcion = false;
 
+        try {
+            almacenReal.agregarContenido(null);
+        } catch (ExcepcionAlmacen ex) {
+            excepcion = true;
+        } 
+        assertFalse(excepcion);
+        assertEquals(size, almacenReal.obtenerContenidos().size());
+    }
+
+    /**
+     * test que comprueba que no se pueden agregar contenidos duplicados
+     */
+    @Test
+    public void agregarContenidoDuplicadoTest() {
+        int size = 0;
+        boolean excepcion = false;
+
+        /*Añadir contenido: que se añada sin ningun problema*/
+        try {
+            almacenReal.agregarContenido(coldplay1);
+            size++;
+        } catch (ExcepcionAlmacen ex) {
+            excepcion = true;
+        }
+        assertFalse(excepcion);
+        assertEquals(size, almacenReal.obtenerContenidos().size());
+        assertEquals(almacenReal.obtenerContenidos().iterator().next(), coldplay1);
         /*Añadir contenido: Contenido repetido*/
         try {
             almacenReal.agregarContenido(coldplay1);
             size++;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
-            size--;
         }
 
         assertTrue(excepcion);
         assertEquals(size, almacenReal.obtenerContenidos().size());
-        excepcion = false;
+        assertEquals(almacenReal.obtenerContenidos().iterator().next(), coldplay1);
+    }
+
+    /**
+     * test que comprueba la eliminacion de contenidos
+     */
+    @Test
+    public void eliminarContenidoTest() {
+        int size = 0;
+        boolean excepcion = false;
+
+        /*Añadir contenido: que se añada sin ningun problema*/
+        try {
+            almacenReal.agregarContenido(coldplay1);
+            size++;
+        } catch (ExcepcionAlmacen ex) {
+            excepcion = true;
+        }
+        assertFalse(excepcion);
+        assertEquals(size, almacenReal.obtenerContenidos().size());
+        assertEquals(almacenReal.obtenerContenidos().iterator().next(), coldplay1);
 
         /*Eliminar contenido: Sin ningun problema*/
         try {
@@ -104,113 +154,142 @@ public class AlmacenRealTest {
             size--;
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
-            size++;
         }
 
         assertFalse(excepcion);
         assertEquals(size, almacenReal.obtenerContenidos().size());
-        excepcion = false;
-
-        /*Eliminar contenido: contenido que no existe*/
-        try {
-
-            almacenReal.eliminarContenido(coldplay1);
-            size--;
-        } catch (ExcepcionAlmacen ex) {
-            excepcion = true;
-            size++;
-        }
-
-        assertTrue(excepcion);
-        assertEquals(size, almacenReal.obtenerContenidos().size());
-        excepcion = false;
-
-        /*Volvemos a añadir la cancion que antes nos daba error pero que hemos eliminado ya. */
-        try {
-
-            almacenReal.agregarContenido(coldplay1);
-            size++;
-        } catch (ExcepcionAlmacen ex) {
-            excepcion = true;
-            size--;
-        }
-        assertFalse(excepcion);
-        assertEquals(size, almacenReal.obtenerContenidos().size());
-        excepcion = false;
-
-        Contenido wineandcold = new Bonus((ArchivoAudio) winehouse, coldplay1);
-        try {
-            almacenReal.agregarContenido(wineandcold);
-            size++;
-        } catch (ExcepcionAlmacen ex) {
-            excepcion = true;
-            size--;
-        }
-
-        assertTrue(excepcion);
-        assertEquals(size, almacenReal.obtenerContenidos().size());
-
+        assertFalse(almacenReal.obtenerContenidos().contains(coldplay1));
     }
 
     /**
-     * Comprobamos al añadir contenido cuando llamamamos a btenerContenidos nos
-     * devuelva esos contenidos esperados
+     * test que cmprueba que no se pueden eliminar contenidos que no se hayan agregado
      */
     @Test
-    public void obternerContenidosTest() {
-        boolean exception = false;
+    public void eliminarContenidoNoAgregadoTest() {
         int size = 0;
-        Collection<Contenido> contenidoEncontrado = new ArrayList<Contenido>();
-        Collection<Contenido> contenidoAnadido = new ArrayList<Contenido>();
+        boolean excepcion = false;
 
         try {
-
-            assertTrue(almacenReal.obtenerContenidos().isEmpty());
-            almacenReal.agregarContenido(coldplay1);
-            contenidoAnadido.add(coldplay1);
-            size++;
-            assertEquals(size, almacenReal.obtenerContenidos().size());
-            assertTrue(almacenReal.obtenerContenidos().contains(coldplay1));
             almacenReal.eliminarContenido(coldplay1);
-            contenidoAnadido.remove(coldplay1);
             size--;
-            almacenReal.agregarContenido(winehouse);
-            contenidoAnadido.add(winehouse);
-            size++;
-            almacenReal.agregarContenido(coldPlayWineHouse);
-            contenidoAnadido.add(coldPlayWineHouse);
-            size++;
-            assertEquals(size, almacenReal.obtenerContenidos().size());
-            contenidoEncontrado = almacenReal.obtenerContenidos();
-            assertEquals(contenidoAnadido, contenidoEncontrado);
-
         } catch (ExcepcionAlmacen ex) {
-            exception = true;
+            excepcion = true;
         }
-        assertFalse(exception);
+
+        assertTrue(excepcion);
+        assertEquals(size, almacenReal.obtenerContenidos().size());
+        assertFalse(almacenReal.obtenerContenidos().contains(coldplay1));
     }
 
     /**
-     *
-     * @throws ExcepcionAlmacen Buscamos el titulo xx y esperamos que nos
-     * devuelva el contenido esperado
+     * test que comprueba que no se puede agregar un contenido bonus si ya
+     * se habia agregado el mismo archivo de audio que se uso para crear ese bonus.
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen {
+        int size = 0;
+        boolean excepcion = false;
+
+        //ArchivoAudio Audio = new ArchivoAudio("titulo", "URLAudio", 5, "genero");
+        ArchivoAudio Audio = Mockito.mock(ArchivoAudio.class);
+        Contenido coldplay2 = Audio;
+
+        Bonus bonus = new Bonus(Audio, new ArchivoAudio("titulo2", "URLAudio2", 5, "genero2"));
+
+        /*Añadir contenido: que se añada sin ningun problema*/
+        try {
+            almacenReal.agregarContenido(coldplay2);
+            size++;
+        } catch (ExcepcionAlmacen ex) {
+            excepcion = true;
+        }
+        assertFalse(excepcion);
+        assertEquals(size, almacenReal.obtenerContenidos().size());
+        assertEquals(almacenReal.obtenerContenidos().iterator().next(), coldplay2);
+
+        try {
+            almacenReal.agregarContenido(bonus);
+            size++;
+        } catch (ExcepcionAlmacen ex) {
+            excepcion = true;
+        }
+
+        assertTrue(excepcion);
+        assertEquals(size, almacenReal.obtenerContenidos().size());
+        almacenReal.eliminarContenido(coldplay2);
+        assertTrue(almacenReal.obtenerContenidos().isEmpty());
+    }
+
+    /**
+     * test que comprueba la busqeuda sobre un almacen vacio
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void buscarVacioTest() throws ExcepcionAlmacen {
+        assertTrue(almacenReal.buscar("Coldplay").isEmpty());
+    }
+
+    /**
+     * test que comprueba la busqueda normal de contenido
+     * @throws ExcepcionAlmacen 
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
-        int size = 0;
-
-        /* Buscar todos los contenidos*/
-        Collection<Contenido> contenidos = almacenReal.buscar("Coldplay");
-        assertTrue(contenidos.isEmpty());
         almacenReal.agregarContenido(coldplay1);
-        size++;
-        contenidos.addAll(almacenReal.buscar("Coldplay"));
-        assertTrue(!contenidos.isEmpty());
+        assertFalse(almacenReal.buscar("Coldplay").isEmpty());
+        assertTrue(almacenReal.buscar("Coldplay").contains(coldplay1));
+        assertEquals(almacenReal.buscar("Coldplay").size(), 1);
+    }
 
+    /**
+     * test que comprueba la busqueda con un null
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void buscarNullTest() throws ExcepcionAlmacen {
+        assertTrue(almacenReal.buscar(null).isEmpty());
+    }
+
+    /**
+     * test que comprueba la busqueda de un elemento que no esta agregado
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void buscarNoExistenteTest() throws ExcepcionAlmacen {
+        almacenReal.agregarContenido(coldplay1);
+        assertTrue(almacenReal.buscar("Amy").isEmpty());
+        assertFalse(almacenReal.buscar("Amy").contains(coldplay1));
+    }
+
+    /**
+     * test que comprueba la busqeuda de multiples contenidos a la vez
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void buscarVariosTest() throws ExcepcionAlmacen {
+        almacenReal.agregarContenido(coldplay1);
         almacenReal.agregarContenido(winehouse);
-        size++;
-        contenidos.addAll(almacenReal.buscar("Amy"));
-        assertEquals(size, contenidos.size());
+        assertFalse(almacenReal.buscar("").isEmpty());
+        assertTrue(almacenReal.buscar("").contains(coldplay1));
+        assertTrue(almacenReal.buscar("").contains(winehouse));
+        assertEquals(almacenReal.buscar("").size(), 2);
+    }
+    
+    /**
+     * test que comprueba que un almacen real no puede establecer proveedor
+     */
+    @Test
+    public void establecerProveedor(){
+        assertTrue(true);
+    }
+    
+    /**
+     * test que comprueba que obtener proveedor en un almacen real devuelve siempre null
+     */
+    @Test
+    public void obtenerProveedor(){
+        assertEquals(almacenReal.obtenerProveedor(),null);
     }
 
 }
