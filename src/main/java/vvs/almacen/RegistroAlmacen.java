@@ -1,8 +1,14 @@
 package vvs.almacen;
 
-import java.util.Collection;
-
 import vvs.contenido.Contenido;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Extensión concreta de decorador de almacenes que permite hacer log
@@ -21,6 +27,17 @@ public class RegistroAlmacen extends ComplementoAlmacen {
      */
     public RegistroAlmacen(Almacen almacen) {
         super(almacen);
+	try {
+	    FileHandler handler = new FileHandler(obtenerNombre() + "-" + new Date(System.currentTimeMillis()) + ".log");
+	    _logger = Logger.getLogger(RegistroAlmacen.class.getName());
+	    _logger.addHandler(handler);
+	    handler.setFormatter(new SimpleFormatter());
+	    handler.setLevel(Level.ALL);
+	    _logger.setLevel(Level.ALL);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+        _logger.log(Level.INFO, "--- Log started ---");
     }
 
     /**
@@ -36,15 +53,24 @@ public class RegistroAlmacen extends ComplementoAlmacen {
      */
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
-	System.out.print("Buscado '" + subcadena + "' en almacen " + obtenerNombre() + ": ");
+	_logger.log(Level.INFO, "Buscado {0} en almacen {1}",
+		    new Object[]{subcadena, obtenerNombre()});
 	try {
 	    Collection<Contenido> resultado = super.buscar(subcadena);
-	    System.out.println(resultado.size() + " coincidencias");
+	    _logger.log(Level.INFO, "Encontradas {0} coincidencias",
+			new Object[]{resultado.size()});
 	    return resultado;
 	} catch (ExcepcionAlmacen e) {
-	    System.out.println(e.getMessage());
+	    _logger.log(Level.SEVERE, e.getMessage());
 	    throw e;
 	}
     }
+
+    // ========== atributos privados ==========
+
+    /**
+     * Manejador de log.
+     */
+    private Logger _logger;
 
 }
