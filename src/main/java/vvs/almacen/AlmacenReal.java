@@ -56,10 +56,14 @@ public class AlmacenReal implements Almacen {
      */
     public void agregarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-        if (!_contenidos.contains(contenido)) {
-            _contenidos.add(contenido);
-        } else {
-            throw new ExcepcionAlmacen("Contenido duplicado.");
+	if (contenido != null) {
+	    if (!_contenidos.contains(contenido)) {
+		_contenidos.add(contenido);
+	    } else {
+		throw new ExcepcionAlmacen("Contenido duplicado.");
+	    }
+	} else {
+	    throw new ExcepcionAlmacen("Contenido inválido.");
         }
     }
 
