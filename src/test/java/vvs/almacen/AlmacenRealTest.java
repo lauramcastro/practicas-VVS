@@ -275,15 +275,19 @@ public class AlmacenRealTest {
     }
     
     /**
-     * test que comprueba que un almacen real no puede establecer proveedor
+     * test que comprueba que un almacen real no se modifica al establecer proveedor
      */
     @Test
-    public void establecerProveedor(){
-        assertTrue(true);
+    public void establecerProveedor() throws ExcepcionAlmacen{
+        
+        Almacen proveedor1 = almacenReal.obtenerProveedor();
+        almacenReal.establecerProveedor(almacenReal);
+        Almacen proveedor2 = almacenReal.obtenerProveedor();
+        assertEquals(proveedor1,proveedor2);
     }
     
     /**
-     * test que comprueba que obtener proveedor en un almacen real devuelve siempre null
+     * test que comprueba que obtener proveedor en un almacen real devuelve siempre null (redundante respecto al test anterior)
      */
     @Test
     public void obtenerProveedor(){
