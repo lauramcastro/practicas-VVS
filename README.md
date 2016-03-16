@@ -1,7 +1,7 @@
 ﻿# Prácticas VVS
 
-[![Build Status](https://travis-ci.org/lauramcastro/practicas-VVS.svg?branch=master)](https://travis-ci.org/lauramcastro/practicas-VVS)
-[![Coverage Status](https://coveralls.io/repos/github/lauramcastro/practicas-VVS/badge.svg?branch=master)](https://coveralls.io/github/lauramcastro/practicas-VVS?branch=master)
+[![Build Status](https://travis-ci.org/lauramcastro/practicas-VVS.svg?branch=maven)](https://travis-ci.org/lauramcastro/practicas-VVS)
+[![Coverage Status](https://coveralls.io/repos/github/lauramcastro/practicas-VVS/badge.svg?branch=maven)](https://coveralls.io/github/lauramcastro/practicas-VVS?branch=maven)
 
 Repositorio de prácticas de la asignatura Validación y Verificación del Software (2015/2016, 2º cuatrimestre).
 
