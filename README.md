@@ -9,7 +9,7 @@ Repositorio de prácticas de la asignatura Validación y Verificación del Softw
 
 Se presenta la implementación de un sistema dedicado al almacenamiento y distribución mediante streaming de contenidos multimedia (SpotiVVSy), representada en el diagrama de clases:
 
-![diagrama de clases SpotiVVSy](https://github.com/lauramcastro/practicas-VVS/blob/master/doc/Diagrama%20de%20clases.png "Diagrama de clases (SpotiVVSy)")
+![diagrama de clases SpotiVVSy](https://github.com/lauramcastro/practicas-VVS/blob/ant/doc/Diagrama%20de%20clases.png "Diagrama de clases (SpotiVVSy)")
 
 Los elementos fundamentales del sistema son:
 
