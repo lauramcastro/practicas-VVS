@@ -200,16 +200,16 @@ public class AlmacenRestringidoTest {
 
             Contenido nuevoContenido = null;
             real.agregarContenido(nuevoContenido);
-            contenidoAnadido.add(nuevoContenido);
-            size++;
-            assertTrue(real.obtenerContenidos().contains(nuevoContenido));
-            assertEquals(size, restringido.obtenerContenidos().size());
-            assertTrue(real.obtenerContenidos().containsAll(contenidoAnadido));
+            //contenidoAnadido.add(nuevoContenido);
+            //size++;
+            //assertTrue(real.obtenerContenidos().contains(nuevoContenido));
+            //assertEquals(size, restringido.obtenerContenidos().size());
+            //assertTrue(real.obtenerContenidos().containsAll(contenidoAnadido));
 
         } catch (ExcepcionAlmacen ex) {
             exception = true;
         }
-        assertFalse(exception);
+        assertTrue(exception);
     }
 
 }

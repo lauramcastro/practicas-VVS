@@ -92,7 +92,7 @@ public class AlmacenRealTest {
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
         } 
-        assertFalse(excepcion);
+        assertTrue(excepcion);
         assertEquals(size, almacenReal.obtenerContenidos().size());
     }
 
