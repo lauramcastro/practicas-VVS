@@ -9,7 +9,7 @@ Repositorio de prácticas de la asignatura Validación y Verificación del Softw
 
 Se presenta la implementación de un sistema dedicado al almacenamiento y distribución mediante streaming de contenidos multimedia (SpotiVVSy), representada en el diagrama de clases:
 
-![diagrama de clases SpotiVVSy](https://github.com/lauramcastro/practicas-VVS/blob/master/doc/Diagrama%20de%20clases.png "Diagrama de clases (SpotiVVSy)")
+![diagrama de clases SpotiVVSy](https://github.com/lauramcastro/practicas-VVS/blob/maven/doc/Diagrama%20de%20clases.png "Diagrama de clases (SpotiVVSy)")
 
 Los elementos fundamentales del sistema son:
 
@@ -30,4 +30,4 @@ En esta sección iremos completando la especificación con la información que c
 
 * Los almacenes no almacenarán contenidos repetidos, considerándose que todo contenido es igual a sí mismo, con o sin promociones o extras asociados (puntualización derivada de la [issue #7](https://github.com/lauramcastro/practicas-VVS/issues/7)). Tampoco permitirán el almacenamiento de contenidos inválidos (por ejemplo, nulos) (puntualización derivada de la [issue #18](https://github.com/lauramcastro/practicas-VVS/issues/18)).
 * Como medida de aseguramiento de la disponibilidad del sistema, protección contra ataques de DDoS, etc., debe ser posible restringir las búsquedas realizadas en cualquier almacén dado a un número determinado por unidad de tiempo. Superada la cantidad de búsquedas especificada, un almacén restringido debe rechazar más peticiones al método buscar hasta que no transcurra el tiempo determinado (detalle derivado de la [issue #11](https://github.com/lauramcastro/practicas-VVS/issues/11)).
-* Los almacenes pueden configurarse de manera que se registre por salida estándar la información de las peticiones de búsqueda enviadas (detalle derivado de la [issue #15](https://github.com/lauramcastro/practicas-VVS/issues/15)).
+* Los almacenes pueden configurarse de manera que se registre la información de las peticiones de búsqueda enviadas. Este registro se realizará en un fichero de log llamado `<nombreAlmacen>-registro-<timestamp>.log` (detalle derivado de la [issue #15](https://github.com/lauramcastro/practicas-VVS/issues/15)).
