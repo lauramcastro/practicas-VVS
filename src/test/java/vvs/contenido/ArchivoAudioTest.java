@@ -78,5 +78,16 @@ public class ArchivoAudioTest {
 		assertEquals(true, resultado.toArray()[0].equals("http://servidor/alavigne/bestdamnthing/1"));
 				
 	}
+	
+	@Test
+	public void obtenerDuracionTest(){
+		Contenido lavigne1 = new ArchivoAudio("Avril Lavigne: Girlfriend", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
+		assertEquals(216, lavigne1.obtenerDuracion());
+	}
     
+	@Test
+	public void ObtenerDuracionNegativaTest(){
+		Contenido lavigne1 = new ArchivoAudio("Avril Lavigne: Girlfriend", "http://servidor/alavigne/bestdamnthing/1", -216, "Punk pop");
+		assertEquals(-216, lavigne1.obtenerDuracion());
+	}
 }
