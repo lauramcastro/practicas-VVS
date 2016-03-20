@@ -12,6 +12,8 @@ public class ColeccionTest {
 	private Coleccion coleccionCorrecta = new Coleccion("Eminem");
 	private ArchivoAudio eminem1 = new ArchivoAudio("Lose Yourself", "url", 10, "Rap");
 	private ArchivoAudio eminem2 = new ArchivoAudio("Mockingbird", "url2", 8, "Rap");
+	private ArchivoAudio eminem3 = new ArchivoAudio("Rapgod", "url3", 9, "Rap");
+	private ArchivoAudio eminem4 = new ArchivoAudio("8 Mile", "url4", 11, "Rap");
 	
 	@Test
 	public void obtenerDuracionTest(){
@@ -28,6 +30,11 @@ public class ColeccionTest {
 		assertEquals(listaRep, eminem1.obtenerListaReproduccion());
 	}
 	
+	@Test
+	public void obtenerGeneroTest(){
+		assertEquals(coleccionCorrecta.obtenerGenero(), "Mix");
+	}
+	
 	
 	/* Este test no me tiene sentido O.O */
 	@Test
@@ -40,10 +47,15 @@ public class ColeccionTest {
 	
 	@Test
 	public void agregarTest(){
+		eminem1.establecerPadre(null);
 		coleccionCorrecta.agregar(eminem1, null);
 		assertEquals(coleccionCorrecta.obtenerListaReproduccion().size(), 1);
 		coleccionCorrecta.agregar(eminem2, eminem1);
 		assertEquals(coleccionCorrecta.obtenerListaReproduccion().size(), 2);
+		coleccionCorrecta.agregar(eminem3, eminem2);
+		assertEquals(coleccionCorrecta.obtenerListaReproduccion().size(), 3);
+		coleccionCorrecta.agregar(eminem4, eminem3);
+		assertEquals(coleccionCorrecta.obtenerListaReproduccion().size(), 4);
 	}
 	
 	@Test
