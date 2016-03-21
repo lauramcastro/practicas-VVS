@@ -265,9 +265,9 @@ public class AlmacenRestringidoTest {
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
         restringido.agregarContenido(coldplay1);
-        assertFalse(restringido.buscar("Coldplay").isEmpty());
-        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
-        assertEquals(restringido.buscar("Coldplay").size(), 1);
+        assertFalse(restringido.buscar("ColdPLay Sound").isEmpty());
+        assertTrue(restringido.buscar("ColdplAY Sound").contains(coldplay1));
+        assertEquals(restringido.buscar("Coldplay SouND").size(), 1);
     }
 
     /**
@@ -304,6 +304,30 @@ public class AlmacenRestringidoTest {
         assertTrue(restringido.buscar("").contains(coldplay1));
         assertTrue(restringido.buscar("").contains(winehouse));
         assertEquals(restringido.buscar("").size(), 2);
+    }
+    
+    /**
+     * test que comprueba la busqueda de un elemento con espacios antes y despues
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void buscarConEspaciosTest() throws ExcepcionAlmacen {
+        restringido.agregarContenido(coldplay1);
+        assertFalse(restringido.buscar(" Sound ").isEmpty());
+        assertTrue(restringido.buscar(" Sound ").contains(coldplay1));
+        assertEquals(restringido.buscar(" Sound ").size(), 1);
+    }
+    
+    /**
+     * test que comprueba la busqueda de un elemento con palabras desordenadas
+     * @throws ExcepcionAlmacen 
+     */
+    @Test
+    public void buscarPalabrasDesordenadasTest() throws ExcepcionAlmacen {
+        restringido.agregarContenido(coldplay1);
+        assertFalse(restringido.buscar(" Sound Speed ").isEmpty());
+        assertTrue(restringido.buscar(" Sound Speed ").contains(coldplay1));
+        assertEquals(restringido.buscar(" Sound Speed ").size(), 1);
     }
     
     /**

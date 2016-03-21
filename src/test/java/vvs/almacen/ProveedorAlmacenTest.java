@@ -59,8 +59,7 @@ public class ProveedorAlmacenTest {
       	otra = Mockito.mock(ArchivoAudio.class);
       	Mockito.when(otra.obtenerTitulo()).thenReturn("otra: cancion");
       	Mockito.when(otra.buscar(Mockito.anyString())).thenCallRealMethod();
-      	
-
+        
         /*Anadimos  winehouse1 y  winehouse2 */
         almacenRestringido.agregarContenido(winehouse1);
         almacenRestringido.agregarContenido(winehouse2);
@@ -70,16 +69,21 @@ public class ProveedorAlmacenTest {
     }
 
     /**
-     * Establecemos el proveedor y para comprobar su funcionamiento obtenemos el
-     * proveedor.
+     * Test que comprueba el correcto funcionamiento de obtenerProveedor
      */
     @Test
-    public void EstablecerYObtenerProveedorTest() {
-        /* Establecemos el por defecto y lo comprobamos obteniendo proveedor*/
+    public void ObtenerProveedorTest() {
         Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
         assertEquals(almacenRestringido, proveedor.obtenerProveedor());
-        assertNotSame(almacenReal, proveedor.obtenerProveedor());
-
+    }
+    
+    /**
+     * Test que comprueba el correcto funcionamiento de establecerProveedor
+     */
+    @Test
+    public void establecerProveedorTest() {
+        Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
+                
         /*Creamos un almacen nuevo y establecemos al proveedor anterior el nuevo proveedor*/
         Almacen nuevoReal = new AlmacenReal("nuevo");
         proveedor.establecerProveedor(nuevoReal);
@@ -87,8 +91,7 @@ public class ProveedorAlmacenTest {
         assertFalse(almacenRestringido.equals(proveedor.obtenerProveedor()));
         assertTrue(nuevoReal.equals(proveedor.obtenerProveedor()));
         assertNotSame(almacenReal, proveedor.obtenerProveedor());
-
-    }
+    } 
 
     /**
      * Probar obtener proveedor con almacenes que no estan decorados como
@@ -99,41 +102,75 @@ public class ProveedorAlmacenTest {
         almacenReal.establecerProveedor(almacenRestringido);
         assertNull(almacenReal.obtenerProveedor());
     }
-
+    
     /**
-     * Buscamos test cuando se establece
+     * test que comprueba la busqueda de contenido que no esta en el almacenReal
+     * @throws vvs.almacen.ExcepcionAlmacen
      */
     @Test
-    public void BuscarTest() {
+    public void buscarNoContenidoTest() throws ExcepcionAlmacen {
+        
         boolean excepcion = false;
         Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
+        
         try {
             /* Son los contenidos que almacen real no tiene*/
             assertFalse(proveedor.obtenerContenidos().contains(winehouse1)); //busca en su almacen
             assertFalse(proveedor.obtenerContenidos().contains(winehouse1)); //busca en su almacen
             assertFalse(proveedor.buscar("Speed").contains(otra)); //busca en su almacen
 
+        } catch (ExcepcionAlmacen ex) {
+            System.out.println("EXCEPCION: " + ex.getMessage());
+            excepcion = true;
+        }
+        assertFalse(excepcion);
+    }
+    
+     /**
+     * Test que comprueba el correcto funcionamiento de la busqueda de contenido
+     * cuando si está en el almacenReal
+     * @throws vvs.almacen.ExcepcionAlmacen
+     */
+    @Test
+    public void buscarEnAlmacenRealTest() throws ExcepcionAlmacen {
+        
+        boolean excepcion = false;
+                
+        Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
+        
+        try {
             /*Buscamos un contenido que el almacen tiene por lo tanto no debe de buscar en su proveedor*/
             assertTrue(proveedor.buscar("Speed").contains(coldplay2)); //almacen
             assertEquals(1, proveedor.buscar("Speed").size()); //busca en su almacen
             almacenRestringido.agregarContenido(otra);//busca en su almacen
             assertEquals(1, proveedor.buscar("Speed").size()); //coldplay2
 
+        } catch (ExcepcionAlmacen ex) {
+            System.out.println("EXCEPCION: " + ex.getMessage());
+            excepcion = true;
+        }
+        assertFalse(excepcion);
+    }
+    
+     /**
+     * Test que comprueba el correcto funcionamiento de la busqueda cuando buscamos
+     * contenido que esta en el proveedor
+     * @throws vvs.almacen.ExcepcionAlmacen
+     */
+    @Test
+    public void buscarEnProveedorTest() throws ExcepcionAlmacen {
+        
+        boolean excepcion = false;
+                
+        Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
+        
+        try {
+            
             /* Ahora vamos a buscar un contenido que no dispone pero si su proveedor restringido 
              3 veces, mas no buscamos porque no queremos que nos mande la excepcion*/
             assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
             assertTrue(proveedor.buscar("amy").contains(winehouse2)); //busca en su proveedor 2
             assertEquals(2, proveedor.buscar("amy").size()); //winehouse1 y winehouse2 //busca en su proveedor 3
-
-            /* Cambiamos de proveedor y verificamos que ahora no encuentra AMY y encuentra otra*/
-            Almacen nuevo = new AlmacenReal("nuevo");
-            nuevo.agregarContenido(otra);
-            proveedor.establecerProveedor(nuevo);
-            assertTrue(proveedor.buscar("Speed").contains(coldplay2));  //busca en almacen
-            assertFalse(proveedor.buscar("amy").contains(winehouse1)); //busca en proveedor
-            assertFalse(proveedor.buscar("Speed").contains(otra)); //busca en almacen
-            assertFalse(proveedor.buscar("amy").contains(winehouse1)); //busca en almacen y proveedor
-            assertFalse(proveedor.buscar("amy").contains(winehouse2)); //busca en almacen y proveedor
 
         } catch (ExcepcionAlmacen ex) {
             System.out.println("EXCEPCION: " + ex.getMessage());
@@ -162,7 +199,7 @@ public class ProveedorAlmacenTest {
     
     /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen proveedor*/
     @Test(expected = ExcepcionAlmacen.class)
-    public void BuscarExceptionRestringidoProveedorTest() throws ExcepcionAlmacen {
+    public void buscarExceptionRestringidoProveedorTest() throws ExcepcionAlmacen {
         
         Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
                   
@@ -177,7 +214,7 @@ public class ProveedorAlmacenTest {
     
     /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen base*/
     @Test(expected = ExcepcionAlmacen.class)
-    public void BuscarExceptionRestringidoBaseTest() throws ExcepcionAlmacen {
+    public void buscarExceptionRestringidoBaseTest() throws ExcepcionAlmacen {
         
         Almacen proveedor = new ProveedorAlmacen(almacenRestringido, almacenReal);
                   
@@ -186,7 +223,17 @@ public class ProveedorAlmacenTest {
         assertTrue(proveedor.buscar("amy").contains(winehouse2)); //busca en su proveedor 2
         assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
         assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
-     
     }
-
+    
+    /*Comprobamos que la busqueda funciona cuando establecemos como proveedor 
+    un alamcen null*/
+    @Test
+    public void buscarProveedorNullTest() throws ExcepcionAlmacen {
+        
+        Almacen proveedor = new ProveedorAlmacen(almacenRestringido, null);
+        assertFalse(proveedor.buscar("coldplay").contains(coldplay2)); //busca en su proveedor 
+        
+        proveedor.establecerProveedor(null);                  
+        assertFalse(proveedor.buscar("coldplay").contains(coldplay2)); //busca en su proveedor 
+    }
 }
