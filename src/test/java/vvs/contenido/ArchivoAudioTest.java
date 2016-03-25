@@ -12,7 +12,7 @@ public class ArchivoAudioTest {
     /* Casos de que prueban la funcionalidad de busqueda sobre un contenido de tipo ArchivoAudio */
 
 	Contenido lavigne1 = new ArchivoAudio("Avril Lavigne: Girlfriend", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
-	Contenido lavigne2 = new ArchivoAudio("Avril Lavigne: I can do better", "http://servidor/alavigne/bestdamnthing/2", -197, "Punk pop");
+	Contenido lavigne2 = new ArchivoAudio("Avril Lavigne: I can do better", "http://servidor/alavigne/bestdamnthing/2", 197, "Punk pop");
 	Contenido eminem1 = new ArchivoAudio("Eminem", "http://servidor/alavigne/bestdamnthing/1", 216, "Rap");
 	
     @Test
@@ -87,8 +87,8 @@ public class ArchivoAudioTest {
 		assertEquals(216, lavigne1.obtenerDuracion());
 	}
     
-	@Test
+	@Test(expected =ExcepcionContenido.class)
 	public void ObtenerDuracionNegativaTest(){
-		assertEquals(-197, lavigne2.obtenerDuracion());
+		new ArchivoAudio("Avril Lavigne: I can do better", "http://servidor/alavigne/bestdamnthing/2", -197, "Punk pop");
 	}
 }
