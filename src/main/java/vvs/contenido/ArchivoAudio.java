@@ -24,11 +24,16 @@ public class ArchivoAudio extends ArchivoSimple {
      * @param duracion duración del contenido en segundos
      * @param genero clasificación de género del contenido
      */
-    public ArchivoAudio(String titulo, String URL, int duracion, String genero) {
+    public ArchivoAudio(String titulo, String URL, int duracion, String genero)
+	throws ExcepcionContenido {
         super(titulo);
-        _URL = URL;
-        _duracion = duracion;
-        _genero = genero;
+	if (duracion >= 0) {
+	    _URL = URL;
+	    _duracion = duracion;
+	    _genero = genero;
+	} else {
+	    throw new ExcepcionContenido("Duración imposible.");
+	}
     }
 
     /**
