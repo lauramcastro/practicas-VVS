@@ -1,5 +1,6 @@
 package vvs.contenido;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,11 +10,18 @@ import java.util.Collection;
 
 public class ArchivoAudioTest {
 
+	Contenido lavigne1;
+	Contenido lavigne2;
+	Contenido eminem1;
+	
     /* Casos de que prueban la funcionalidad de busqueda sobre un contenido de tipo ArchivoAudio */
-
-	Contenido lavigne1 = new ArchivoAudio("Avril Lavigne: Girlfriend", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
-	Contenido lavigne2 = new ArchivoAudio("Avril Lavigne: I can do better", "http://servidor/alavigne/bestdamnthing/2", 197, "Punk pop");
-	Contenido eminem1 = new ArchivoAudio("Eminem", "http://servidor/alavigne/bestdamnthing/1", 216, "Rap");
+	
+	@Before
+	public void initialize() throws ExcepcionContenido{
+		lavigne1 = new ArchivoAudio("Avril Lavigne: Girlfriend", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
+		lavigne2 = new ArchivoAudio("Avril Lavigne: I can do better", "http://servidor/alavigne/bestdamnthing/2", 197, "Punk pop");
+		eminem1 = new ArchivoAudio("Eminem", "http://servidor/alavigne/bestdamnthing/1", 216, "Rap");
+	}
 	
     @Test
     public void buscarPorVariasPalabrasTest() {
@@ -88,7 +96,7 @@ public class ArchivoAudioTest {
 	}
     
 	@Test(expected =ExcepcionContenido.class)
-	public void ObtenerDuracionNegativaTest(){
+	public void ObtenerDuracionNegativaTest() throws ExcepcionContenido{
 		new ArchivoAudio("Avril Lavigne: I can do better", "http://servidor/alavigne/bestdamnthing/2", -197, "Punk pop");
 	}
 }

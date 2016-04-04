@@ -1,5 +1,6 @@
 package vvs.contenido;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -8,8 +9,13 @@ import java.util.Iterator;
 
 public class BonusTest {
 
-    private Bonus bonus = new Bonus(new ArchivoAudio("titulo", "URLAudio", 5, "genero"), new ArchivoAudio("titulo2", "URLAudio2", 5, "genero2"));
+    private Bonus bonus; 
 
+    @Before
+	public void initialize() throws ExcepcionContenido{
+    	bonus = new Bonus(new ArchivoAudio("titulo", "URLAudio", 5, "genero"), new ArchivoAudio("titulo2", "URLAudio2", 5, "genero2"));
+	}
+    
     @Test
     public void obtenerTituloTest() {
         assertEquals(bonus.obtenerTitulo(), "titulo con bonus (titulo2)");
