@@ -1,5 +1,6 @@
 package vvs.contenido;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,8 +19,15 @@ import java.util.Iterator;
  * @author Elías
  */
 public class ComplementoArchivoTest {
-    private ArchivoAudio archivo = new ArchivoAudio("titulo", "URLAudio", 5, "genero");
-    private Promocion promocion = new Promocion(archivo, "URLPromocion");
+    private ArchivoAudio archivo;
+    private Promocion promocion;
+    
+    @Before
+	public void initialize() throws ExcepcionContenido{
+    	archivo = new ArchivoAudio("titulo", "URLAudio", 5, "genero");
+        promocion = new Promocion(archivo, "URLPromocion");
+	}
+    
     
     @Test
     public void buscarTest(){

@@ -5,15 +5,25 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ColeccionTest {
 
-	private Coleccion coleccionCorrecta = new Coleccion("Eminem");
-	private ArchivoAudio eminem1 = new ArchivoAudio("Lose Yourself", "url", 10, "Rap");
-	private ArchivoAudio eminem2 = new ArchivoAudio("Mockingbird", "url2", 8, "Rap");
-	private ArchivoAudio eminem3 = new ArchivoAudio("Rapgod", "url3", 9, "Rap");
-	private ArchivoAudio eminem4 = new ArchivoAudio("8 Mile", "url4", 11, "Rap");
+	private Coleccion coleccionCorrecta;
+	private ArchivoAudio eminem1;
+	private ArchivoAudio eminem2;
+	private ArchivoAudio eminem3;
+	private ArchivoAudio eminem4;
+	
+	@Before
+	public void initialize() throws ExcepcionContenido{
+		coleccionCorrecta = new Coleccion("Eminem");
+		eminem1 = new ArchivoAudio("Lose Yourself", "url", 10, "Rap");
+		eminem2 = new ArchivoAudio("Mockingbird", "url2", 8, "Rap");
+		eminem3 = new ArchivoAudio("Rapgod", "url3", 9, "Rap");
+		eminem4 = new ArchivoAudio("8 Mile", "url4", 11, "Rap");
+	}
 	
 	@Test
 	public void obtenerDuracionTest(){

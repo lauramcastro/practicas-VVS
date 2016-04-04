@@ -1,5 +1,6 @@
 package vvs.contenido;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -9,8 +10,13 @@ import java.util.List;
 
 public class PromocionTest {
 
-    private Promocion promocion = new Promocion(new ArchivoAudio("titulo", "URLAudio", 5, "genero"), "URLPromocion");
+    private Promocion promocion;
 
+    @Before
+   	public void initialize() throws ExcepcionContenido{
+    	promocion = new Promocion(new ArchivoAudio("titulo", "URLAudio", 5, "genero"), "URLPromocion");
+   	}
+    
     @Test
     public void obtenerTituloTest() {
         assertEquals(promocion.obtenerTitulo(), "titulo con promoción");
