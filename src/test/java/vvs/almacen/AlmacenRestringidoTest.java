@@ -215,7 +215,7 @@ public class AlmacenRestringidoTest {
      * @throws ExcepcionAlmacen 
      */
     @Test
-    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen {
+    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, vvs.contenido.ExcepcionContenido {
         int size = 0;
         boolean excepcion = false;
 
