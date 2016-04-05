@@ -1,47 +1,107 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
   <modelVersion>4.0.0</modelVersion>
+  
   <groupId>vvs</groupId>
-  <artifactId>SpotiVVSy</artifactId>
-  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>SpotiVVSy</name>
-  <url>http://maven.apache.org</url>
+  <artifactId>SpotiVVSy</artifactId>
+  <name>VVS 2015-2016: SpotiVVSy</name>
+  <url>http://github.com/lauramcastro/practicas-VVS</url>
+  
   <properties>
+    <graphwalker.version>3.3.0</graphwalker.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+  
   <dependencies>
+    <dependency>
+      <groupId>org.graphwalker</groupId>
+      <artifactId>graphwalker-core</artifactId>
+      <version>${graphwalker.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.graphwalker</groupId>
+      <artifactId>graphwalker-io</artifactId>
+      <version>${graphwalker.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.graphwalker</groupId>
+      <artifactId>graphwalker-java</artifactId>
+      <version>${graphwalker.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.graphwalker</groupId>
+      <artifactId>graphwalker-maven-plugin</artifactId>
+      <version>${graphwalker.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.7</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.1.2</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>2.0.43-beta</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
+  
+  <build>      
     <plugins>
+      <plugin>
+        <groupId>org.graphwalker</groupId>
+        <artifactId>graphwalker-maven-plugin</artifactId>
+        <version>${graphwalker.version}</version>
+        <executions>
+          <execution>
+            <id>generate-test-sources</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>generate-test-sources</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
       <plugin>
 	<artifactId>maven-clean-plugin</artifactId>
 	<version>3.0.0</version>
 	<configuration>
 	  <filesets>
             <fileset>
-              <directory>.</directory>
-              <includes>
+	      <directory>.</directory>
+	      <includes>
 		<include>**/*~</include>
 		<include>*.log*</include>
-              </includes>
-              <followSymlinks>false</followSymlinks>
+	      </includes>
+	      <followSymlinks>false</followSymlinks>
             </fileset>
 	  </filesets>
 	</configuration>
       </plugin>
+      
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>cobertura-maven-plugin</artifactId>
@@ -49,8 +109,8 @@
         <configuration>
           <instrumentation>
             <excludes>
-              <exclude>vvs/almacen/Almacen.class</exclude>
-              <exclude>vvs/contenido/Contenido.class</exclude>
+	      <exclude>vvs/almacen/Almacen.class</exclude>
+	      <exclude>vvs/contenido/Contenido.class</exclude>
             </excludes>
           </instrumentation>
 	  <formats>
@@ -61,13 +121,14 @@
         <executions>
           <execution>
             <goals>
-              <goal>clean</goal>
+	      <goal>clean</goal>
             </goals>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
+    
   <reporting>
     <plugins>
       <plugin>
@@ -82,7 +143,7 @@
 	<configuration>
           <coberturaReports>
             <coberturaReport>
-              ${basedir}/target/site/cobertura/coverage.xml
+	      ${basedir}/target/site/cobertura/coverage.xml
             </coberturaReport>
           </coberturaReports>
           <sourceEncoding>UTF-8</sourceEncoding>
@@ -90,6 +151,7 @@
           <serviceJobId>${env.TRAVIS_JOB_ID} </serviceJobId>
         </configuration>
       </plugin>
-    </plugins>
+    </plugins>  
   </reporting>
+  
 </project>
