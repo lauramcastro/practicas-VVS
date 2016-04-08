@@ -156,6 +156,15 @@
           <serviceJobId>${env.TRAVIS_JOB_ID} </serviceJobId>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.3</version>
+	<configuration>
+	  <threshold>Max</threshold>
+	</configuration>  
+      </plugin>
+      
     </plugins>  
   </reporting>
   
