@@ -101,7 +101,7 @@ public class AlmacenReal implements Almacen {
         Collection<Contenido> resultado = new ArrayList<Contenido>();
         Iterator<Contenido> contenidos = _contenidos.iterator();
         while (contenidos.hasNext()) {
-            resultado.addAll((contenidos.next()).buscar(subcadena));
+            resultado.addAll(contenidos.next().buscar(subcadena));
         }
         return resultado;
     }

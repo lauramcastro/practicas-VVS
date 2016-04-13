@@ -1,6 +1,5 @@
 package vvs.contenido;
 
-import java.lang.RuntimeException;
 import java.util.ArrayList;
 import java.util.Collection;
 

@@ -133,6 +133,16 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
     }
 
     /**
+     * Es una buena práctica redefinir el método <code>hashCode</code>
+     * cuando se redefine el método <code>equals</code>.
+     *
+     * @return código hash para el objeto
+     */
+    public int hashCode() { 
+	return 29 * _archivo.hashCode();
+    }
+
+    /**
      * Método de gestión de la composición (enlace al padre) que permite
      * establecer el padre (compuesto: colección) de un elemento
      * (componente: contenido). Su visibilidad es protegida porque sólo

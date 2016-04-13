@@ -83,6 +83,19 @@ public class ArchivoAudio extends ArchivoSimple {
     	}
     }
 
+    /**
+     * Es una buena práctica redefinir el método <code>hashCode</code>
+     * cuando se redefine el método <code>equals</code>.
+     *
+     * @return código hash para el objeto
+     */
+    public int hashCode() { 
+	int hash = 1;
+	hash = hash * 31 + _URL.hashCode();
+	hash = hash * 31 + _genero.hashCode();
+	return hash;
+    }
+
     // ========== atributos privados ==========
 
     /**

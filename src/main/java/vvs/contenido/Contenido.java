@@ -17,21 +17,21 @@ public interface Contenido {
      *
      * @return título del contenido
      */
-    public String obtenerTitulo();
+    String obtenerTitulo();
 
     /**
      * Obtiene la duración del contenido (expresada en segundos).
      *
      * @return segundos que dura la reproducción del contenido
      */
-    public int obtenerDuracion();
+    int obtenerDuracion();
 
     /**
      * Obtiene la clasificación de género del contenido.
      *
      * @return género del contenido
      */
-    public String obtenerGenero();
+    String obtenerGenero();
 
     /**
      * Recupera la lista ordenada de URLs (cadenas de texto) que
@@ -39,7 +39,7 @@ public interface Contenido {
      *
      * @return lista ordenada de URLs (cadenas de texto)
      */
-    public Collection<String> obtenerListaReproduccion();
+    Collection<String> obtenerListaReproduccion();
 
     /**
      * Comprueba si una cadena de texto proporcionada forma parte del
@@ -51,7 +51,7 @@ public interface Contenido {
      * @return lista de contenidos que contienen en su título la
      *         cadena buscada
      */
-    public Collection<Contenido> buscar(String subcadena);
+    Collection<Contenido> buscar(String subcadena);
 
     /**
      * Método de gestión de la composición de contenidos que permite
@@ -61,7 +61,7 @@ public interface Contenido {
      * @param predecesor Contenido que precede en orden a aquél que se va
      *                   a agregar
      */
-    public void agregar(Contenido contenido, Contenido predecesor);
+    void agregar(Contenido contenido, Contenido predecesor);
 
     /**
      * Método de gestión de la composición de contenidos que permite
@@ -69,7 +69,7 @@ public interface Contenido {
      *
      * @param contenido Contenido a eliminar
      */
-    public void eliminar(Contenido contenido);
+    void eliminar(Contenido contenido);
 
     /**
      * Método de gestión de la composición de contenidos que permite
@@ -79,7 +79,7 @@ public interface Contenido {
      * @return Contenido que ocupa la enésima posición de orden en la
      *         agregación de contenidos.
      */
-    public Contenido recuperar(int n);
+    Contenido recuperar(int n);
 
     /**
      * Método de gestión de la composición (enlace al padre) que permite
@@ -89,6 +89,6 @@ public interface Contenido {
      * @return Componente que agrega al contenido sobre el que se invoca
      *         este método (<code>null</code> en caso de no existir).
      */
-    public Contenido obtenerPadre();
+    Contenido obtenerPadre();
 
 }

@@ -42,7 +42,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
         Collection<Contenido> resultado = super.buscar(subcadena);
-        if ((resultado.isEmpty()) && (obtenerProveedor()!= null)) {
+        if (resultado.isEmpty() && obtenerProveedor()!= null) {
             resultado = obtenerProveedor().buscar(subcadena);
         }
         return resultado;

@@ -74,7 +74,7 @@ public class ArchivoAudioTest {
 
     @Test
     public void busquedasAleatorias() {
-	// Classification c = new Classification();
+	Classification c = new Classification();
 	for (ArchivoAudio contenido : Iterables.toIterable(new GeneradorArchivoAudio())) {
 	    for (String cadena : Iterables.toIterable(PrimitiveGenerators.strings())) {
 		// System.out.println("[busquedasAleatorias] ===> " + cadena + " ? " + contenido);

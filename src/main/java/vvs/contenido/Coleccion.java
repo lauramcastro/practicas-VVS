@@ -63,21 +63,6 @@ public class Coleccion extends ContenidoAbstracto {
     }
 
     /**
-     * Comprueba si una cadena de texto proporcionada forma parte de
-     * alguno de los títulos de sus contenidos. El resultado que se devuelve
-     * es una lista a la que se habrán añadido (recursivamente) los contenidos
-     * que cumplen el criterio de búsqueda, así como la propia colección
-     * si su título también la cumple.
-     *
-     * @param subcadena criterio de búsqueda
-     * @return lista de contenidos que contienen en su título la
-     *         cadena buscada
-     */
-    public Collection<Contenido> buscar(String subcadena) {
-        return super.buscar(subcadena);
-    }
-
-    /**
      * Método de gestión de la composición de contenidos que permite
      * agregar un nuevo contenido ordenado.
      *
@@ -92,7 +77,7 @@ public class Coleccion extends ContenidoAbstracto {
         ((ContenidoAbstracto) contenido).establecerPadre(this);
         if (predecesor != null) {
 	    int i = 0;
-	    while ((i<_contenidos.size()) && !(((ContenidoAbstracto) recuperar(i)).equals(predecesor))) {
+	    while (i<_contenidos.size() && !((ContenidoAbstracto) recuperar(i)).equals(predecesor)) {
 		i++;
             }
 	    if (i == _contenidos.size()) {
