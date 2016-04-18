@@ -21,7 +21,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      * @param almacen almacén a decorar
      */
     public ComplementoAlmacen(Almacen almacen) {
-        _almacen = almacen;
+        this.almacen = almacen;
     }
 
     /**
@@ -30,7 +30,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      * @return nombre del almacén
      */
     public String obtenerNombre() {
-        return _almacen.obtenerNombre();
+        return this.almacen.obtenerNombre();
     }
 
     /**
@@ -39,7 +39,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      * @return lista de contenidos manejados
      */
     public Collection<Contenido> obtenerContenidos() {
-        return _almacen.obtenerContenidos();
+        return this.almacen.obtenerContenidos();
     }
 
     /**
@@ -52,7 +52,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      */
     public void agregarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-        _almacen.agregarContenido(contenido);
+        this.almacen.agregarContenido(contenido);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      */
     public void eliminarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-        _almacen.eliminarContenido(contenido);
+        this.almacen.eliminarContenido(contenido);
     }
 
     /**
@@ -79,7 +79,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      */
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
-        return _almacen.buscar(subcadena);
+        return this.almacen.buscar(subcadena);
     }
 
     /**
@@ -88,7 +88,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      * @return el almacén que es proveedor de este almacén
      */
     public Almacen obtenerProveedor() {
-        return _almacen.obtenerProveedor();
+        return this.almacen.obtenerProveedor();
     }
 
     /**
@@ -98,7 +98,7 @@ public abstract class ComplementoAlmacen implements Almacen {
      * @param almacen el almacén proveedor
      */
     public void establecerProveedor(Almacen almacen) {
-        _almacen.establecerProveedor(almacen);
+        this.almacen.establecerProveedor(almacen);
     }
 
     // ========== atributos privados ==========
@@ -106,6 +106,6 @@ public abstract class ComplementoAlmacen implements Almacen {
     /**
      * Almacén que se decora.
      */
-    private Almacen _almacen;
+    private Almacen almacen;
 
 }

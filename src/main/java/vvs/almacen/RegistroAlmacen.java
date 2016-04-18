@@ -27,17 +27,20 @@ public class RegistroAlmacen extends ComplementoAlmacen {
      */
     public RegistroAlmacen(Almacen almacen) {
         super(almacen);
-	try {
-	    FileHandler handler = new FileHandler(obtenerNombre() + "-" + new Date(System.currentTimeMillis()) + ".log");
-	    _logger = Logger.getLogger(RegistroAlmacen.class.getName());
-	    _logger.addHandler(handler);
-	    handler.setFormatter(new SimpleFormatter());
-	    handler.setLevel(Level.ALL);
-	    _logger.setLevel(Level.ALL);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-        _logger.log(Level.INFO, "--- Log started ---");
+        try {
+            FileHandler handler = new FileHandler(obtenerNombre()
+                                                  + "-"
+                                                  + new Date(System.currentTimeMillis())
+                                                  + ".log");
+            this.logger = Logger.getLogger(RegistroAlmacen.class.getName());
+            this.logger.addHandler(handler);
+            handler.setFormatter(new SimpleFormatter());
+            handler.setLevel(Level.ALL);
+            this.logger.setLevel(Level.ALL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.logger.log(Level.INFO, "--- Log started ---");
     }
 
     /**
@@ -53,17 +56,17 @@ public class RegistroAlmacen extends ComplementoAlmacen {
      */
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
-	_logger.log(Level.INFO, "Buscado {0} en almacen {1}",
-		    new Object[]{subcadena, obtenerNombre()});
-	try {
-	    Collection<Contenido> resultado = super.buscar(subcadena);
-	    _logger.log(Level.INFO, "Encontradas {0} coincidencias",
-			new Object[]{resultado.size()});
-	    return resultado;
-	} catch (ExcepcionAlmacen e) {
-	    _logger.log(Level.SEVERE, e.getMessage());
-	    throw e;
-	}
+        this.logger.log(Level.INFO, "Buscado {0} en almacen {1}",
+                    new Object[]{subcadena, obtenerNombre()});
+        try {
+            Collection<Contenido> resultado = super.buscar(subcadena);
+            this.logger.log(Level.INFO, "Encontradas {0} coincidencias",
+                        new Object[]{resultado.size()});
+            return resultado;
+        } catch (ExcepcionAlmacen e) {
+            this.logger.log(Level.SEVERE, e.getMessage());
+            throw e;
+        }
     }
 
     // ========== atributos privados ==========
@@ -71,6 +74,6 @@ public class RegistroAlmacen extends ComplementoAlmacen {
     /**
      * Manejador de log.
      */
-    private Logger _logger;
+    private Logger logger;
 
 }

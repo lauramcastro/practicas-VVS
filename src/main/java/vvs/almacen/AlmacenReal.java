@@ -24,8 +24,8 @@ public class AlmacenReal implements Almacen {
      * @param nombre nombre del almacén
      */
     public AlmacenReal(String nombre) {
-        _nombre = nombre;
-        _contenidos = new ArrayList<Contenido>();
+        this.nombre = nombre;
+        this.contenidos = new ArrayList<Contenido>();
     }
 
     /**
@@ -34,7 +34,7 @@ public class AlmacenReal implements Almacen {
      * @return nombre del almacén
      */
     public String obtenerNombre() {
-        return _nombre;
+        return this.nombre;
     }
 
     /**
@@ -43,7 +43,7 @@ public class AlmacenReal implements Almacen {
      * @return lista de contenidos manejados
      */
     public Collection<Contenido> obtenerContenidos() {
-        return _contenidos;
+        return this.contenidos;
     }
 
     /**
@@ -56,14 +56,14 @@ public class AlmacenReal implements Almacen {
      */
     public void agregarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-	if (contenido != null) {
-	    if (!_contenidos.contains(contenido)) {
-		_contenidos.add(contenido);
-	    } else {
-		throw new ExcepcionAlmacen("Contenido duplicado.");
-	    }
-	} else {
-	    throw new ExcepcionAlmacen("Contenido inválido.");
+        if (contenido != null) {
+            if (!this.contenidos.contains(contenido)) {
+                this.contenidos.add(contenido);
+            } else {
+                throw new ExcepcionAlmacen("Contenido duplicado.");
+            }
+        } else {
+            throw new ExcepcionAlmacen("Contenido inválido.");
         }
     }
 
@@ -78,8 +78,8 @@ public class AlmacenReal implements Almacen {
      */
     public void eliminarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-        if (_contenidos.contains(contenido)) {
-            _contenidos.remove(contenido);
+        if (this.contenidos.contains(contenido)) {
+            this.contenidos.remove(contenido);
         } else {
             throw new ExcepcionAlmacen("Contenido inexistente.");
         }
@@ -99,9 +99,9 @@ public class AlmacenReal implements Almacen {
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
         Collection<Contenido> resultado = new ArrayList<Contenido>();
-        Iterator<Contenido> contenidos = _contenidos.iterator();
-        while (contenidos.hasNext()) {
-            resultado.addAll(contenidos.next().buscar(subcadena));
+        Iterator<Contenido> iteradorContenidos = this.contenidos.iterator();
+        while (iteradorContenidos.hasNext()) {
+            resultado.addAll(iteradorContenidos.next().buscar(subcadena));
         }
         return resultado;
     }
@@ -129,11 +129,11 @@ public class AlmacenReal implements Almacen {
     /**
      * Nombre del almacén.
      */
-    private String _nombre;
+    private String nombre;
 
     /**
      * Lista de contenidos conocidos por el almacén.
      */
-    private Collection<Contenido> _contenidos;
+    private Collection<Contenido> contenidos;
 
 }

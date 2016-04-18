@@ -19,7 +19,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      */
     public ComplementoArchivo(ArchivoSimple archivo) {
         super("");
-        _archivo = archivo;
+        this.archivo = archivo;
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      * @return título del contenido
      */
     public String obtenerTitulo() {
-        return _archivo.obtenerTitulo();
+        return this.archivo.obtenerTitulo();
     }
 
     /**
@@ -37,7 +37,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      * @return segundos que dura la reproducción del contenido
      */
     public int obtenerDuracion() {
-    	return _archivo.obtenerDuracion();
+        return this.archivo.obtenerDuracion();
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      * @return género del contenido
      */
     public String obtenerGenero() {
-        return _archivo.obtenerGenero();
+        return this.archivo.obtenerGenero();
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      * @return lista ordenada de URLs (cadenas de texto)
      */
     public Collection<String> obtenerListaReproduccion() {
-        return _archivo.obtenerListaReproduccion();
+        return this.archivo.obtenerListaReproduccion();
     }
 
     /**
@@ -70,8 +70,8 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      *         cadena buscada
      */
     public Collection<Contenido> buscar(String subcadena) {
-    	Collection<Contenido> resultado = _archivo.buscar(subcadena);
-    	return mantenerIntegridad(resultado);
+        Collection<Contenido> resultado = this.archivo.buscar(subcadena);
+        return mantenerIntegridad(resultado);
     }
 
     /**
@@ -83,7 +83,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      *                   a agregar
      */
     public void agregar(Contenido contenido, Contenido predecesor) {
-    	_archivo.agregar(contenido, predecesor);
+        this.archivo.agregar(contenido, predecesor);
     }
 
     /**
@@ -93,7 +93,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      * @param contenido Contenido a eliminar
      */
     public void eliminar(Contenido contenido) {
-    	_archivo.eliminar(contenido);
+        this.archivo.eliminar(contenido);
     }
 
     /**
@@ -105,19 +105,19 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      *         agregación de contenidos.
      */
     public Contenido recuperar(int n) {
-    	return _archivo.recuperar(n);
+        return this.archivo.recuperar(n);
     }
 
     /**
      * Método de gestión de la composición (enlace al padre) que permite
      * recuperar el padre (compuesto: colección) de un elemento
-     * (componente: contenido)
+     * (componente: contenido).
      *
      * @return Componente que agrega al contenido sobre el que se invoca
      *         este método (<code>null</code> en caso de no existir).
      */
     public Contenido obtenerPadre() {
-    	return _archivo.obtenerPadre();
+        return this.archivo.obtenerPadre();
     }
 
     /**
@@ -129,7 +129,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      * @return igualdad entre los objetos comparados
      */
     public boolean equals(Object object) {
-    	return _archivo.equals(object);
+        return this.archivo.equals(object);
     }
 
     /**
@@ -138,8 +138,8 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      *
      * @return código hash para el objeto
      */
-    public int hashCode() { 
-	return 29 * _archivo.hashCode();
+    public int hashCode() {
+        return 29 * this.archivo.hashCode();
     }
 
     /**
@@ -152,7 +152,7 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      *              este método (<code>null</code> en caso de no existir).
      */
     protected void establecerPadre(Contenido padre) {
-    	_archivo.establecerPadre(padre);
+        this.archivo.establecerPadre(padre);
     }
 
     /**
@@ -166,11 +166,11 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
      *         el objeto decorador
      */
     private Collection<Contenido> mantenerIntegridad(Collection<Contenido> resultado) {
-    	if (resultado.contains(_archivo)) {
-	    resultado.remove(_archivo);
-	    resultado.add(this);
-    	}
-    	return resultado;
+        if (resultado.contains(this.archivo)) {
+            resultado.remove(this.archivo);
+            resultado.add(this);
+        }
+        return resultado;
     }
 
     // ========== atributos privados ==========
@@ -178,6 +178,6 @@ public abstract class ComplementoArchivo extends ArchivoSimple {
     /**
      * Objeto decorado.
      */
-    private ArchivoSimple _archivo;
+    private ArchivoSimple archivo;
 
 }

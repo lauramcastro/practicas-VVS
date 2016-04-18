@@ -20,8 +20,8 @@ public abstract class ContenidoAbstracto implements Contenido {
      * @param titulo el título del contenido
      */
     public ContenidoAbstracto(String titulo) {
-	_titulo = titulo;
-	_padre = null;
+        this.titulo = titulo;
+        this.padre = null;
     }
 
     /**
@@ -30,7 +30,7 @@ public abstract class ContenidoAbstracto implements Contenido {
      * @return título del contenido
      */
     public String obtenerTitulo() {
-        return _titulo;
+        return this.titulo;
     }
 
     /**
@@ -45,15 +45,15 @@ public abstract class ContenidoAbstracto implements Contenido {
      */
     public Collection<Contenido> buscar(String subcadena) {
         Collection<Contenido> resultado = new ArrayList<Contenido>();
-	String[] tokens = subcadena.toLowerCase().trim().split(" ");
-	String   titulo = obtenerTitulo().toLowerCase();
-	for (int i = 0 ; i < tokens.length ; i++) {
-	    if (! titulo.contains(tokens[i])) {
-		return resultado;
-	    }
-	}
-	resultado.add(this);
-	return resultado;
+        String[] tokens = subcadena.toLowerCase().trim().split(" ");
+        String   titulo = obtenerTitulo().toLowerCase();
+        for (int i = 0; i < tokens.length; i++) {
+            if (!titulo.contains(tokens[i])) {
+                return resultado;
+            }
+        }
+        resultado.add(this);
+        return resultado;
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class ContenidoAbstracto implements Contenido {
      *                   a agregar
      */
     public void agregar(Contenido contenido, Contenido predecesor) {
-    	throw new RuntimeException("El contenido " + this + " no aloja otros contenidos.");
+        throw new RuntimeException("El contenido " + this + " no aloja otros contenidos.");
     }
 
     /**
@@ -93,13 +93,13 @@ public abstract class ContenidoAbstracto implements Contenido {
     /**
      * Método de gestión de la composición (enlace al padre) que permite
      * recuperar el padre (compuesto: colección) de un elemento
-     * (componente: contenido)
+     * (componente: contenido).
      *
      * @return Componente que agrega al contenido sobre el que se invoca
      *         este método (<code>null</code> en caso de no existir).
      */
     public Contenido obtenerPadre() {
-        return _padre;
+        return this.padre;
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class ContenidoAbstracto implements Contenido {
      *              este método (<code>null</code> en caso de no existir).
      */
     protected void establecerPadre(Contenido padre) {
-    	_padre = padre;
+        this.padre = padre;
     }
 
     /**
@@ -130,10 +130,10 @@ public abstract class ContenidoAbstracto implements Contenido {
     /**
      * Título del contenido.
      */
-    private String _titulo;
+    private String titulo;
     /**
      * Contenido que agrega este contenido.
      */
-    private Contenido _padre;
+    private Contenido padre;
 
 }

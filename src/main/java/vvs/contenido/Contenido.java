@@ -84,7 +84,7 @@ public interface Contenido {
     /**
      * Método de gestión de la composición (enlace al padre) que permite
      * recuperar el padre (compuesto: colección) de un elemento
-     * (componente: contenido)
+     * (componente: contenido).
      *
      * @return Componente que agrega al contenido sobre el que se invoca
      *         este método (<code>null</code> en caso de no existir).

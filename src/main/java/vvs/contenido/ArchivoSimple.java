@@ -1,8 +1,9 @@
 package vvs.contenido;
 
 /**
- * Implementación abstracta de un contenido simple. Incluye las operaciones básicas
- * que serán comunes a todo tipo de contenidos simples concretos.
+ * Implementación abstracta de un contenido simple. Incluye las
+ * operaciones básicas que serán comunes a todo tipo de contenidos
+ * simples concretos.
  *
  * @author Carlos Abalde, Laura Castro, Javier París
  * @version 1.0

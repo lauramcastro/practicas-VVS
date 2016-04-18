@@ -15,25 +15,27 @@ import java.util.Collection;
 public class ArchivoAudio extends ArchivoSimple {
 
     /**
-     * Construye un contenido simple (archivo de audio), dotándole de un título y
-     * asignándole una URL donde reside físicamente, así como una duración en
-     *  segundos y un género.
+     * Construye un contenido simple (archivo de audio), dotándole de
+     * un título y asignándole una URL donde reside físicamente, así
+     * como una duración en segundos y un género.
      *
      * @param titulo el título del contenido
-     * @param URL cadena de texto representando una URL
+     * @param url cadena de texto representando una URL
      * @param duracion duración del contenido en segundos
      * @param genero clasificación de género del contenido
+     *
+     * @throws ExcepcionContenido si la duración es negativa
      */
-    public ArchivoAudio(String titulo, String URL, int duracion, String genero)
-	throws ExcepcionContenido {
+    public ArchivoAudio(String titulo, String url, int duracion, String genero)
+        throws ExcepcionContenido {
         super(titulo);
-	if (duracion >= 0) {
-	    _URL = URL;
-	    _duracion = duracion;
-	    _genero = genero;
-	} else {
-	    throw new ExcepcionContenido("Duración imposible.");
-	}
+        if (duracion >= 0) {
+            this.url = url;
+            this.duracion = duracion;
+            this.genero = genero;
+        } else {
+            throw new ExcepcionContenido("Duración imposible.");
+        }
     }
 
     /**
@@ -42,7 +44,7 @@ public class ArchivoAudio extends ArchivoSimple {
      * @return segundos que dura la reproducción del contenido
      */
     public int obtenerDuracion() {
-        return _duracion;
+        return this.duracion;
     }
 
     /**
@@ -51,7 +53,7 @@ public class ArchivoAudio extends ArchivoSimple {
      * @return género
      */
     public String obtenerGenero() {
-        return _genero;
+        return this.genero;
     }
 
     /**
@@ -61,8 +63,8 @@ public class ArchivoAudio extends ArchivoSimple {
      * @return lista ordenada de URLs (cadenas de texto)
      */
     public Collection<String> obtenerListaReproduccion() {
-        Collection <String> listaReproduccion = new ArrayList<String>();
-        listaReproduccion.add(_URL);
+        Collection<String> listaReproduccion = new ArrayList<String>();
+        listaReproduccion.add(this.url);
         return listaReproduccion;
     }
 
@@ -76,11 +78,11 @@ public class ArchivoAudio extends ArchivoSimple {
      * @return igualdad entre los objetos comparados
      */
     public boolean equals(Object object) {
-    	if (object instanceof ArchivoAudio) {
-	    return super.equals(object);
-    	} else {
-	    return object.equals(this);
-    	}
+        if (object instanceof ArchivoAudio) {
+            return super.equals(object);
+        } else {
+            return object.equals(this);
+        }
     }
 
     /**
@@ -89,11 +91,11 @@ public class ArchivoAudio extends ArchivoSimple {
      *
      * @return código hash para el objeto
      */
-    public int hashCode() { 
-	int hash = 1;
-	hash = hash * 31 + _URL.hashCode();
-	hash = hash * 31 + _genero.hashCode();
-	return hash;
+    public int hashCode() {
+        int hash = 1;
+        hash = hash * 31 + this.url.hashCode();
+        hash = hash * 31 + this.genero.hashCode();
+        return hash;
     }
 
     // ========== atributos privados ==========
@@ -102,16 +104,16 @@ public class ArchivoAudio extends ArchivoSimple {
      * Cadena de texto representado la URL que indica la ubicación del
      * contenido.
      */
-    private String _URL;
+    private String url;
 
     /**
      * Duración del contenido en segundos.
      */
-    private int _duracion;
+    private int duracion;
 
     /**
      * Género en el que se clasifica el contenido.
      */
-    private String _genero;
+    private String genero;
 
 }

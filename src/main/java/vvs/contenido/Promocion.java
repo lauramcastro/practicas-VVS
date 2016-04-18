@@ -16,11 +16,11 @@ public class Promocion extends ComplementoArchivo {
      * Inicializa el estado del complemento "promoción".
      *
      * @param archivo el contenido a complementar
-     * @param URL el complemento del contenido
+     * @param url el complemento del contenido
      */
-    public Promocion(ArchivoSimple archivo, String URL) {
+    public Promocion(ArchivoSimple archivo, String url) {
         super(archivo);
-        _URL = URL;
+        this.url = url;
     }
 
     /**
@@ -49,7 +49,7 @@ public class Promocion extends ComplementoArchivo {
      */
     public Collection<String> obtenerListaReproduccion() {
         Collection<String> listaDeReproduccion = super.obtenerListaReproduccion();
-        listaDeReproduccion.add(_URL);
+        listaDeReproduccion.add(this.url);
         return listaDeReproduccion;
     }
 
@@ -58,10 +58,10 @@ public class Promocion extends ComplementoArchivo {
     /**
      * URL de la promoción con la que se decora.
      */
-    private String _URL;
+    private String url;
     /**
      * Duración (fija) de las promociones.
      */
-    private static int DURACION = 15;
+    private static final int DURACION = 15;
 
 }

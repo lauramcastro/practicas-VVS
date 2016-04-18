@@ -23,7 +23,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
      */
     public ProveedorAlmacen(Almacen almacen, Almacen proveedor) {
         super(almacen);
-        _proveedor = proveedor;
+        this.proveedor = proveedor;
     }
 
     /**
@@ -42,7 +42,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
         Collection<Contenido> resultado = super.buscar(subcadena);
-        if (resultado.isEmpty() && obtenerProveedor()!= null) {
+        if (resultado.isEmpty() && obtenerProveedor() != null) {
             resultado = obtenerProveedor().buscar(subcadena);
         }
         return resultado;
@@ -54,7 +54,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
      * @return el almacén que es proveedor de este almacén
      */
     public Almacen obtenerProveedor() {
-        return _proveedor;
+        return this.proveedor;
     }
 
     /**
@@ -64,7 +64,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
      * @param almacen el almacén proveedor
      */
     public void establecerProveedor(Almacen almacen) {
-        _proveedor = almacen;
+        this.proveedor = almacen;
     }
 
     // ========== atributos privados ==========
@@ -72,6 +72,6 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
     /**
      * Almacén que funciona como proveedor.
      */
-    private Almacen _proveedor;
+    private Almacen proveedor;
 
 }

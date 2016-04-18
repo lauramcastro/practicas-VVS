@@ -21,8 +21,8 @@ public class Coleccion extends ContenidoAbstracto {
      * @param titulo el título del contenido
      */
     public Coleccion(String titulo) {
-    	super(titulo);
-    	_contenidos = new ArrayList<Contenido>();
+        super(titulo);
+        this.contenidos = new ArrayList<Contenido>();
     }
 
     /**
@@ -31,11 +31,11 @@ public class Coleccion extends ContenidoAbstracto {
      * @return segundos que dura la reproducción de la colección
      */
     public int obtenerDuracion() {
-    	int duracion = 0;
-    	for (int i = 0; i < _contenidos.size(); i++) {
-    	    duracion += recuperar(i).obtenerDuracion();
-    	}
-    	return duracion;
+        int duracion = 0;
+        for (int i = 0; i < this.contenidos.size(); i++) {
+            duracion += recuperar(i).obtenerDuracion();
+        }
+        return duracion;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Coleccion extends ContenidoAbstracto {
      * @return género de la colección
      */
     public String obtenerGenero() {
-    	return "Mix";
+        return "Mix";
     }
 
     /**
@@ -54,12 +54,12 @@ public class Coleccion extends ContenidoAbstracto {
      * @return lista ordenada de URLs (cadenas de texto)
      */
     public Collection<String> obtenerListaReproduccion() {
-    	Collection<String> listaReproduccion = new ArrayList<String>();
-	Iterator<Contenido> contenidos = _contenidos.iterator();
-	while (contenidos.hasNext()) {
-	    listaReproduccion.addAll(contenidos.next().obtenerListaReproduccion());
-    	}
-    	return listaReproduccion;
+        Collection<String> listaReproduccion = new ArrayList<String>();
+        Iterator<Contenido> iteradorContenidos = this.contenidos.iterator();
+        while (iteradorContenidos.hasNext()) {
+            listaReproduccion.addAll(iteradorContenidos.next().obtenerListaReproduccion());
+        }
+        return listaReproduccion;
     }
 
     /**
@@ -71,22 +71,23 @@ public class Coleccion extends ContenidoAbstracto {
      *                   a agregar
      */
     public void agregar(Contenido contenido, Contenido predecesor) {
-    	if (contenido.obtenerPadre() != null) {
-    	    contenido.obtenerPadre().eliminar(contenido);
-    	}
+        if (contenido.obtenerPadre() != null) {
+            contenido.obtenerPadre().eliminar(contenido);
+        }
         ((ContenidoAbstracto) contenido).establecerPadre(this);
         if (predecesor != null) {
-	    int i = 0;
-	    while (i<_contenidos.size() && !((ContenidoAbstracto) recuperar(i)).equals(predecesor)) {
-		i++;
+            int i = 0;
+            while (i < this.contenidos.size()
+                   && !((ContenidoAbstracto) recuperar(i)).equals(predecesor)) {
+                i++;
             }
-	    if (i == _contenidos.size()) {
-		_contenidos.add(contenido);
-	    } else {
-		_contenidos.add(i, contenido);
-	    }
+            if (i == this.contenidos.size()) {
+                this.contenidos.add(contenido);
+            } else {
+                this.contenidos.add(i, contenido);
+            }
         } else {
-	    _contenidos.add(contenido);
+            this.contenidos.add(contenido);
         }
     }
 
@@ -97,12 +98,12 @@ public class Coleccion extends ContenidoAbstracto {
      * @param contenido Contenido a eliminar
      */
     public void eliminar(Contenido contenido) {
-    	for (int i = 0; i<_contenidos.size(); i++) {
-	    if (((ContenidoAbstracto) recuperar(i)).equals(contenido)) {
-		_contenidos.remove(i);
-	    }
-    	}
-    	((ContenidoAbstracto) contenido).establecerPadre(null);
+        for (int i = 0; i < this.contenidos.size(); i++) {
+            if (((ContenidoAbstracto) recuperar(i)).equals(contenido)) {
+                this.contenidos.remove(i);
+            }
+        }
+        ((ContenidoAbstracto) contenido).establecerPadre(null);
     }
 
     /**
@@ -114,7 +115,7 @@ public class Coleccion extends ContenidoAbstracto {
      *         agregación de contenidos.
      */
     public Contenido recuperar(int n) {
-    	return ((Contenido) _contenidos.get(n));
+        return ((Contenido) this.contenidos.get(n));
     }
 
     // ========== atributos privados ==========
@@ -122,6 +123,6 @@ public class Coleccion extends ContenidoAbstracto {
     /**
      * Colección de contenidos almacenados.
      */
-    private ArrayList<Contenido> _contenidos;
+    private ArrayList<Contenido> contenidos;
 
 }

@@ -23,11 +23,11 @@ public class AlmacenRestringido implements Almacen {
      * @param minutos intervalo de tiempo
      */
     public AlmacenRestringido(Almacen almacen, int busquedas, int minutos) {
-        _almacen = almacen;
-        _busquedas = busquedas;
-        _busquedasDisponibles = busquedas;
-        _timestamp = System.currentTimeMillis();
-        _minutos = minutos;
+        this.almacen = almacen;
+        this.busquedas = busquedas;
+        this.busquedasDisponibles = busquedas;
+        this.timestamp = System.currentTimeMillis();
+        this.minutos = minutos;
     }
 
     /**
@@ -36,7 +36,7 @@ public class AlmacenRestringido implements Almacen {
      * @return nombre del almacén
      */
     public String obtenerNombre() {
-        return _almacen.obtenerNombre();
+        return this.almacen.obtenerNombre();
     }
 
     /**
@@ -45,7 +45,7 @@ public class AlmacenRestringido implements Almacen {
      * @return lista de contenidos manejados
      */
     public Collection<Contenido> obtenerContenidos() {
-        return _almacen.obtenerContenidos();
+        return this.almacen.obtenerContenidos();
     }
 
     /**
@@ -58,7 +58,7 @@ public class AlmacenRestringido implements Almacen {
      */
     public void agregarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-        _almacen.agregarContenido(contenido);
+        this.almacen.agregarContenido(contenido);
     }
 
     /**
@@ -71,7 +71,7 @@ public class AlmacenRestringido implements Almacen {
      */
     public void eliminarContenido(Contenido contenido)
         throws ExcepcionAlmacen {
-        _almacen.eliminarContenido(contenido);
+        this.almacen.eliminarContenido(contenido);
     }
 
     /**
@@ -88,22 +88,23 @@ public class AlmacenRestringido implements Almacen {
      */
     public Collection<Contenido> buscar(String subcadena)
         throws ExcepcionAlmacen {
-        if (_busquedasDisponibles > 0) {
-            Collection<Contenido> resultado = _almacen.buscar(subcadena);
+        if (this.busquedasDisponibles > 0) {
+            Collection<Contenido> resultado = this.almacen.buscar(subcadena);
             if (!resultado.isEmpty()) {
-                _busquedasDisponibles--;
+                this.busquedasDisponibles--;
             }
             return resultado;
         } else {
-            if ((System.currentTimeMillis() - _timestamp) > _minutos * 60000) {
-                _timestamp = System.currentTimeMillis();
-                _busquedasDisponibles = _busquedas;
+            if ((System.currentTimeMillis() - this.timestamp) > this.minutos * MILISEGUNDOS) {
+                this.timestamp = System.currentTimeMillis();
+                this.busquedasDisponibles = this.busquedas;
                 return buscar(subcadena);
             }
         }
-        throw new ExcepcionAlmacen("Espere " +
-				   (_minutos*60000-(System.currentTimeMillis()-_timestamp))/1000  +
-				   " segundos hasta su próxima búsqueda.");
+        throw new ExcepcionAlmacen("Espere "
+                                   + (this.minutos * MILISEGUNDOS
+                                      - (System.currentTimeMillis() - this.timestamp)) / SEGUNDOS
+                                   + " segundos hasta su próxima búsqueda.");
     }
 
     /**
@@ -112,7 +113,7 @@ public class AlmacenRestringido implements Almacen {
      * @return el almacén que es proveedor de este almacén
      */
     public Almacen obtenerProveedor() {
-        return _almacen.obtenerProveedor();
+        return this.almacen.obtenerProveedor();
     }
 
     /**
@@ -122,7 +123,7 @@ public class AlmacenRestringido implements Almacen {
      * @param almacen el almacén proveedor
      */
     public void establecerProveedor(Almacen almacen) {
-        _almacen.establecerProveedor(almacen);
+        this.almacen.establecerProveedor(almacen);
     }
 
     // ========== atributos privados ==========
@@ -130,23 +131,31 @@ public class AlmacenRestringido implements Almacen {
     /**
      * Almacén que se limita.
      */
-    private Almacen _almacen;
+    private Almacen almacen;
     /**
      * Momento que marca el inicio del intervalo de limitación de búsquedas.
      */
-    private long _timestamp;
+    private long timestamp;
     /**
      * Número de búsquedas máximo que pueden realizarse en un intervalo dado.
      */
-    private final int _busquedas;
+    private final int busquedas;
     /**
      * Duración del intervalo de limitación del proxy.
      */
-    private final int _minutos;
+    private final int minutos;
     /**
      * Número de búsquedas que aún pueden realizarse en el presente intervalo
      * antes de alcanzar el máximo que limita el proxy.
      */
-    private int _busquedasDisponibles;
+    private int busquedasDisponibles;
 
+    /**
+     * Constante para conversión de minutos a milisegundos.
+     */
+    private static final int MILISEGUNDOS = 60000;
+    /**
+     * Constante para conversión de milisegundos a segundos.
+     */
+    private static final int SEGUNDOS = 1000;
 }

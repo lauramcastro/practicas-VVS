@@ -20,7 +20,7 @@ public class Bonus extends ComplementoArchivo {
      */
     public Bonus(ArchivoSimple archivo, Contenido bonus) {
         super(archivo);
-        _bonus = bonus;
+        this.bonus = bonus;
     }
 
     /**
@@ -29,7 +29,8 @@ public class Bonus extends ComplementoArchivo {
      * @return título del contenido complementado
      */
     public String obtenerTitulo() {
-        return super.obtenerTitulo() + " con bonus (" + _bonus.obtenerTitulo() + ")";
+        return super.obtenerTitulo()
+            + " con bonus (" + this.bonus.obtenerTitulo() + ")";
     }
 
     /**
@@ -38,7 +39,7 @@ public class Bonus extends ComplementoArchivo {
      * @return segundos que dura la reproducción del contenido complementado
      */
     public int obtenerDuracion() {
-        return super.obtenerDuracion() + _bonus.obtenerDuracion();
+        return super.obtenerDuracion() + this.bonus.obtenerDuracion();
     }
 
     /**
@@ -49,7 +50,7 @@ public class Bonus extends ComplementoArchivo {
      */
     public Collection<String> obtenerListaReproduccion() {
         Collection<String> listaReproduccion = super.obtenerListaReproduccion();
-        listaReproduccion.addAll(_bonus.obtenerListaReproduccion());
+        listaReproduccion.addAll(this.bonus.obtenerListaReproduccion());
         return listaReproduccion;
     }
 
@@ -58,6 +59,6 @@ public class Bonus extends ComplementoArchivo {
     /**
      * Objeto añadido al decorar.
      */
-    private Contenido _bonus;
+    private Contenido bonus;
 
 }
