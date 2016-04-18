@@ -32,7 +32,7 @@ public class AlmacenRestringidoTest {
     Almacen real;
     Almacen restringido;
     int busquedas;
-    int minutos;
+    int segundos;
     int size;
     String nombre = "EMI";
 
@@ -49,12 +49,12 @@ public class AlmacenRestringidoTest {
     @Before
     public void setUp() throws ExcepcionAlmacen {
         busquedas = 3;
-        minutos = 1;
+        segundos = 3;
         size = 0;
 
         //contenidoAnadido = new ArrayList<Contenido>();
         real = new AlmacenReal(nombre);
-        restringido = new AlmacenRestringido(real, busquedas, minutos);
+        restringido = new AlmacenRestringido(real, busquedas, segundos);
 
 //        coldplay1 = new ArchivoAudio("Coldplay: Speed of Sound", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
 //        winehouse = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
@@ -365,7 +365,7 @@ public class AlmacenRestringidoTest {
         
         /*Esperamos los minutos que hemos indicado en el almacen restringido */
         try {
-            TimeUnit.MINUTES.sleep(minutos);
+            TimeUnit.SECONDS.sleep(segundos);
         } catch (InterruptedException ex) {
 
         }
