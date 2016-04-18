@@ -354,24 +354,24 @@ public class AlmacenRestringidoTest {
      * la excepcion
      * @throws ExcepcionAlmacen 
      */ 
-    @Test
-    public void esperarYSobrepasarNumeroDeBusquedasTest() throws ExcepcionAlmacen {
-        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
-        restringido.agregarContenido(coldplay1);
-        
-        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
-        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
-        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
-        
-        /*Esperamos los minutos que hemos indicado en el almacen restringido */
-        try {
-            TimeUnit.MINUTES.sleep(minutos);
-        } catch (InterruptedException ex) {
-
-        }
-        /*Al sobrepasar el tiempo no deberia de mandarnos ninguna exception y realizar bien la busqueda */
-        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
-    }
+//    @Test
+//    public void esperarYSobrepasarNumeroDeBusquedasTest() throws ExcepcionAlmacen {
+//        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
+//        restringido.agregarContenido(coldplay1);
+//        
+//        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
+//        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
+//        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
+//        
+//        /*Esperamos los minutos que hemos indicado en el almacen restringido */
+//        try {
+//            TimeUnit.MINUTES.sleep(minutos);
+//        } catch (InterruptedException ex) {
+//
+//        }
+//        /*Al sobrepasar el tiempo no deberia de mandarnos ninguna exception y realizar bien la busqueda */
+//        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
+//    }
 
     /**
      * test que comprueba que un almacen restringido no se modifica al establecer proveedor
