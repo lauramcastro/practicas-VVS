@@ -14,7 +14,6 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
 
     // TRANSICIONES
     
-    @Override
     public void iniciar() {
         // System.out.println("Running: iniciar");
 	try {
@@ -30,19 +29,16 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
 	}
     }
 
-    @Override
     public void establecerProveedor() {
         // System.out.println("Running: establecerProveedor");
 	almacen.establecerProveedor(proveedor);
     }
 
-    @Override
     public void eliminarProveedor() {
         // System.out.println("Running: eliminarProveedor");
 	almacen.establecerProveedor(null);
     }
 
-    @Override
     public void agregarContenido() {
         // System.out.println("Running: agregarContenido");
 	try {
@@ -54,7 +50,6 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
 	}
     }
 
-    @Override
     public void eliminarContenido() {
         // System.out.println("Running: eliminarContenido");
 	try {
@@ -67,7 +62,6 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
     }
 
     // ESTADOS
-    @Override
     public void SinProveedor() {
         // System.out.println("In state: sin proveedor");
 	try {
@@ -78,7 +72,6 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
 	}
     }
 
-    @Override
     public void ConProveedor() {
         // System.out.println("In state: con proveedor");
 	try {
