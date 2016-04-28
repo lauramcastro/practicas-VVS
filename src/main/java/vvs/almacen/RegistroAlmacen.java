@@ -28,10 +28,11 @@ public class RegistroAlmacen extends ComplementoAlmacen {
     public RegistroAlmacen(Almacen almacen) {
         super(almacen);
         try {
-            FileHandler handler = new FileHandler(obtenerNombre()
-                                                  + "-"
-                                                  + new Date(System.currentTimeMillis())
-                                                  + ".log");
+            String fileName = obtenerNombre()
+                + "-"
+                + new Date(System.currentTimeMillis())
+                + ".log";
+            FileHandler handler = new FileHandler(sanitize(fileName));
             this.logger = Logger.getLogger(RegistroAlmacen.class.getName());
             this.logger.addHandler(handler);
             handler.setFormatter(new SimpleFormatter());
@@ -67,6 +68,20 @@ public class RegistroAlmacen extends ComplementoAlmacen {
             this.logger.log(Level.SEVERE, e.getMessage());
             throw e;
         }
+    }
+
+    // ========== métodos privados ============
+
+    /**
+     * Elimina caracteres posiblemente no permitidos en diferentes
+     * sistemas de ficheros, para garantizar un nombre de fichero
+     * "sano".
+     *
+     * @param cadena cadena de texto a sanear
+     * @return versión saneada de la cadena
+     */
+    private String sanitize(String cadena) {
+        return cadena.replaceAll("[^a-zA-Z0-9.-]", "_");
     }
 
     // ========== atributos privados ==========
