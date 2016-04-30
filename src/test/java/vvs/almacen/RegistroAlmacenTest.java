@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vvs.almacen;
 
 import vvs.contenido.ArchivoAudio;
 import vvs.contenido.Contenido;
-
+import java.util.Date;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import static java.lang.System.in;
 import java.util.Collection;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -25,101 +22,185 @@ import org.mockito.Mockito;
  */
 public class RegistroAlmacenTest {
 
-    Almacen almacenReal;
-    Almacen almacenRestringido;
-
-    /* */
+    Almacen registroAlmacen;
+    Almacen registroReal;
+    Almacen registroRestringido;
+    int busquedas, minutos;
     Contenido coldplay2;
     Contenido winehouse1;
     Contenido winehouse2;
-    Contenido otra;
-
-    int busquedas = 3;
-    int minutos = 1;
-    String nombreReal = "almacen real";
-    String nombreRestringido = "almacen restringido";
-    Collection<Contenido> contenidoAnadidoReal;
-    Collection<Contenido> contenidoAnadidoRestringido;
+    String nombreRegistroAlmacenReal = "Registro almacen real";
+    String nombreResgistroAlmacenRestringido = "Registro almacen restringido";
+    Collection<Contenido> contenidoAnadidoRegistroAlmacen;
+    static final String match = "Amy";
 
     @Before
     public void setUp() throws ExcepcionAlmacen {
-
-        contenidoAnadidoReal = new ArrayList<Contenido>();
-        contenidoAnadidoRestringido = new ArrayList<Contenido>();
-
-        almacenReal = new AlmacenReal(nombreReal);
-        almacenRestringido = new AlmacenRestringido(new AlmacenReal(nombreRestringido), busquedas, minutos);
-        
-//      coldplay2 = new ArchivoAudio("Coldplay: Speed of Sound part2", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
-//      winehouse1 = new ArchivoAudio("Amy Winehouse: Rehab part1", "http://servidor/winehouse/back2black/1", 215, "Soul");
-//      winehouse2 = new ArchivoAudio("Amy Winehouse: Rehab part2", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
-//      otra = new ArchivoAudio("otra: cancion", "http://servidor/otra/xy/7", 288, "Rock alternativo");
+        busquedas = 3;
+        minutos = 1;
+        contenidoAnadidoRegistroAlmacen = new ArrayList<Contenido>();
+        registroReal = new AlmacenReal(nombreRegistroAlmacenReal);
+        registroRestringido = new AlmacenRestringido(new AlmacenReal(nombreResgistroAlmacenRestringido), busquedas, minutos);
 
         coldplay2 = Mockito.mock(ArchivoAudio.class);
+        Mockito.when(coldplay2.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
+        Mockito.when(coldplay2.buscar(Mockito.anyString())).thenCallRealMethod();
         winehouse1 = Mockito.mock(ArchivoAudio.class);
-        Mockito.when(winehouse1.obtenerTitulo()).thenReturn("Amy Winehouse: Rehab part1");
-    	Mockito.when(winehouse1.buscar(Mockito.anyString())).thenCallRealMethod();
-        
+        Mockito.when(winehouse1.obtenerTitulo()).thenReturn(match + " Winehouse: Rehab part1");
+        Mockito.when(winehouse1.buscar(Mockito.anyString())).thenCallRealMethod();
         winehouse2 = Mockito.mock(ArchivoAudio.class);
-        otra = Mockito.mock(ArchivoAudio.class);
-        
-        /*Añadimos winehouse1 y  winehouse2 */
-        almacenRestringido.agregarContenido(winehouse1);
-        almacenRestringido.agregarContenido(winehouse2);
-        contenidoAnadidoRestringido.add(winehouse1);
-        contenidoAnadidoRestringido.add(winehouse2);
-
-        /*Añadimos coldplay2 */
-        almacenReal.agregarContenido(coldplay2);
-        contenidoAnadidoReal.add(coldplay2);
+        Mockito.when(winehouse2.obtenerTitulo()).thenReturn(match + " Winehouse: Rehab");
+        Mockito.when(winehouse2.buscar(Mockito.anyString())).thenCallRealMethod();
+        /*Añadimos winehouse1 y  winehouse2 a almacen real*/
+        registroReal.agregarContenido(winehouse1);
+        registroReal.agregarContenido(coldplay2);
+        /*Añadirmos wineHouse2 a almacen restringido*/
+        registroRestringido.agregarContenido(winehouse2);
     }
 
+    /*
+    *Verificar que se crear el archivo de log al crear el almacen restringido
+    */
     @Test
-    public void obternerNombreTest() {
-        Almacen emi = new RegistroAlmacen(almacenReal);
-        assertEquals(nombreReal, emi.obtenerNombre());
-        emi = new RegistroAlmacen(almacenRestringido);
-        assertEquals(nombreRestringido, emi.obtenerNombre());
+    public void crearAlmacenRestringidoTest() {
+        Date fechaInicion = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroReal);
+        assertTrue(new File(sanitize(nombreRegistroAlmacenReal + "-" + fechaInicion) + ".log").exists());
     }
 
+    /* 
+    * Busqueda sin ninguun problema y buscamos en el archivo de log
+    */
     @Test
-    public void AnadirObternerEliminarContenidosTest() {
-        boolean excepcion = false;
+    public void buscarRegistroAlmacenlTest() throws ExcepcionAlmacen {
+        Date dataInit = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroReal);
+        String nombreArchivo = sanitize(nombreRegistroAlmacenReal + "-" + dataInit) + ".log";
+        String palabraABuscar = match.toUpperCase();
+        int coincidencias = 1;
+        Collection<Contenido> encontrado = registroAlmacen.buscar(palabraABuscar);
+        assertTrue(encontrado.contains(winehouse1));
+        assertEquals(coincidencias, encontrado.size());
+        /*Comprobar el archivo de log */
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, "Buscado " + palabraABuscar + " en almacen " + nombreRegistroAlmacenReal));
+        assertEquals(encontrado.size(), coincidencias);
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, "Encontradas "
+                + coincidencias + " coincidencias"));
+    }
 
-        Almacen emi = new RegistroAlmacen(almacenReal);
-        assertEquals(emi.obtenerContenidos(), contenidoAnadidoReal);
+    /* 
+    * Busqueda con parametros null
+    */
+    @Test
+    public void buscarRegistroAlmacenlNullTest() throws ExcepcionAlmacen {
+        Date dataInit = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroReal);
+        String nombreArchivo = sanitize(nombreRegistroAlmacenReal + "-" + dataInit) + ".log";
+        String palabraABuscar = null;
+        int coincidencias = 0;
+        Collection<Contenido> encontrado = registroAlmacen.buscar(palabraABuscar);
+        assertTrue(encontrado.isEmpty());
+        assertEquals(coincidencias, encontrado.size());
+        /*Comprobar el archivo de log */
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, "Buscado " + palabraABuscar + " en almacen " + nombreRegistroAlmacenReal));
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, "Encontradas "
+                + coincidencias + " coincidencias"));
+        assertEquals(encontrado.size(), coincidencias);
+    }
+
+    /* 
+    * Buscar con cero coincidencias
+    */
+    @Test
+    public void buscarRegistroAlmacenConNingunaCoincidenciaTest() throws ExcepcionAlmacen {
+        Date dataInit = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroReal);
+        String nombreArchivo = sanitize(nombreRegistroAlmacenReal + "-" + dataInit) + ".log";
+        String palabraABuscar = "7ASDdas7349FDAFNcasçsadRsS";
+        int coincidencias = 0;
+        Collection<Contenido> encontrado = registroAlmacen.buscar(palabraABuscar);
+        assertTrue(encontrado.isEmpty());
+        assertEquals(coincidencias, encontrado.size());
+        /*Comprobar el archivo de log */
+        assertTrue(new File(nombreArchivo).exists());
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo,  "Buscado " + palabraABuscar 
+                + " en almacen " + nombreRegistroAlmacenReal));
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, "Encontradas "
+                + coincidencias + " coincidencias"));
+        assertEquals(encontrado.size(), coincidencias);
+    }
+
+    /* 
+    *Busquedad con todas las coincidencias
+    */
+    @Test
+    public void buscarTodoElContenidoRegistroTest() throws ExcepcionAlmacen {
+        Date dataInit = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroReal);
+        String nombreArchivo = sanitize(nombreRegistroAlmacenReal + "-" + dataInit) + ".log";
+        String palabraABuscar = "";
+        int coincidencias = 2;
+        Collection<Contenido> encontrado = registroAlmacen.buscar(palabraABuscar);
+        assertEquals(coincidencias, encontrado.size());
+        /*Comprobar el archivo de log */
+        assertTrue(new File(nombreArchivo).exists());
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo,  "Buscado " + palabraABuscar                 
+                +" en almacen " + nombreRegistroAlmacenReal));
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, "Encontradas "
+                + coincidencias + " coincidencias"));
+        assertEquals(encontrado.size(), coincidencias);
+    }
+
+    /*Busqueda del error por ser un almacen restringido, cuando se realiza n+1 busquedas
+    * luego comprobamos en el archivo log que ese mensaje existe
+    */
+    
+    @Test
+    public void buscarRegistroRestringidoErrorTest() {
+        Date dataInit = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroRestringido);
+        String nombreArchivo = sanitize(nombreRegistroAlmacenReal + "-" + dataInit) + ".log";
+        String palabraABuscar = match;
+        boolean error = false;
+        int coincidencias = 1;
+        String errorMessage = "";
 
         try {
-            emi.agregarContenido(otra);
-            contenidoAnadidoReal.add(otra);
+            for (int i = 0; i < busquedas + 1; i++) {
+                registroAlmacen.buscar(palabraABuscar);
+            }
         } catch (ExcepcionAlmacen ex) {
-            excepcion = true;
+            errorMessage = ex.getMessage();
+            error = true;
         }
-
-        assertFalse(excepcion);
-        assertEquals(emi.obtenerContenidos(), contenidoAnadidoReal);
-        assertEquals(emi.obtenerContenidos(), contenidoAnadidoReal);
-        excepcion = false;
-
-        /* Intentamos duplicar contenido*/
-        try {
-            emi.agregarContenido(otra);
-        } catch (ExcepcionAlmacen ex) {
-            excepcion = true;
-        }
-        assertTrue(excepcion);
+        assertTrue(error);
+        assertTrue(new File(nombreArchivo).exists());
+        assertTrue(buscarEnArchivoDeLog(nombreArchivo, errorMessage));
     }
 
-    @Test
-    public void buscarTest() {
-        boolean excepcion = false;
-
+    private boolean buscarEnArchivoDeLog(String nombre, String phraseToFind) {
+        boolean encontrado = false;
         try {
-            almacenRestringido.buscar("Rehab");
-        } catch (ExcepcionAlmacen ex) {
-            excepcion = true;
+            FileInputStream fstream = new FileInputStream(nombre);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+            String strLine;
+            /* read log line by line */
+            while ((strLine = br.readLine()) != null) {
+                /* parse strLine to obtain what you want */
+                System.out.println("linea " + strLine);
+                if (strLine.contains(phraseToFind)) {
+                    System.out.println("Son iguales " + strLine);
+                    encontrado = true;
+                }
+            }
+            in.close();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
         }
-        assertFalse(excepcion);
+        return encontrado;
     }
-
+    
+    private String sanitize(String cadena) {
+        return cadena.replaceAll("[^a-zA-Z0-9.-]", "_");
+    }
 }
