@@ -5,6 +5,9 @@
  */
 package vvs.almacen;
 
+import net.java.quickcheck.characteristic.Classification;
+import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.java.quickcheck.generator.iterable.Iterables;
 import vvs.contenido.ArchivoAudio;
 import vvs.contenido.Bonus;
 import vvs.contenido.Contenido;
@@ -59,9 +62,10 @@ public class AlmacenRealTest {
         assertEquals(null, almacenReal.obtenerNombre());
     }
 
-/**
- * test positivo que agrega un contenido y comprueba que se obtiene correctamente
- */
+    /**
+     * test positivo que agrega un contenido y comprueba que se obtiene
+     * correctamente
+     */
     @Test
     public void agregarContenidoTest() {
         int size = 0;
@@ -78,11 +82,11 @@ public class AlmacenRealTest {
         assertEquals(size, almacenReal.obtenerContenidos().size());
         assertEquals(almacenReal.obtenerContenidos().iterator().next(), coldplay1);
     }
-    
+
     /**
      * test que comprueba que no se puede agregar como contenido un null
      */
-     @Test
+    @Test
     public void agregarContenidoNullTest() {
         int size = 0;
         boolean excepcion = false;
@@ -91,7 +95,7 @@ public class AlmacenRealTest {
             almacenReal.agregarContenido(null);
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
-        } 
+        }
         assertTrue(excepcion);
         assertEquals(size, almacenReal.obtenerContenidos().size());
     }
@@ -160,7 +164,8 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que cmprueba que no se pueden eliminar contenidos que no se hayan agregado
+     * test que cmprueba que no se pueden eliminar contenidos que no se hayan
+     * agregado
      */
     @Test
     public void eliminarContenidoNoAgregadoTest() {
@@ -180,9 +185,10 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba que no se puede agregar un contenido bonus si ya
-     * se habia agregado el mismo archivo de audio que se uso para crear ese bonus.
-     * @throws ExcepcionAlmacen 
+     * test que comprueba que no se puede agregar un contenido bonus si ya se
+     * habia agregado el mismo archivo de audio que se uso para crear ese bonus.
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, vvs.contenido.ExcepcionContenido {
@@ -221,7 +227,8 @@ public class AlmacenRealTest {
 
     /**
      * test que comprueba la busqeuda sobre un almacen vacio
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarVacioTest() throws ExcepcionAlmacen {
@@ -230,7 +237,8 @@ public class AlmacenRealTest {
 
     /**
      * test que comprueba la busqueda normal de contenido
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
@@ -242,7 +250,8 @@ public class AlmacenRealTest {
 
     /**
      * test que comprueba la busqueda con un null
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarNullTest() throws ExcepcionAlmacen {
@@ -251,7 +260,8 @@ public class AlmacenRealTest {
 
     /**
      * test que comprueba la busqueda de un elemento que no esta agregado
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarNoExistenteTest() throws ExcepcionAlmacen {
@@ -262,7 +272,8 @@ public class AlmacenRealTest {
 
     /**
      * test que comprueba la busqeuda de multiples contenidos a la vez
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarVariosTest() throws ExcepcionAlmacen {
@@ -273,10 +284,12 @@ public class AlmacenRealTest {
         assertTrue(almacenReal.buscar("").contains(winehouse));
         assertEquals(almacenReal.buscar("").size(), 2);
     }
-    
+
     /**
-     * test que comprueba la busqueda de un elemento con espacios antes y despues
-     * @throws ExcepcionAlmacen 
+     * test que comprueba la busqueda de un elemento con espacios antes y
+     * despues
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarConEspaciosTest() throws ExcepcionAlmacen {
@@ -285,10 +298,11 @@ public class AlmacenRealTest {
         assertTrue(almacenReal.buscar(" Sound ").contains(coldplay1));
         assertEquals(almacenReal.buscar(" Sound ").size(), 1);
     }
-    
+
     /**
      * test que comprueba la busqueda de un elemento con palabras desordenadas
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarPalabrasDesordenadasTest() throws ExcepcionAlmacen {
@@ -297,25 +311,50 @@ public class AlmacenRealTest {
         assertTrue(almacenReal.buscar(" Sound Speed ").contains(coldplay1));
         assertEquals(almacenReal.buscar(" Sound Speed ").size(), 1);
     }
-    
+
     /**
-     * test que comprueba que un almacen real no se modifica al establecer proveedor
+     * test que comprueba que un almacen real no se modifica al establecer
+     * proveedor
      */
     @Test
-    public void establecerProveedor() throws ExcepcionAlmacen{
-        
+    public void establecerProveedor() throws ExcepcionAlmacen {
+
         Almacen proveedor1 = almacenReal.obtenerProveedor();
         almacenReal.establecerProveedor(almacenReal);
         Almacen proveedor2 = almacenReal.obtenerProveedor();
-        assertEquals(proveedor1,proveedor2);
-    }
-    
-    /**
-     * test que comprueba que obtener proveedor en un almacen real devuelve siempre null (redundante respecto al test anterior)
-     */
-    @Test
-    public void obtenerProveedor(){
-        assertEquals(almacenReal.obtenerProveedor(),null);
+        assertEquals(proveedor1, proveedor2);
     }
 
+    /**
+     * test que comprueba que obtener proveedor en un almacen real devuelve
+     * siempre null (redundante respecto al test anterior)
+     */
+    @Test
+    public void obtenerProveedor() {
+        assertEquals(almacenReal.obtenerProveedor(), null);
+    }
+
+    @Test
+    public void busquedasAleatorias() throws ExcepcionAlmacen {
+        Classification c = new Classification();
+        Almacen almacen = new AlmacenReal("almacenReal");
+        for (Contenido contenido : Iterables.toIterable(new GeneradorContenido())) {
+            almacen.agregarContenido(contenido);
+            for (String cadenaABuscar : Iterables.toIterable(PrimitiveGenerators.strings())) {
+                System.out.println("[busquedasAleatorias1] ===> " + cadenaABuscar + " ? " + contenido);
+                if (almacen.buscar(cadenaABuscar).contains(cadenaABuscar)) {
+                    c.classifyCall("presente");
+                } else {
+                    c.classifyCall("ausente");
+                }
+                assertFalse(almacen.buscar(cadenaABuscar).contains(cadenaABuscar)
+                        && almacen.buscar(cadenaABuscar).isEmpty());
+            }
+        }
+
+        System.out.println("[busquedasAleatorias2] ===> " + c);
+        for (Object cat : c.getCategories()) {
+            System.out.println("[busquedasAleatorias3] ===> " + cat + " => " + c.getFrequency(cat));
+        }
+    }
 }

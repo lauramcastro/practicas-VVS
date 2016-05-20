@@ -11,6 +11,9 @@ import vvs.contenido.Contenido;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
+import net.java.quickcheck.characteristic.Classification;
+import net.java.quickcheck.generator.PrimitiveGenerators;
+import net.java.quickcheck.generator.iterable.Iterables;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -59,7 +62,6 @@ public class AlmacenRestringidoTest {
 //        coldplay1 = new ArchivoAudio("Coldplay: Speed of Sound", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
 //        winehouse = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
 //        coldPlayWineHouse = new ArchivoAudio("Coldplay: Rehab", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
-
         coldplay1 = Mockito.mock(ArchivoAudio.class);
         Mockito.when(coldplay1.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
         Mockito.when(coldplay1.buscar(Mockito.anyString())).thenCallRealMethod();
@@ -70,7 +72,7 @@ public class AlmacenRestringidoTest {
         Mockito.when(coldPlayWineHouse.obtenerTitulo()).thenReturn("Coldplay: Rehab");
         Mockito.when(coldPlayWineHouse.buscar(Mockito.anyString())).thenCallRealMethod();
         /*anadimos comportamiento a los mocks*/
-    	
+
     }
 
     /**
@@ -100,11 +102,11 @@ public class AlmacenRestringidoTest {
         assertFalse(excepcion);
         assertEquals(size, restringido.obtenerContenidos().size());
         assertEquals(restringido.obtenerContenidos().iterator().next(), coldplay1);
-    }    
-    
-     /**
-     * test que comprueba que no se puede agregar como contenido un null a un almacen
-     * restringido
+    }
+
+    /**
+     * test que comprueba que no se puede agregar como contenido un null a un
+     * almacen restringido
      */
     @Test
     public void agregarContenidoNullTest() {
@@ -115,12 +117,11 @@ public class AlmacenRestringidoTest {
             restringido.agregarContenido(null);
         } catch (ExcepcionAlmacen ex) {
             excepcion = true;
-        } 
+        }
         assertTrue(excepcion);
         assertEquals(size, restringido.obtenerContenidos().size());
     }
-    
-    
+
     /**
      * test que comprueba que no se pueden agregar contenidos duplicados a un
      * almacen restringido
@@ -140,7 +141,7 @@ public class AlmacenRestringidoTest {
         assertFalse(excepcion);
         assertEquals(size, restringido.obtenerContenidos().size());
         assertEquals(restringido.obtenerContenidos().iterator().next(), coldplay1);
-        
+
         /*Añadir contenido: Contenido repetido*/
         try {
             restringido.agregarContenido(coldplay1);
@@ -185,11 +186,10 @@ public class AlmacenRestringidoTest {
         assertEquals(size, restringido.obtenerContenidos().size());
         assertFalse(restringido.obtenerContenidos().contains(coldplay1));
     }
-    
-    
+
     /**
-     * test que cmprueba que no se pueden eliminar contenidos que no se hayan agregado
-     * en un almacen restringido
+     * test que cmprueba que no se pueden eliminar contenidos que no se hayan
+     * agregado en un almacen restringido
      */
     @Test
     public void eliminarContenidoNoAgregadoTest() {
@@ -207,12 +207,13 @@ public class AlmacenRestringidoTest {
         assertEquals(size, restringido.obtenerContenidos().size());
         assertFalse(restringido.obtenerContenidos().contains(coldplay1));
     }
-    
+
     /**
-     * test que comprueba que no se puede agregar un contenido bonus si ya
-     * se habia agregado el mismo archivo de audio que se uso para crear ese bonus,
+     * test que comprueba que no se puede agregar un contenido bonus si ya se
+     * habia agregado el mismo archivo de audio que se uso para crear ese bonus,
      * en un almacen restringido.
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, vvs.contenido.ExcepcionContenido {
@@ -251,7 +252,8 @@ public class AlmacenRestringidoTest {
 
     /**
      * test que comprueba la busqeuda sobre un almacen restringido vacio
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarVacioTest() throws ExcepcionAlmacen {
@@ -259,8 +261,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda normal de contenido, en un almacen restringido
-     * @throws ExcepcionAlmacen 
+     * test que comprueba la busqueda normal de contenido, en un almacen
+     * restringido
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
@@ -272,7 +276,8 @@ public class AlmacenRestringidoTest {
 
     /**
      * test que comprueba la busqueda con un null,, en un almacen restringido
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarNullTest() throws ExcepcionAlmacen {
@@ -280,9 +285,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento que no esta agregado
-     * en un almacen restringido
-     * @throws ExcepcionAlmacen 
+     * test que comprueba la busqueda de un elemento que no esta agregado en un
+     * almacen restringido
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarNoExistenteTest() throws ExcepcionAlmacen {
@@ -294,21 +300,51 @@ public class AlmacenRestringidoTest {
     /**
      * test que comprueba la busqeuda de multiples contenidos a la vez, en un
      * almacen restringido
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarVariosTest() throws ExcepcionAlmacen {
         restringido.agregarContenido(coldplay1);
         restringido.agregarContenido(winehouse);
-        
+
         assertTrue(restringido.buscar("").contains(coldplay1));
         assertTrue(restringido.buscar("").contains(winehouse));
         assertEquals(restringido.buscar("").size(), 2);
     }
-    
+
+    @Test
+    public void busquedasAleatorias() throws ExcepcionAlmacen {
+        Classification c = new Classification();
+        int duracion = 1, busquedas = 1000, contBusquedas = 0;
+        Almacen almacen = new AlmacenRestringido(
+                new AlmacenReal("almacenRestringido"), busquedas, duracion);
+
+        for (Contenido contenido : Iterables.toIterable(new GeneradorContenido())) {
+            almacen.agregarContenido(contenido);
+            for (String cadenaABuscar : Iterables.toIterable(PrimitiveGenerators.strings())) {
+                if (contBusquedas < busquedas) {
+                    if (almacen.buscar(cadenaABuscar).contains(cadenaABuscar)) {
+                        c.classifyCall("presente");
+                    } else {
+                        c.classifyCall("ausente");
+                    }
+                    contBusquedas++;
+                    assertFalse(almacen.buscar(cadenaABuscar).contains(cadenaABuscar)
+                            && almacen.buscar(cadenaABuscar).isEmpty());
+                }                
+            }
+        }
+        for (Object cat : c.getCategories()) {
+            System.out.println("[busquedasAleatorias] ===> " + cat + " => " + c.getFrequency(cat));
+        }
+    }
+
     /**
-     * test que comprueba la busqueda de un elemento con espacios antes y despues
-     * @throws ExcepcionAlmacen 
+     * test que comprueba la busqueda de un elemento con espacios antes y
+     * despues
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarConEspaciosTest() throws ExcepcionAlmacen {
@@ -317,10 +353,11 @@ public class AlmacenRestringidoTest {
         assertTrue(restringido.buscar(" Sound ").contains(coldplay1));
         assertEquals(restringido.buscar(" Sound ").size(), 1);
     }
-    
+
     /**
      * test que comprueba la busqueda de un elemento con palabras desordenadas
-     * @throws ExcepcionAlmacen 
+     *
+     * @throws ExcepcionAlmacen
      */
     @Test
     public void buscarPalabrasDesordenadasTest() throws ExcepcionAlmacen {
@@ -329,18 +366,19 @@ public class AlmacenRestringidoTest {
         assertTrue(restringido.buscar(" Sound Speed ").contains(coldplay1));
         assertEquals(restringido.buscar(" Sound Speed ").size(), 1);
     }
-    
+
     /**
-     * test que comprueba que si se sobrepasa el numero de busqeudas permitidas 
+     * test que comprueba que si se sobrepasa el numero de busqeudas permitidas
      * en un almacen restringido, salta la excepcion
-     * @throws ExcepcionAlmacen 
-     */    
+     *
+     * @throws ExcepcionAlmacen
+     */
     @Test(expected = ExcepcionAlmacen.class)
     public void sobrepasarNumeroDeBusquedasTest() throws ExcepcionAlmacen {
         /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
         restringido.agregarContenido(coldPlayWineHouse);
-                
-        assertTrue(restringido.buscar("Rehab").contains(coldPlayWineHouse));     
+
+        assertTrue(restringido.buscar("Rehab").contains(coldPlayWineHouse));
         assertTrue(restringido.buscar("Rehab").contains(coldPlayWineHouse));
         assertTrue(restringido.buscar("Rehab").contains(coldPlayWineHouse));
 
@@ -349,11 +387,12 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que si se espera el tiempo necesario antes de sobrepasar
-     * el numero de busqeudas permitidas en un almacen restringido, no salta
-     * la excepcion
-     * @throws ExcepcionAlmacen 
-     */ 
+     * test que comprueba que si se espera el tiempo necesario antes de
+     * sobrepasar el numero de busqeudas permitidas en un almacen restringido,
+     * no salta la excepcion
+     *
+     * @throws ExcepcionAlmacen
+     */
 //    @Test
 //    public void esperarYSobrepasarNumeroDeBusquedasTest() throws ExcepcionAlmacen {
 //        /* Buscamos n veces (en nuestro caso 3 veces) y luego comprobamos que se envia la restriccion*/
@@ -372,26 +411,26 @@ public class AlmacenRestringidoTest {
 //        /*Al sobrepasar el tiempo no deberia de mandarnos ninguna exception y realizar bien la busqueda */
 //        assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
 //    }
-
     /**
-     * test que comprueba que un almacen restringido no se modifica al establecer proveedor
+     * test que comprueba que un almacen restringido no se modifica al
+     * establecer proveedor
      */
     @Test
-    public void establecerProveedor() throws ExcepcionAlmacen{
-        
+    public void establecerProveedor() throws ExcepcionAlmacen {
+
         Almacen proveedor1 = restringido.obtenerProveedor();
         restringido.establecerProveedor(restringido);
         Almacen proveedor2 = restringido.obtenerProveedor();
-        assertEquals(proveedor1,proveedor2);
+        assertEquals(proveedor1, proveedor2);
     }
-    
+
     /**
-     * test que comprueba que obtener proveedor en un almacen restringido 
+     * test que comprueba que obtener proveedor en un almacen restringido
      * devuelve siempre null (redundante respecto al test anterior)
      */
     @Test
-    public void obtenerProveedor(){
-        assertEquals(restringido.obtenerProveedor(),null);
+    public void obtenerProveedor() {
+        assertEquals(restringido.obtenerProveedor(), null);
     }
 
 }
