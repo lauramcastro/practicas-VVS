@@ -1,4 +1,4 @@
-package vvs.contenido;
+package vvs.util;
 
 import vvs.almacen.Almacen;
 
@@ -24,7 +24,7 @@ public class GrapAux {
     	almacen = alm;
     }
     
-    public static Almacen getAlamcen(){
+    public static Almacen getAlmacen(){
     	return almacen;
     }
     

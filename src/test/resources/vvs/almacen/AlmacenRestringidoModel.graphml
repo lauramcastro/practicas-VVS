@@ -20,8 +20,8 @@
           <y:Geometry height="152.0" width="252.0" x="91.0" y="104.0"/>
           <y:Fill color="#FFCC00" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="225.28515625" x="13.357421875" y="53.046875">AlmacenSinContenidoConBusquedas
-INIT : numCont = 0; numBusq = 3;
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="265.791015625" x="-6.8955078125" y="53.046875">AlmacenSinContenidoConBusquedas
+INIT : numCont = 0; numBusq = 3; time=0;
 SHARED : AlmacenVacio<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>

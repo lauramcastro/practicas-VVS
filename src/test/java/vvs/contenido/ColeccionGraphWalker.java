@@ -3,24 +3,28 @@ package vvs.contenido;
 import org.junit.Assert;
 
 import org.graphwalker.core.machine.ExecutionContext;
+import org.graphwalker.core.condition.TimeDuration;
 import org.graphwalker.java.annotation.GraphWalker;
+import vvs.util.GrapAux;
 
-@GraphWalker(value = "random(edge_coverage(100))", start = "iniciar")
+
+//@GraphWalker(value = "random(edge_coverage(100))")
+@GraphWalker(value = "random(time_duration(10))")
 public class ColeccionGraphWalker extends ExecutionContext implements ColeccionModel {
 	
 	private Coleccion coleccion;
 	private Contenido muse1, muse2;
 
 	//TRANSICIONES
-	public void iniciar() {
-		try {
-			coleccion = new Coleccion("Muse");
-			muse1 = new ArchivoAudio("Muse: Knights of Cydonia", "http://servidor/muse/1", 215, "Rock");
-			muse2 = new ArchivoAudio("Muse: Sing For Absolution", "http://servidor/muse/2", 312, "Rock");
-		} catch (ExcepcionContenido c) {
-			System.err.println("Problema al crear contenidos");
-		}
-	}
+	// public void iniciar() {
+	// 	try {
+	// 		coleccion = new Coleccion("Muse");
+	// 		muse1 = new ArchivoAudio("Muse: Knights of Cydonia", "http://servidor/muse/1", 215, "Rock");
+	// 		muse2 = new ArchivoAudio("Muse: Sing For Absolution", "http://servidor/muse/2", 312, "Rock");
+	// 	} catch (ExcepcionContenido c) {
+	// 		System.err.println("Problema al crear contenidos");
+	// 	}
+	// }
 
 	public void agregar(){
 		if(coleccion.obtenerDuracion() == 0) {
