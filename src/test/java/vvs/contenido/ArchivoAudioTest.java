@@ -12,6 +12,7 @@ import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
 import net.java.quickcheck.generator.iterable.Iterables;
 import net.java.quickcheck.characteristic.Classification;
+import vvs.quickcheck.GeneradorContenido;
 
 /**
  * Casos de que prueban la funcionalidad de busqueda sobre un contenido de tipo
@@ -112,7 +113,7 @@ public class ArchivoAudioTest {
     public void notEqualsTest() {
         assertEquals(false, lavigne1.equals(eminem1));
     }
-    
+
     @Test
     public void notHashEqualsTest() {
         assertTrue(lavigne1.hashCode() != lavigne2.hashCode());
@@ -157,35 +158,6 @@ public class ArchivoAudioTest {
             } catch (ExcepcionContenido e) {
                 System.err
                         .println("No se ha podido generar el archivo de audio"
-                                + e.getMessage());
-                return null;
-            }
-        }
-    }
-
-    private class GeneradorContenido implements Generator<Contenido> {
-
-        private Generator<String> s = PrimitiveGenerators.strings();
-        private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo
-
-        @Override
-        public Contenido next() {
-            try {
-                ArchivoAudio archivo = new ArchivoAudio(s.next(), s.next(), i.next(), s.next());                
-                Integer contador = i.next();
-                if (contador == 0) {                    
-                    //Bonus
-                    return new Bonus(archivo, this.next());                    
-                } else if (contador == 1) {
-                    //Promocion
-                    return new Promocion(archivo, s.next());
-                } else {
-                    //Archivo Audio
-                    return archivo;
-                }
-            } catch (ExcepcionContenido e) {
-                System.err
-                        .println("No se ha podido generar el contenido"
                                 + e.getMessage());
                 return null;
             }
