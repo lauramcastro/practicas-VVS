@@ -27,12 +27,12 @@ public class GeneradorContenido implements Generator<Contenido> {
     @Override
     public Contenido next() {
         try {
-            ArchivoAudio archivo = new ArchivoAudio(s.next(), s.next(), (generator.nextInt(1)-1), s.next());
+            ArchivoAudio archivo = new ArchivoAudio(s.next(), s.next(), (generator.nextInt(5)-1), s.next());
             //contador = i.next();
             int contador = generator.nextInt(2);
             if (contador == 0) {
                 //Bonus
-                return new Bonus(archivo, this.next());
+                return new Bonus(archivo, archivo);
             } else if (contador == 1) {
                 //Promocion
                 return new Promocion(archivo, s.next());
