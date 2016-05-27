@@ -45,7 +45,7 @@ public class AlmacenRealGraphWalker extends ExecutionContext implements AlmacenR
 	} catch (ExcepcionContenido ex) {
             Logger.getLogger(AlmacenRealGraphWalker.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("AgregarContenido - Numero de items: "+GrapAux.getNumCont());
+        //System.out.println("AgregarContenido - Numero de items: "+GrapAux.getNumCont());
     }
 
     public void eliminarContenido() {
@@ -59,17 +59,17 @@ public class AlmacenRealGraphWalker extends ExecutionContext implements AlmacenR
 	} catch (ExcepcionAlmacen e) {
 	    System.err.println("Problema al eliminar contenidos de almacenes");
 	}
-        System.out.println("eliminarContenido - Numero de items: "+GrapAux.getNumCont());
+        //System.out.println("eliminarContenido - Numero de items: "+GrapAux.getNumCont());
     }
 
     // ESTADOS
     public void AlmacenVacio() {
-        System.out.println("AlmacenVacio - Numero de items: "+GrapAux.getNumCont());
+        //System.out.println("AlmacenVacio - Numero de items: "+GrapAux.getNumCont());
         Assert.assertTrue(GrapAux.getNumCont()==0);
     }
 
     public void AlmacenConContenido() {
-        System.out.println("AlmacenConContenido - Numero de items: "+GrapAux.getNumCont());
+        //System.out.println("AlmacenConContenido - Numero de items: "+GrapAux.getNumCont());
         Assert.assertTrue(GrapAux.getNumCont()>0);
     }
 }
