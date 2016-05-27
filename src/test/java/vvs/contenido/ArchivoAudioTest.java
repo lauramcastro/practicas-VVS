@@ -77,6 +77,17 @@ public class ArchivoAudioTest {
 
     @Test
     public void busquedasAleatorias() {
+        for (Contenido contenido : Iterables.toIterable(new GeneradorContenido())) {
+            //for (String cadena : Iterables.toIterable(PrimitiveGenerators.strings())) {
+            String cadena = "ejemplo";
+            assertFalse(contenido.obtenerTitulo().contains(cadena)
+                    && contenido.buscar(cadena).isEmpty());
+            //}
+        }
+    }
+
+    /*@Test
+    public void busquedasAleatorias() {
         Classification c = new Classification();
         for (Contenido contenido : Iterables
                 .toIterable(new GeneradorContenido())) {
@@ -97,8 +108,7 @@ public class ArchivoAudioTest {
             System.out.println("[busquedasAleatorias] ===> " + cat + " => "
                     + c.getFrequency(cat));
         }
-    }
-
+    }*/
     @Test(expected = RuntimeException.class)
     public void agregarContenidoTest() {
         lavigne1.agregar(lavigne2, null);
