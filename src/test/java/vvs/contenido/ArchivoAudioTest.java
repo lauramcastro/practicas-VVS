@@ -79,6 +79,9 @@ public class ArchivoAudioTest {
     public void busquedasAleatorias() {
         for (Contenido contenido : Iterables.toIterable(new GeneradorContenido())) {
             //for (String cadena : Iterables.toIterable(PrimitiveGenerators.strings())) {
+            if (contenido == null) {
+                continue;
+            }
             String cadena = "ejemplo";
             assertFalse(contenido.obtenerTitulo().contains(cadena)
                     && contenido.buscar(cadena).isEmpty());
