@@ -60,12 +60,12 @@ public class AlmacenRestringidoGraphWalker extends ExecutionContext implements A
                 GrapAux.getAlmacen().buscar("Amy");
                 GrapAux.lessNumBusq();
                 setAttribute("numBusq",GrapAux.getNumBusq());
-                TimeUnit.MILLISECONDS.sleep(1000);
-                GrapAux.addToTimeElapsed(1000);
+                TimeUnit.MILLISECONDS.sleep(200);
+                GrapAux.addToTimeElapsed(200);
                 setAttribute("time",GrapAux.getTimeElapsed());
             } else if(GrapAux.getTimeElapsed() < 59999){
-                TimeUnit.MILLISECONDS.sleep(1000);
-                GrapAux.addToTimeElapsed(1000);
+                TimeUnit.MILLISECONDS.sleep(200);
+                GrapAux.addToTimeElapsed(200);
                 setAttribute("time",GrapAux.getTimeElapsed());
             } else {
                 GrapAux.resetTimeElapsed();
@@ -73,8 +73,8 @@ public class AlmacenRestringidoGraphWalker extends ExecutionContext implements A
                 GrapAux.getAlmacen().buscar("Amy");
                 GrapAux.lessNumBusq();
                 setAttribute("numBusq",GrapAux.getNumBusq());
-                TimeUnit.MILLISECONDS.sleep(1000);
-                GrapAux.addToTimeElapsed(1000);
+                TimeUnit.MILLISECONDS.sleep(200);
+                GrapAux.addToTimeElapsed(200);
                 setAttribute("time",GrapAux.getTimeElapsed());
             }
         } catch (ExcepcionAlmacen ex) {
