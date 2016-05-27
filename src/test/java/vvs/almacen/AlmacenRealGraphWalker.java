@@ -15,7 +15,7 @@ import vvs.contenido.ExcepcionContenido;
 import vvs.util.GrapAux;
 
 //@GraphWalker(value = "random(edge_coverage(100))")
-@GraphWalker(value = "random(time_duration(1))")
+@GraphWalker(value = "random(time_duration(2))")
 public class AlmacenRealGraphWalker extends ExecutionContext implements AlmacenRealModel {
 
     //private Almacen almacen;

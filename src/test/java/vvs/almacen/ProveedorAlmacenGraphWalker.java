@@ -13,13 +13,15 @@ import org.graphwalker.java.annotation.GraphWalker;
 import vvs.util.GrapAux;
 
 //@GraphWalker(value = "random(edge_coverage(100))", start = "iniciar")
-@GraphWalker(value = "random(time_duration(1))", start = "iniciar")
+@GraphWalker(value = "random(time_duration(2))", start = "iniciar")
 public class ProveedorAlmacenGraphWalker extends ExecutionContext implements ProveedorAlmacenModel {
 
     // TRANSICIONES
     public void iniciar() {
         try {
-            almacen = new ProveedorAlmacen(new AlmacenReal("Universal Music Group"), null);
+            Almacen real = new AlmacenReal("Universal Music Group");
+            Almacen restringido = new AlmacenRestringido(real, 3, 1);
+            almacen = new ProveedorAlmacen(restringido, null);
             proveedor = new AlmacenReal("Sony BMG Music");
             presente = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
             ausente = new ArchivoAudio("Avril Lavigne: Girlfriend", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
