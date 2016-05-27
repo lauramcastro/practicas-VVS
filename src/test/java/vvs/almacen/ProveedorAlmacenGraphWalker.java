@@ -13,7 +13,7 @@ import org.graphwalker.java.annotation.GraphWalker;
 import vvs.util.GrapAux;
 
 //@GraphWalker(value = "random(edge_coverage(100))", start = "iniciar")
-@GraphWalker(value = "random(time_duration(10))", start = "iniciar")
+@GraphWalker(value = "random(time_duration(5))", start = "iniciar")
 public class ProveedorAlmacenGraphWalker extends ExecutionContext implements ProveedorAlmacenModel {
 
     // TRANSICIONES
@@ -44,33 +44,7 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
     public void eliminarProveedor() {
         System.out.println("Running: eliminarProveedor");       
         GrapAux.getAlmacen().establecerProveedor(null);
-    }
-
-    public void agregarContenido() {
-        try {
-            if (GrapAux.getAlmacen().obtenerContenidos().isEmpty()) {
-                GrapAux.getAlmacen().agregarContenido(presente);
-                GrapAux.addNumCont();
-                setAttribute("numCont",GrapAux.getNumCont());
-            } // senón saltaría a excepción de contido duplicado
-        } catch (ExcepcionAlmacen e) {
-            System.err.println("Problema al almacenar contenidos en almacenes");
-        }
-        System.out.println("agregarContenidoProveedor - Numero de items: "+GrapAux.getNumCont());
-    }
-
-    public void eliminarContenido() {
-        try {
-            if (!GrapAux.getAlmacen().obtenerContenidos().isEmpty()) {
-                GrapAux.getAlmacen().eliminarContenido(presente);
-                GrapAux.removeNumCont();
-                setAttribute("numCont",GrapAux.getNumCont());
-            } // senón saltaría a excepción de contido inexistente
-        } catch (ExcepcionAlmacen e) {
-            System.err.println("Problema al eliminar contenidos de almacenes");           
-        }
-        System.out.println("eliminarContenidoProveedor - Numero de items: "+GrapAux.getNumCont());
-    }   
+    } 
     
     public void SinProveedor() {
         System.out.println("In state: sin proveedor");
