@@ -5,6 +5,7 @@
  */
 package vvs.quickcheck;
 
+import java.util.Random;
 import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
 import vvs.contenido.ArchivoAudio;
@@ -20,17 +21,19 @@ import vvs.contenido.Promocion;
 public class GeneradorContenido implements Generator<Contenido> {
 
     private Generator<String> s = PrimitiveGenerators.strings();
-    private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo
+    private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo    
+    Random generator = new Random();    
 
     @Override
     public Contenido next() {
         try {
             ArchivoAudio archivo = new ArchivoAudio(s.next(), s.next(), i.next(), s.next());
-            Integer contador = i.next();
-            if (contador == 0) {
+            //contador = i.next();
+            int contador = generator.nextInt(3) + 1;
+            if (contador == 1) {
                 //Bonus
                 return new Bonus(archivo, this.next());
-            } else if (contador == 1) {
+            } else if (contador == 2) {
                 //Promocion
                 return new Promocion(archivo, s.next());
             } else {
