@@ -28,8 +28,8 @@ public class GeneradorContenido implements Generator<Contenido> {
     public Contenido next() {
         try {
             ArchivoAudio archivo = new ArchivoAudio(s.next(), s.next(), i.next(), s.next());
-            //contador = i.next();
-            int contador = generator.nextInt(2);
+            int contador = i.next();
+            //int contador = generator.nextInt(2);
             if (contador == 0) {
                 //Bonus
                 return new Bonus(archivo, this.next());
