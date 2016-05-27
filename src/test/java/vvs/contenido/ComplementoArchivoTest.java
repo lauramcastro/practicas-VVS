@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import org.junit.Assert;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,11 +22,13 @@ import java.util.Iterator;
 public class ComplementoArchivoTest {
     private ArchivoAudio archivo;
     private Promocion promocion;
+    private Promocion promocion2;
     
     @Before
 	public void initialize() throws ExcepcionContenido{
     	archivo = new ArchivoAudio("titulo", "URLAudio", 5, "genero");
         promocion = new Promocion(archivo, "URLPromocion");
+        promocion2 = new Promocion(archivo, "URLPromocion");
 	}
     
     
@@ -56,10 +59,16 @@ public class ComplementoArchivoTest {
         promocion.recuperar(0);
     }
     
-    /*@Test
+    @Test
     public void obtenerPadreTest(){
-        
-    }*/
+        promocion.establecerPadre(archivo);
+        Assert.assertTrue(promocion.obtenerPadre().equals(archivo));
+    }
+    @Test
+    public void hashCodeTest(){
+        Assert.assertTrue(promocion.hashCode() == promocion2.hashCode());
+    }
+    
     
     @Test
     public void equalsTest(){

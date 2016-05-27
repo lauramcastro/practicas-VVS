@@ -32,7 +32,7 @@ public class ColeccionTest {
 		coleccionCorrecta.agregar(eminem2, eminem1);
 		assertEquals(coleccionCorrecta.obtenerDuracion(), eminem1.obtenerDuracion() + eminem2.obtenerDuracion());
 	}
-	
+
 	@Test
 	public void obtenerListaReproduccionTest(){
 		coleccionCorrecta.agregar(eminem1, null);

@@ -112,6 +112,11 @@ public class ArchivoAudioTest {
     public void notEqualsTest() {
         assertEquals(false, lavigne1.equals(eminem1));
     }
+    
+    @Test
+    public void notHashEqualsTest() {
+        assertTrue(lavigne1.hashCode() != lavigne2.hashCode());
+    }
 
     @Test
     public void obtenerPadreTest() {

@@ -53,6 +53,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
      *
      * @return el almacén que es proveedor de este almacén
      */
+    @Override
     public Almacen obtenerProveedor() {
         return this.proveedor;
     }
@@ -63,6 +64,7 @@ public class ProveedorAlmacen extends ComplementoAlmacen {
      *
      * @param almacen el almacén proveedor
      */
+    @Override
     public void establecerProveedor(Almacen almacen) {
         this.proveedor = almacen;
     }

@@ -24,12 +24,14 @@ public class RegistroAlmacenTest {
 
     Almacen registroAlmacen;
     Almacen registroReal;
+    Almacen registroRealError;
     Almacen registroRestringido;
     int busquedas, minutos;
     Contenido coldplay2;
     Contenido winehouse1;
     Contenido winehouse2;
     String nombreRegistroAlmacenReal = "Registro almacen real";
+    String nombreErrorRegistroAlmacenReal = "Registro_-.;*][(){}¨?:,¡'¿?=&%$·<>!¡^+´ç$~~ªºalmacen real";
     String nombreResgistroAlmacenRestringido = "Registro almacen restringido";
     Collection<Contenido> contenidoAnadidoRegistroAlmacen;
     static final String match = "Amy";
@@ -40,6 +42,7 @@ public class RegistroAlmacenTest {
         minutos = 1;
         contenidoAnadidoRegistroAlmacen = new ArrayList<Contenido>();
         registroReal = new AlmacenReal(nombreRegistroAlmacenReal);
+        registroRealError = new AlmacenReal(nombreErrorRegistroAlmacenReal);
         registroRestringido = new AlmacenRestringido(new AlmacenReal(nombreResgistroAlmacenRestringido), busquedas, minutos);
 
         coldplay2 = Mockito.mock(ArchivoAudio.class);
@@ -66,6 +69,16 @@ public class RegistroAlmacenTest {
         Date fechaInicion = new Date(System.currentTimeMillis());
         registroAlmacen = new RegistroAlmacen(registroReal);
         assertTrue(new File(sanitize(nombreRegistroAlmacenReal + "-" + fechaInicion) + ".log").exists());
+    }
+    
+    /*
+    *Error al crear el almacen, para comprobar la excepcion que debe aparecer.
+    */
+    @Test
+    public void crearErrorAlmacenRestringidoTest() {
+        Date fechaInicion = new Date(System.currentTimeMillis());
+        registroAlmacen = new RegistroAlmacen(registroRealError);
+        assertTrue(new File(sanitize(nombreErrorRegistroAlmacenReal + "-" + fechaInicion) + ".log").exists());
     }
 
     /* 
