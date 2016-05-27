@@ -9,7 +9,7 @@ import vvs.util.GrapAux;
 
 
 //@GraphWalker(value = "random(edge_coverage(100))")
-@GraphWalker(value = "random(time_duration(5))")
+@GraphWalker(value = "random(time_duration(1))")
 public class ColeccionGraphWalker extends ExecutionContext implements ColeccionModel {
 	
 	private Coleccion coleccion;

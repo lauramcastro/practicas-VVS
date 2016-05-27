@@ -13,7 +13,7 @@ import org.graphwalker.java.annotation.GraphWalker;
 import vvs.util.GrapAux;
 
 //@GraphWalker(value = "random(edge_coverage(100))", start = "iniciar")
-@GraphWalker(value = "random(time_duration(5))", start = "iniciar")
+@GraphWalker(value = "random(time_duration(1))", start = "iniciar")
 public class ProveedorAlmacenGraphWalker extends ExecutionContext implements ProveedorAlmacenModel {
 
     // TRANSICIONES
