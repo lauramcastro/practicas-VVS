@@ -18,7 +18,7 @@ import vvs.util.GrapAux;
 @GraphWalker(value = "random(time_duration(10))")
 public class AlmacenRealGraphWalker extends ExecutionContext implements AlmacenRealModel {
 
-    private Almacen almacen;
+    //private Almacen almacen;
     private Contenido presente;
     
     // TRANSICIONES
@@ -39,28 +39,37 @@ public class AlmacenRealGraphWalker extends ExecutionContext implements AlmacenR
             presente = new ArchivoAudio("Amy Winehouse: Rehab"+num, "http://servidor/winehouse/back2black/1"+num, 215, "Soul");
 	    GrapAux.getAlmacen().agregarContenido(presente);
             GrapAux.addNumCont();
+            setAttribute("numCont",GrapAux.getNumCont());
 	} catch (ExcepcionAlmacen e) {
 	    System.err.println("Problema al almacenar contenidos en almacenes");
 	} catch (ExcepcionContenido ex) {
             Logger.getLogger(AlmacenRealGraphWalker.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println("AgregarContenido - Numero de items: "+GrapAux.getNumCont());
     }
 
     public void eliminarContenido() {
         // System.out.println("Running: eliminarContenido");
-	try {	    
-            GrapAux.getAlmacen().eliminarContenido((Contenido)GrapAux.getAlmacen().obtenerContenidos().toArray()[0]);
+	try {	 
+            if (GrapAux.getNumCont()>0){
+                GrapAux.getAlmacen().eliminarContenido((Contenido)GrapAux.getAlmacen().obtenerContenidos().toArray()[0]);
+                GrapAux.removeNumCont();
+                setAttribute("numCont",GrapAux.getNumCont());
+            }
 	} catch (ExcepcionAlmacen e) {
 	    System.err.println("Problema al eliminar contenidos de almacenes");
 	}
+        System.out.println("eliminarContenido - Numero de items: "+GrapAux.getNumCont());
     }
 
     // ESTADOS
     public void AlmacenVacio() {
+        System.out.println("AlmacenVacio - Numero de items: "+GrapAux.getNumCont());
         Assert.assertTrue(GrapAux.getNumCont()==0);
     }
 
     public void AlmacenConContenido() {
-        Assert.assertFalse(GrapAux.getNumCont()!=0);
+        System.out.println("AlmacenConContenido - Numero de items: "+GrapAux.getNumCont());
+        Assert.assertTrue(GrapAux.getNumCont()>0);
     }
 }

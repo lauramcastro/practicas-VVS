@@ -5,6 +5,7 @@
  */
 package vvs.almacen;
 
+import java.util.Iterator;
 import net.java.quickcheck.characteristic.Classification;
 import net.java.quickcheck.generator.PrimitiveGenerators;
 import net.java.quickcheck.generator.iterable.Iterables;
@@ -338,9 +339,15 @@ public class AlmacenRealTest {
     public void busquedasAleatorias() throws ExcepcionAlmacen {
         Classification c = new Classification();
         Almacen almacen = new AlmacenReal("almacenReal");
-        for (Contenido contenido : Iterables.toIterable(new GeneradorContenido())) {
+        Iterable<Contenido> gC = Iterables.toIterable(new GeneradorContenido());
+        Iterable<String> cB = Iterables.toIterable(PrimitiveGenerators.strings());
+        
+       
+        for (int i = 0; i<10; i++) {            
+            Contenido contenido = (Contenido) gC.iterator().next();
             almacen.agregarContenido(contenido);
-            for (String cadenaABuscar : Iterables.toIterable(PrimitiveGenerators.strings())) {
+            for (int j = 0; j<10; j++) {
+                String cadenaABuscar = (String) cB.iterator().next();
                 System.out.println("[busquedasAleatorias1] ===> " + cadenaABuscar + " ? " + contenido);
                 if (almacen.buscar(cadenaABuscar).contains(cadenaABuscar)) {
                     c.classifyCall("presente");

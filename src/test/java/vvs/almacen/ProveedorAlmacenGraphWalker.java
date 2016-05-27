@@ -27,6 +27,7 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
             /*INIT */
             GrapAux.setAlmacen(almacen);            
             GrapAux.resetNumBusq();
+            setAttribute("numCont",GrapAux.getNumCont());
             
         } catch (ExcepcionContenido c) {
             System.err.println("Problema al crear contenidos");
@@ -46,27 +47,29 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
     }
 
     public void agregarContenido() {
-        System.out.println("Running: agregarContenido");
         try {
             if (GrapAux.getAlmacen().obtenerContenidos().isEmpty()) {
                 GrapAux.getAlmacen().agregarContenido(presente);
                 GrapAux.addNumCont();
+                setAttribute("numCont",GrapAux.getNumCont());
             } // senón saltaría a excepción de contido duplicado
         } catch (ExcepcionAlmacen e) {
             System.err.println("Problema al almacenar contenidos en almacenes");
         }
+        System.out.println("agregarContenidoProveedor - Numero de items: "+GrapAux.getNumCont());
     }
 
     public void eliminarContenido() {
-        System.out.println("Running: eliminarContenido");
         try {
             if (!GrapAux.getAlmacen().obtenerContenidos().isEmpty()) {
                 GrapAux.getAlmacen().eliminarContenido(presente);
                 GrapAux.removeNumCont();
+                setAttribute("numCont",GrapAux.getNumCont());
             } // senón saltaría a excepción de contido inexistente
         } catch (ExcepcionAlmacen e) {
             System.err.println("Problema al eliminar contenidos de almacenes");           
         }
+        System.out.println("eliminarContenidoProveedor - Numero de items: "+GrapAux.getNumCont());
     }   
     
     public void SinProveedor() {
