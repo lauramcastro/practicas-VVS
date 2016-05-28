@@ -1,19 +1,19 @@
 package vvs.almacen;
 
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+
 import vvs.contenido.ArchivoAudio;
 import vvs.contenido.Contenido;
 import vvs.contenido.ExcepcionContenido;
+import vvs.util.GrapAux;
 
 import org.junit.Assert;
 
 import org.graphwalker.core.machine.ExecutionContext;
-import org.graphwalker.core.condition.TimeDuration;
 import org.graphwalker.java.annotation.GraphWalker;
-import vvs.util.GrapAux;
 
-//@GraphWalker(value = "random(edge_coverage(100))", start = "iniciar")
-@GraphWalker(value = "random(time_duration(1))", start = "iniciar")
+@GraphWalker(value = "random(edge_coverage(50))", start = "iniciar")
+//@GraphWalker(value = "random(length(25) or time_duration(10))", start = "iniciar")
 public class ProveedorAlmacenGraphWalker extends ExecutionContext implements ProveedorAlmacenModel {
 
     // TRANSICIONES

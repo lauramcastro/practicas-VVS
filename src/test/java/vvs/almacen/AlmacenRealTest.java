@@ -353,7 +353,7 @@ public class AlmacenRealTest {
             almacen.agregarContenido(contenido);
             for (int j = 0; j<10; j++) {
                 String cadenaABuscar = (String) cB.iterator().next();
-                System.out.println("[busquedasAleatorias1] ===> " + cadenaABuscar + " ? " + contenido);
+                // System.out.println("[busquedasAleatorias1] ===> " + cadenaABuscar + " ? " + contenido);
                 if (almacen.buscar(cadenaABuscar).contains(cadenaABuscar)) {
                     c.classifyCall("presente");
                 } else {
@@ -364,9 +364,9 @@ public class AlmacenRealTest {
             }
         }
 
-        System.out.println("[busquedasAleatorias2] ===> " + c);
+        // System.out.println("[busquedasAleatorias2] ===> " + c);
         for (Object cat : c.getCategories()) {
-            System.out.println("[busquedasAleatorias3] ===> " + cat + " => " + c.getFrequency(cat));
+            System.out.println("[busquedasAleatorias AlmacenRealTest] ===> " + cat + " => " + c.getFrequency(cat));
         }
     }
 }

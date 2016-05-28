@@ -98,8 +98,7 @@ public class ArchivoAudioTest {
                 .toIterable(new GeneradorContenido())) {
             for (String cadena : Iterables.toIterable(PrimitiveGenerators
                     .strings())) {
-                // System.out.println("[busquedasAleatorias] ===> " + cadena +
-                // " ? " + contenido);
+                // System.out.println("[busquedasAleatorias] ===> " + cadena + " ? " + contenido);
                 if (contenido.obtenerTitulo().contains(cadena)) {
                     c.classifyCall("presente");
                 } else {
@@ -110,8 +109,7 @@ public class ArchivoAudioTest {
             }
         }
         for (Object cat : c.getCategories()) {
-            System.out.println("[busquedasAleatorias] ===> " + cat + " => "
-                    + c.getFrequency(cat));
+            System.out.println("[busquedasAleatorias ArchivoAudioTest] ===> " + cat + " => " + c.getFrequency(cat));
         }
     }
     

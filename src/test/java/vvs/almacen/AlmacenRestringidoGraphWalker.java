@@ -3,19 +3,19 @@ package vvs.almacen;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import vvs.contenido.Contenido;
-
-import org.junit.Assert;
-
-
-import org.graphwalker.core.machine.ExecutionContext;
-import org.graphwalker.java.annotation.GraphWalker;
 import vvs.contenido.ArchivoAudio;
 import vvs.contenido.ExcepcionContenido;
 import vvs.util.GrapAux;
 
-//@GraphWalker(value = "random(edge_coverage(100))")
-@GraphWalker(value = "random(time_duration(1))")
+import org.junit.Assert;
+
+import org.graphwalker.core.machine.ExecutionContext;
+import org.graphwalker.java.annotation.GraphWalker;
+
+@GraphWalker(value = "random(edge_coverage(50))")
+//@GraphWalker(value = "random(length(25) or time_duration(10))")
 public class AlmacenRestringidoGraphWalker extends ExecutionContext implements AlmacenRestringidoModel {
 
     private Contenido presente;
