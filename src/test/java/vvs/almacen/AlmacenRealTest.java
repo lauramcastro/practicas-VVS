@@ -82,7 +82,7 @@ public class AlmacenRealTest {
     }
 
     /**
-     * Test que comprueba que no se puede agregar como contenido un null.
+     * Test que comprueba que no se puede agregar como contenido un nulo.
      */
     @Test
     public void agregarContenidoNullTest() {

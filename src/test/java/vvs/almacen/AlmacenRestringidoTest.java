@@ -191,7 +191,7 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * Test que cmprueba que no se pueden eliminar contenidos que no se hayan
+     * Test que comprueba que no se pueden eliminar contenidos que no se hayan
      * agregado en un almacén restringido.
      */
     @Test

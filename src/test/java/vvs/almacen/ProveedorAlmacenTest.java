@@ -232,7 +232,7 @@ public class ProveedorAlmacenTest {
     }
     
     /** Comprobamos que la búsqueda funciona cuando establecemos como
-     * proveedor un alamén nulo.
+     * proveedor un almacén nulo.
      *
      * @throws ExcepcionAlmacen Excepción que se puede lanzar si falla la prueba.
      */
