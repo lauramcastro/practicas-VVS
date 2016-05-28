@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vvs.almacen;
 
 import vvs.contenido.ArchivoAudio;
 import vvs.contenido.Contenido;
+import vvs.contenido.ExcepcionContenido;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +23,7 @@ import org.mockito.Mockito;
 import vvs.contenido.Bonus;
 
 /**
- *
+ * Clase de prueba para <code>AlmacenRestringido</code>.
  * @author hmia
  */
 public class AlmacenRestringidoTest {
@@ -47,7 +43,7 @@ public class AlmacenRestringidoTest {
     /**
      * Iniciamos los datos que necesitamos para realizar las pruebas
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar si la inicialización produce errores.
      */
     @Before
     public void setUp() throws ExcepcionAlmacen {
@@ -59,6 +55,8 @@ public class AlmacenRestringidoTest {
         real = new AlmacenReal(nombre);
         restringido = new AlmacenRestringido(real, busquedas, minutos);
 
+        // ¿Por qué tenemos código muerto aquí? ¡El código de pruebas también hay que mantenerlo!
+        
 //        coldplay1 = new ArchivoAudio("Coldplay: Speed of Sound", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
 //        winehouse = new ArchivoAudio("Amy Winehouse: Rehab", "http://servidor/winehouse/back2black/1", 215, "Soul");
 //        coldPlayWineHouse = new ArchivoAudio("Coldplay: Rehab", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
@@ -76,8 +74,8 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * En Obtener nombre comprobamos que el nombre devuelto es igual al esperado
-     * en los casos (con nombre, o nombre nulo)
+     * Comprobamos que el nombre devuelto es igual al esperado
+     * en los casos: con nombre, o nombre nulo.
      */
     @Test
     public void obternerNombreTest() {
@@ -87,6 +85,11 @@ public class AlmacenRestringidoTest {
         assertNull(nuevo.obtenerNombre());
     }
 
+    /**
+     * Prueba sin documentar.
+     *
+     * @throws ExcepcionAlmacen Excepción que se captura.
+     */
     @Test
     public void agregarContenido() throws ExcepcionAlmacen {
         int size = 0;
@@ -105,8 +108,8 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que no se puede agregar como contenido un null a un
-     * almacen restringido
+     * Test que comprueba que no se puede agregar como contenido un nulo a un
+     * almacén restringido.
      */
     @Test
     public void agregarContenidoNullTest() {
@@ -123,8 +126,8 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que no se pueden agregar contenidos duplicados a un
-     * almacen restringido
+     * Test que comprueba que no se pueden agregar contenidos duplicados a un
+     * almacén restringido.
      */
     @Test
     public void agregarContenidoDuplicadoTest() {
@@ -156,7 +159,7 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la eliminacion de contenidos en almacen restringido
+     * Test que comprueba la eliminación de contenidos en almacén restringido.
      */
     @Test
     public void eliminarContenidoTest() {
@@ -188,8 +191,8 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que cmprueba que no se pueden eliminar contenidos que no se hayan
-     * agregado en un almacen restringido
+     * Test que cmprueba que no se pueden eliminar contenidos que no se hayan
+     * agregado en un almacén restringido.
      */
     @Test
     public void eliminarContenidoNoAgregadoTest() {
@@ -209,14 +212,15 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que no se puede agregar un contenido bonus si ya se
-     * habia agregado el mismo archivo de audio que se uso para crear ese bonus,
-     * en un almacen restringido.
+     * Test que comprueba que no se puede agregar un contenido bonus si ya se
+     * había agregado el mismo archivo de audio que se usó para crear ese bonus,
+     * en un almacén restringido.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se captura.
+     * @throws ExcepcionContenido Excepción que se captura.
      */
     @Test
-    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, vvs.contenido.ExcepcionContenido {
+    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, ExcepcionContenido {
         int size = 0;
         boolean excepcion = false;
 
@@ -251,9 +255,9 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqeuda sobre un almacen restringido vacio
+     * Test que comprueba la búsqueda sobre un almacén restringido vacío.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarVacioTest() throws ExcepcionAlmacen {
@@ -261,10 +265,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda normal de contenido, en un almacen
-     * restringido
+     * Test que comprueba la búsqueda normal de contenido, en un almacén
+     * restringido.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
@@ -275,9 +279,9 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda con un null,, en un almacen restringido
+     * Test que comprueba la búsqueda con un nulo, en un almacén restringido.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarNullTest() throws ExcepcionAlmacen {
@@ -285,10 +289,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento que no esta agregado en un
-     * almacen restringido
+     * Test que comprueba la búsqueda de un elemento que no está agregado en un
+     * almacén restringido.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarNoExistenteTest() throws ExcepcionAlmacen {
@@ -298,10 +302,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqeuda de multiples contenidos a la vez, en un
-     * almacen restringido
+     * Test que comprueba la búsqueda de múltiples contenidos a la vez, en un
+     * almacén restringido.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarVariosTest() throws ExcepcionAlmacen {
@@ -312,7 +316,11 @@ public class AlmacenRestringidoTest {
         assertTrue(restringido.buscar("").contains(winehouse));
         assertEquals(restringido.buscar("").size(), 2);
     }
-
+    
+    /** Prueba sin documentación.
+     *
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
+     */
     @Test
     public void busquedasAleatorias() throws ExcepcionAlmacen {
         Classification c = new Classification();
@@ -341,10 +349,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento con espacios antes y
-     * despues
+     * Test que comprueba la búsqueda de un elemento con espacios antes y
+     * después.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarConEspaciosTest() throws ExcepcionAlmacen {
@@ -355,9 +363,9 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento con palabras desordenadas
+     * Test que comprueba la búsqueda de un elemento con palabras desordenadas.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarPalabrasDesordenadasTest() throws ExcepcionAlmacen {
@@ -368,10 +376,10 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que si se sobrepasa el numero de busqeudas permitidas
-     * en un almacen restringido, salta la excepcion
+     * Test que comprueba que si se sobrepasa el número de búsquedas permitidas
+     * en un almacén restringido, salta la excepción.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se espera lanzar.
      */
     @Test(expected = ExcepcionAlmacen.class)
     public void sobrepasarNumeroDeBusquedasTest() throws ExcepcionAlmacen {
@@ -387,11 +395,11 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que si se espera el tiempo necesario antes de
-     * sobrepasar el numero de busqeudas permitidas en un almacen restringido,
-     * no salta la excepcion
+     * Test que comprueba que si se espera el tiempo necesario antes de
+     * sobrepasar el número de búsquedas permitidas en un almacén restringido,
+     * no salta la excepción.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar si falla la prueba.
      */
     @Test
     public void esperarYSobrepasarNumeroDeBusquedasTest() throws ExcepcionAlmacen {
@@ -411,9 +419,12 @@ public class AlmacenRestringidoTest {
         /*Al sobrepasar el tiempo no deberia de mandarnos ninguna exception y realizar bien la busqueda */
         assertTrue(restringido.buscar("Coldplay").contains(coldplay1));
     }
+
     /**
-     * test que comprueba que un almacen restringido no se modifica al
-     * establecer proveedor
+     * Test que comprueba que un almacén restringido no se modifica al
+     * establecer proveedor.
+     *
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void establecerProveedor() throws ExcepcionAlmacen {
@@ -425,8 +436,8 @@ public class AlmacenRestringidoTest {
     }
 
     /**
-     * test que comprueba que obtener proveedor en un almacen restringido
-     * devuelve siempre null (redundante respecto al test anterior)
+     * Test que comprueba que obtener proveedor en un almacén restringido
+     * devuelve siempre nulo (redundante respecto al test anterior: ¿por qué se mantiene, entonces?)
      */
     @Test
     public void obtenerProveedor() {

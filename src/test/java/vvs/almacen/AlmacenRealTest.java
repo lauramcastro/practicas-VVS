@@ -1,17 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vvs.almacen;
 
 import java.util.Iterator;
 import net.java.quickcheck.characteristic.Classification;
 import net.java.quickcheck.generator.PrimitiveGenerators;
 import net.java.quickcheck.generator.iterable.Iterables;
+
 import vvs.contenido.ArchivoAudio;
 import vvs.contenido.Bonus;
 import vvs.contenido.Contenido;
+import vvs.contenido.ExcepcionContenido;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,7 +19,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- *
+ * Clase de pruebas para <code>AlmacenReal</code>.
  * @author hmia
  */
 public class AlmacenRealTest {
@@ -52,20 +49,19 @@ public class AlmacenRealTest {
     }
 
     /**
-     * En Obtener nombre comprobamos que el nombre devuelto es igual al esperado
-     * en los casos (con nombre, o nombre nulo)
+     * Comprobamos que el nombre devuelto es igual al esperado
+     * en los casos: con nombre, o nombre nulo, aunque deberían ser dos pruebas diferentes.
      */
     @Test
     public void obternerNombreTest() {
-
         assertEquals(nombre, almacenReal.obtenerNombre());
         almacenReal = new AlmacenReal(null);
         assertEquals(null, almacenReal.obtenerNombre());
     }
 
     /**
-     * test positivo que agrega un contenido y comprueba que se obtiene
-     * correctamente
+     * Test positivo que agrega un contenido y comprueba que se obtiene
+     * correctamente.
      */
     @Test
     public void agregarContenidoTest() {
@@ -85,7 +81,7 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba que no se puede agregar como contenido un null
+     * Test que comprueba que no se puede agregar como contenido un null.
      */
     @Test
     public void agregarContenidoNullTest() {
@@ -102,7 +98,7 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba que no se pueden agregar contenidos duplicados
+     * Test que comprueba que no se pueden agregar contenidos duplicados.
      */
     @Test
     public void agregarContenidoDuplicadoTest() {
@@ -133,7 +129,7 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la eliminacion de contenidos
+     * Test que comprueba la eliminación de contenidos.
      */
     @Test
     public void eliminarContenidoTest() {
@@ -165,8 +161,8 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que cmprueba que no se pueden eliminar contenidos que no se hayan
-     * agregado
+     * Test que comprueba que no se pueden eliminar contenidos que no se hayan
+     * agregado.
      */
     @Test
     public void eliminarContenidoNoAgregadoTest() {
@@ -186,13 +182,14 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba que no se puede agregar un contenido bonus si ya se
-     * habia agregado el mismo archivo de audio que se uso para crear ese bonus.
+     * Test que comprueba que no se puede agregar un contenido bonus si ya se
+     * había agregado el mismo archivo de audio que se usó para crear ese bonus.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se captura.
+     * @throws ExcepcionContenido Excepción que podría lanzarse si la prueba falla.
      */
     @Test
-    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, vvs.contenido.ExcepcionContenido {
+    public void agregarContenidoDuplicadoContenidoEnOtroContenidoTest() throws ExcepcionAlmacen, ExcepcionContenido {
         int size = 0;
         boolean excepcion = false;
 
@@ -227,9 +224,9 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqeuda sobre un almacen vacio
+     * Test que comprueba la búsqueda sobre un almacén vacío.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que podría lanzarse si la prueba falla.
      */
     @Test
     public void buscarVacioTest() throws ExcepcionAlmacen {
@@ -237,9 +234,9 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqueda normal de contenido
+     * Test que comprueba la búsqueda normal de contenido.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que podría lanzarse si la prueba falla.
      */
     @Test
     public void buscarTest() throws ExcepcionAlmacen {
@@ -250,9 +247,9 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqueda con un null
+     * Test que comprueba la búsqueda con un null.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que podría lanzarse si la prueba falla.
      */
     @Test
     public void buscarNullTest() throws ExcepcionAlmacen {
@@ -260,9 +257,9 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento que no esta agregado
+     * Test que comprueba la búsqueda de un elemento que no está agregado.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que podría lanzarse si la prueba falla.
      */
     @Test
     public void buscarNoExistenteTest() throws ExcepcionAlmacen {
@@ -272,9 +269,9 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqeuda de multiples contenidos a la vez
+     * Test que comprueba la búsqueda de múltiples contenidos a la vez.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que podría lanzarse si la prueba falla.
      */
     @Test
     public void buscarVariosTest() throws ExcepcionAlmacen {
@@ -287,10 +284,10 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento con espacios antes y
-     * despues
+     * Test que comprueba la búsqueda de un elemento con espacios antes y
+     * después.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que podría lanzarse si la prueba falla.
      */
     @Test
     public void buscarConEspaciosTest() throws ExcepcionAlmacen {
@@ -301,9 +298,9 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba la busqueda de un elemento con palabras desordenadas
+     * Test que comprueba la búsqueda de un elemento con palabras desordenadas.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void buscarPalabrasDesordenadasTest() throws ExcepcionAlmacen {
@@ -314,8 +311,10 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba que un almacen real no se modifica al establecer
-     * proveedor
+     * Test que comprueba que un almacén real no se modifica al establecer
+     * proveedor.
+     *
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
      */
     @Test
     public void establecerProveedor() throws ExcepcionAlmacen {
@@ -327,14 +326,19 @@ public class AlmacenRealTest {
     }
 
     /**
-     * test que comprueba que obtener proveedor en un almacen real devuelve
-     * siempre null (redundante respecto al test anterior)
+     * Test que comprueba que obtener proveedor en un almacén real devuelve
+     * siempre null (redundante respecto al test anterior: ¿por qué no se borra? ¡las pruebas son código a mantener!).
      */
     @Test
     public void obtenerProveedor() {
         assertEquals(almacenReal.obtenerProveedor(), null);
     }
 
+    /**
+     * Prueba sin documentación.
+     *
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar.
+     */
     @Test
     public void busquedasAleatorias() throws ExcepcionAlmacen {
         Classification c = new Classification();
@@ -352,7 +356,7 @@ public class AlmacenRealTest {
                 if (almacen.buscar(cadenaABuscar).contains(cadenaABuscar)) {
                     c.classifyCall("presente");
                 } else {
-                    c.classifyCall("ausente");
+                    c.classifyCall("ausente"); /* Ojo, en ejecución sale un 100% de casos ausentes... ¡no es una prueba muy efectiva! */
                 }
                 assertFalse(almacen.buscar(cadenaABuscar).contains(cadenaABuscar)
                         && almacen.buscar(cadenaABuscar).isEmpty());

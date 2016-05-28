@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vvs.almacen;
 
 import vvs.contenido.ArchivoAudio;
@@ -19,7 +14,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- *
+ * Clase de pruebas para <code>ProveedorAlmacen</code>.
  * @author hmia
  */
 public class ProveedorAlmacenTest {
@@ -27,7 +22,6 @@ public class ProveedorAlmacenTest {
     Almacen almacenReal;
     Almacen almacenRestringido;
 
-    /* */
     Contenido coldplay2;
     Contenido winehouse1;
     Contenido winehouse2;
@@ -42,6 +36,8 @@ public class ProveedorAlmacenTest {
         almacenReal = new AlmacenReal("xxx-padre");
         almacenRestringido = new AlmacenRestringido(new AlmacenReal("xxx-padre"), busquedas, minutos);
 
+        // ¿por qué hay código muerto en las pruebas? ¡eliminar!
+        
 //        coldplay2 = new ArchivoAudio("Coldplay: Speed of Sound part2", "http://servidor/coldplay/xy/7", 288, "Rock alternativo");
 //        winehouse1 = new ArchivoAudio("Amy Winehouse: Rehab part1", "http://servidor/winehouse/back2black/1", 215, "Soul");
 //        winehouse2 = new ArchivoAudio("Amy Winehouse: Rehab part2", "http://servidor/alavigne/bestdamnthing/1", 216, "Punk pop");
@@ -69,7 +65,7 @@ public class ProveedorAlmacenTest {
     }
 
     /**
-     * Test que comprueba el correcto funcionamiento de obtenerProveedor
+     * Test que comprueba el correcto funcionamiento de <code>obtenerProveedor</code>.
      */
     @Test
     public void ObtenerProveedorTest() {
@@ -78,7 +74,7 @@ public class ProveedorAlmacenTest {
     }
     
     /**
-     * Test que comprueba el correcto funcionamiento de establecerProveedor
+     * Test que comprueba el correcto funcionamiento de <code>establecerProveedor</code>.
      */
     @Test
     public void establecerProveedorTest() {
@@ -94,8 +90,8 @@ public class ProveedorAlmacenTest {
     } 
 
     /**
-     * Probar obtener proveedor con almacenes que no estan decorados como
-     * proveedores
+     * Probar obtener proveedor con almacenes que no están decorados como
+     * proveedores.
      */
     @Test
     public void probarProveedorConUnAlmacenSinDecorar() {
@@ -104,8 +100,9 @@ public class ProveedorAlmacenTest {
     }
     
     /**
-     * test que comprueba la busqueda de contenido que no esta en el almacenReal
-     * @throws vvs.almacen.ExcepcionAlmacen
+     * Test que comprueba la búsqueda de contenido que no está en el <code>almacenReal</code>.
+     *
+     * @throws ExcepcionAlmacen Excepción que se captura.
      */
     @Test
     public void buscarNoContenidoTest() throws ExcepcionAlmacen {
@@ -127,9 +124,10 @@ public class ProveedorAlmacenTest {
     }
     
      /**
-     * Test que comprueba el correcto funcionamiento de la busqueda de contenido
-     * cuando si está en el almacenReal
-     * @throws vvs.almacen.ExcepcionAlmacen
+     * Test que comprueba el correcto funcionamiento de la búsqueda de contenido
+     * cuando sí está en el <code>almacenReal</code>.
+     *
+     * @throws ExcepcionAlmacen Excepción que se captura.
      */
     @Test
     public void buscarEnAlmacenRealTest() throws ExcepcionAlmacen {
@@ -153,9 +151,10 @@ public class ProveedorAlmacenTest {
     }
     
      /**
-     * Test que comprueba el correcto funcionamiento de la busqueda cuando buscamos
-     * contenido que esta en el proveedor
-     * @throws vvs.almacen.ExcepcionAlmacen
+     * Test que comprueba el correcto funcionamiento de la búsqueda cuando buscamos
+     * contenido que está en el proveedor.
+     *
+     * @throws ExcepcionAlmacen Excepción que se captura.
      */
     @Test
     public void buscarEnProveedorTest() throws ExcepcionAlmacen {
@@ -180,11 +179,11 @@ public class ProveedorAlmacenTest {
     }
 
     /**
-     * Cuando se realizan las busquedas en el almacen restringido y las
-     * encuentra va restando de modo que cuando nos terminen el numero de
-     * busquedas disponibles nos lanza la excepción.
+     * Prueba que valida que cuando se realizan las búsquedas en el almacén restringido se
+     * van teniendo en cuenta de modo que cuando se alcanza el número de
+     * búsquedas disponibles se lanza la excepción esperada.
      *
-     * @throws ExcepcionAlmacen
+     * @throws ExcepcionAlmacen Excepción que se espera lanzar.
      */
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarRestringidoExcepcionTest() throws ExcepcionAlmacen {
@@ -197,7 +196,12 @@ public class ProveedorAlmacenTest {
         assertTrue(proveedor.buscar("SPEED").contains(coldplay2)); //busca en su almacen y lo encuentra 3
     }
     
-    /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen proveedor*/
+    /**
+     * Comprobamos que salta la excepción de un almacén restringido
+     * cuando actúa como almacén proveedor.
+     *
+     * @throws ExcepcionAlmacen Excepción que se espera lanzar.
+     */
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarExceptionRestringidoProveedorTest() throws ExcepcionAlmacen {
         
@@ -210,9 +214,12 @@ public class ProveedorAlmacenTest {
         assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
      
     }
-    
-    
-    /*Comprobamos que salta la excepcion de un almacen restringido cuando actua como almacen base*/
+        
+    /** Comprobamos que salta la excepción de un almacén restringido
+     * cuando actúa como almacén base. 
+     *
+     * @throws ExcepcionAlmacen Excepción que se espera lanzar.
+     */
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarExceptionRestringidoBaseTest() throws ExcepcionAlmacen {
         
@@ -225,8 +232,11 @@ public class ProveedorAlmacenTest {
         assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
     }
     
-    /*Comprobamos que la busqueda funciona cuando establecemos como proveedor 
-    un alamcen null*/
+    /** Comprobamos que la búsqueda funciona cuando establecemos como
+     * proveedor un alamén nulo.
+     *
+     * @throws ExcepcionAlmacen Excepción que se puede lanzar si falla la prueba.
+     */
     @Test
     public void buscarProveedorNullTest() throws ExcepcionAlmacen {
         
