@@ -8,6 +8,9 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Clase de pruebas sin ningún tipo de documentación.
+ */
 public class ColeccionTest {
 
 	private Coleccion coleccionCorrecta;
@@ -46,7 +49,7 @@ public class ColeccionTest {
 	}
 	
 	
-	/* Este test no me tiene sentido O.O */
+	/* Este test no me tiene sentido O.O ¿por qué sigue aquí? */
 	@Test
 	public void buscarTest(){
 		Collection<Contenido> col = coleccionCorrecta.buscar("nem");

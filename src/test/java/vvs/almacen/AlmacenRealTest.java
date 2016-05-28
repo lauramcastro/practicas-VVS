@@ -24,18 +24,19 @@ import org.mockito.Mockito;
  */
 public class AlmacenRealTest {
 
-    Almacen almacenReal;
-    String nombre = "EMI";
+    private Almacen almacenReal;
+    private String nombre = "EMI";
 
-    String palabraBusqueda;
+    private String palabraBusqueda;
 
-    Contenido coldplay1;
-    Contenido winehouse;
-    Contenido coldPlayWineHouse;
+    private Contenido coldplay1;
+    private Contenido winehouse;
+    private Contenido coldPlayWineHouse;
 
     @Before
     public void setUp() {
         almacenReal = new AlmacenReal(nombre);
+
         coldplay1 = Mockito.mock(ArchivoAudio.class);
         Mockito.when(coldplay1.obtenerTitulo()).thenReturn("Coldplay: Speed of Sound");
         Mockito.when(coldplay1.buscar(Mockito.anyString())).thenCallRealMethod();

@@ -4,13 +4,12 @@ import vvs.almacen.Almacen;
 
 public class GrapAux {
 	
-	private static Almacen almacen;
-	private static int numCont =0;
-	private static int numBusq = 3;
-	private static int timeElapsed=0;
+    private static Almacen almacen;
+    private static int numCont =0;
+    private static int numBusq = 3;
+    private static int timeElapsed=0;
 
-
-	private static final GrapAux INSTANCE = new GrapAux();
+    private static final GrapAux INSTANCE = new GrapAux();
 
     // El constructor privado no permite que se genere un constructor por defecto.
     // (con mismo modificador de acceso que la definición de la clase) 

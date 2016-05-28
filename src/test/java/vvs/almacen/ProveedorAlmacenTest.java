@@ -19,16 +19,16 @@ import org.mockito.Mockito;
  */
 public class ProveedorAlmacenTest {
 
-    Almacen almacenReal;
-    Almacen almacenRestringido;
+    private Almacen almacenReal;
+    private Almacen almacenRestringido;
 
-    Contenido coldplay2;
-    Contenido winehouse1;
-    Contenido winehouse2;
-    Contenido otra;
+    private Contenido coldplay2;
+    private Contenido winehouse1;
+    private Contenido winehouse2;
+    private Contenido otra;
 
-    int busquedas = 3;
-    int minutos = 1;
+    private int busquedas = 3; // ¿necesitamos una variable para un valor que sólo usamos en la inicialización del almacenRestringido?
+    private int minutos = 1;   // (mismo comentario anterior)
 
     @Before
     public void setUp() throws ExcepcionAlmacen {
@@ -132,8 +132,7 @@ public class ProveedorAlmacenTest {
     @Test
     public void buscarEnAlmacenRealTest() throws ExcepcionAlmacen {
         
-        boolean excepcion = false;
-                
+        boolean excepcion = false;                
         Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
         
         try {
@@ -160,7 +159,6 @@ public class ProveedorAlmacenTest {
     public void buscarEnProveedorTest() throws ExcepcionAlmacen {
         
         boolean excepcion = false;
-                
         Almacen proveedor = new ProveedorAlmacen(almacenReal, almacenRestringido);
         
         try {
@@ -187,7 +185,9 @@ public class ProveedorAlmacenTest {
      */
     @Test(expected = ExcepcionAlmacen.class)
     public void buscarRestringidoExcepcionTest() throws ExcepcionAlmacen {
+
         Almacen proveedor = new ProveedorAlmacen(almacenRestringido, almacenReal);
+
         /*Verificamos que el almacen restringido tiene el mismo contenido que proveedor */
         assertTrue(proveedor.buscar("Amy").contains(winehouse1)); //busca en su almacen y lo encuentra 1
         assertTrue(proveedor.buscar("Amy").contains(winehouse2)); //busca en u almacen y lo encuentra 2
@@ -212,7 +212,6 @@ public class ProveedorAlmacenTest {
         assertTrue(proveedor.buscar("amy").contains(winehouse2)); //busca en su proveedor 2
         assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
         assertTrue(proveedor.buscar("amy").contains(winehouse1)); //busca en su proveedor 1
-     
     }
         
     /** Comprobamos que salta la excepción de un almacén restringido
@@ -241,6 +240,7 @@ public class ProveedorAlmacenTest {
     public void buscarProveedorNullTest() throws ExcepcionAlmacen {
         
         Almacen proveedor = new ProveedorAlmacen(almacenRestringido, null);
+
         assertFalse(proveedor.buscar("coldplay").contains(coldplay2)); //busca en su proveedor 
         
         proveedor.establecerProveedor(null);                  

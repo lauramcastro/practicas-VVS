@@ -14,7 +14,7 @@ import vvs.contenido.ExcepcionContenido;
  */
 public class GeneradorContenido implements Generator<Contenido> {
 
-    Contenido contenidoPrincipal = null;
+    private Contenido contenidoPrincipal = null;
     private Generator<String> s = PrimitiveGenerators.strings();
     private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo
 

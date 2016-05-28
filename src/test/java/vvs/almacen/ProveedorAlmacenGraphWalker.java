@@ -39,17 +39,14 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
     }
 
     public void establecerProveedor() {
-        //System.out.println("Running: establecerProveedor");
         GrapAux.getAlmacen().establecerProveedor(proveedor);
     }
 
     public void eliminarProveedor() {
-        //System.out.println("Running: eliminarProveedor");       
         GrapAux.getAlmacen().establecerProveedor(null);
     } 
     
     public void SinProveedor() {
-        //System.out.println("In state: sin proveedor");
         try {
             Assert.assertTrue(GrapAux.getAlmacen().obtenerProveedor() == null);
             Assert.assertTrue(GrapAux.getAlmacen().buscar(ausente.obtenerTitulo()).isEmpty());            
@@ -59,7 +56,6 @@ public class ProveedorAlmacenGraphWalker extends ExecutionContext implements Pro
     }
 
     public void ConProveedor() {
-        //System.out.println("In state: con proveedor");
         try {
             Assert.assertFalse(GrapAux.getAlmacen().obtenerProveedor() == null);
             Assert.assertFalse(GrapAux.getAlmacen().buscar(ausente.obtenerTitulo()).isEmpty());

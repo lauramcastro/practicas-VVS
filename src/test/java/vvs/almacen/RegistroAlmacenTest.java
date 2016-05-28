@@ -17,29 +17,30 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Clase de pruebas para <code>RegistroAlmacen</code>.
  *
  * @author hmia
  */
 public class RegistroAlmacenTest {
 
-    Almacen registroAlmacen;
-    Almacen registroReal;
-    Almacen registroRealError;
-    Almacen registroRestringido;
-    int busquedas, minutos;
-    Contenido coldplay2;
-    Contenido winehouse1;
-    Contenido winehouse2;
-    String nombreRegistroAlmacenReal = "Registro almacen real";
-    String nombreErrorRegistroAlmacenReal = "Registro_-.;*][(){}¨?:,¡'¿?=&%$·<>!¡^+´ç$~~ªºalmacen real";
-    String nombreResgistroAlmacenRestringido = "Registro almacen restringido";
-    Collection<Contenido> contenidoAnadidoRegistroAlmacen;
-    static final String match = "Amy";
+    private Almacen registroAlmacen;
+    private Almacen registroReal;
+    private Almacen registroRealError;
+    private Almacen registroRestringido;
+    private int busquedas, minutos;
+    private Contenido coldplay2;
+    private Contenido winehouse1;
+    private Contenido winehouse2;
+    private String nombreRegistroAlmacenReal = "Registro almacen real";
+    private String nombreErrorRegistroAlmacenReal = "Registro_-.;*][(){}¨?:,¡'¿?=&%$·<>!¡^+´ç$~~ªºalmacen real";
+    private String nombreResgistroAlmacenRestringido = "Registro almacen restringido";
+    private Collection<Contenido> contenidoAnadidoRegistroAlmacen;
+    private static final String match = "Amy";
 
     @Before
     public void setUp() throws ExcepcionAlmacen {
-        busquedas = 3;
-        minutos = 1;
+        busquedas = 3; // si es un valor que usamos sólo una vez, ¿para qué usar una variable?
+        minutos = 1;   // (idem comentario anterior)
         contenidoAnadidoRegistroAlmacen = new ArrayList<Contenido>();
         registroReal = new AlmacenReal(nombreRegistroAlmacenReal);
         registroRealError = new AlmacenReal(nombreErrorRegistroAlmacenReal);

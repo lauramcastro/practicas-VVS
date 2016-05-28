@@ -12,19 +12,10 @@ import vvs.util.GrapAux;
 @GraphWalker(value = "random(time_duration(1))")
 public class ColeccionGraphWalker extends ExecutionContext implements ColeccionModel {
 	
-	private Coleccion coleccion;
-	private Contenido muse1, muse2;
+        private Coleccion coleccion; // este contenido debería estar en el Singleton, ya que aquí no hay modo de inicializarlo en este modelo parcial
+        private Contenido muse1, muse2; // mismo comentario anterior
 
 	//TRANSICIONES
-	// public void iniciar() {
-	// 	try {
-	// 		coleccion = new Coleccion("Muse");
-	// 		muse1 = new ArchivoAudio("Muse: Knights of Cydonia", "http://servidor/muse/1", 215, "Rock");
-	// 		muse2 = new ArchivoAudio("Muse: Sing For Absolution", "http://servidor/muse/2", 312, "Rock");
-	// 	} catch (ExcepcionContenido c) {
-	// 		System.err.println("Problema al crear contenidos");
-	// 	}
-	// }
 
 	public void agregar(){
 		/*if(coleccion.obtenerDuracion() == 0) {

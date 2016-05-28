@@ -28,17 +28,17 @@ import vvs.contenido.Bonus;
  */
 public class AlmacenRestringidoTest {
 
-    Almacen real;
-    Almacen restringido;
-    int busquedas;
-    int minutos;
-    int size;
-    String nombre = "EMI";
+    private Almacen real;
+    private Almacen restringido;
+    private int busquedas;
+    private int minutos;
+    private int size;
+    private String nombre = "EMI";
 
-    Contenido coldplay1;
-    Contenido winehouse;
-    Contenido coldPlayWineHouse;
-    Collection<Contenido> contenidoAnadido;
+    private Contenido coldplay1;
+    private Contenido winehouse;
+    private Contenido coldPlayWineHouse;
+    private Collection<Contenido> contenidoAnadido;
 
     /**
      * Iniciamos los datos que necesitamos para realizar las pruebas

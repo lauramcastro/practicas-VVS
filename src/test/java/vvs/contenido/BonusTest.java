@@ -12,9 +12,9 @@ public class BonusTest {
     private Bonus bonus; 
 
     @Before
-	public void initialize() throws ExcepcionContenido{
+    public void initialize() throws ExcepcionContenido{
     	bonus = new Bonus(new ArchivoAudio("titulo", "URLAudio", 5, "genero"), new ArchivoAudio("titulo2", "URLAudio2", 5, "genero2"));
-	}
+    }
     
     @Test
     public void obtenerTituloTest() {

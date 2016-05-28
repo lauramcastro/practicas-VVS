@@ -75,6 +75,8 @@ public class ArchivoAudioTest {
         assertEquals(resultado, col);
     }
 
+    // Esta prueba, si ha sido sustituída por la siguiente, ¿por qué sigue aquí, comentada? Los repositorios guardan la historia, eliminemos el código muerto.
+    
    /* @Test
     public void busquedasAleatorias() {
         for (Contenido contenido : Iterables.toIterable(new GeneradorContenido())) {
@@ -162,8 +164,7 @@ public class ArchivoAudioTest {
     private class GeneradorArchivoAudio implements Generator<ArchivoAudio> {
 
         private Generator<String> s = PrimitiveGenerators.strings();
-        private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor
-        // mínimo
+        private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo
 
         @Override
         public ArchivoAudio next() {

@@ -10,11 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import org.junit.Assert;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Elías
@@ -74,6 +69,8 @@ public class ComplementoArchivoTest {
     public void equalsTest(){
         assertTrue(promocion.equals(archivo));
     }
+
+    // ¿por qué este código muerto aquí? ¿o son pruebas sin completar? :(
     
     /*@Test
     public void establecerPadreTest(){
