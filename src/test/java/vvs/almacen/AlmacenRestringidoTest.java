@@ -335,7 +335,7 @@ public class AlmacenRestringidoTest {
                     if (almacen.buscar(cadenaABuscar).contains(cadenaABuscar)) {
                         c.classifyCall("presente");
                     } else {
-                        c.classifyCall("ausente");
+                        c.classifyCall("ausente"); /* Ojo, en ejecución sale un 100% de casos ausentes... ¡no es una prueba muy efectiva! */
                     }
                     contBusquedas++;
                     assertFalse(almacen.buscar(cadenaABuscar).contains(cadenaABuscar)

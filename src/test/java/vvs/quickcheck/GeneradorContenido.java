@@ -21,8 +21,8 @@ import vvs.contenido.Promocion;
 public class GeneradorContenido implements Generator<Contenido> {
 
     private Generator<String> s = PrimitiveGenerators.strings();
-    private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo    
-    Random generator = new Random();    
+    private Generator<Integer> i = PrimitiveGenerators.integers(0); // valor mínimo
+    Random generator = new Random();
 
     @Override
     public Contenido next() {
